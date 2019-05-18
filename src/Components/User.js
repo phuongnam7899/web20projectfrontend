@@ -1,9 +1,7 @@
 import React from 'react'
-import AppBar from '@material-ui/core/AppBar'
-import ToolBar from '@material-ui/core/Toolbar'
-import Typography from '@material-ui/core/Typography'
 import grey from '@material-ui/core/colors/grey'
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
+import { MuiThemeProvider, createMuiTheme } 
+from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/styles';
 
