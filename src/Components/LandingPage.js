@@ -32,22 +32,9 @@ const NavBar = () => {
   return (
     <div className = {classes.root}>
     <MuiThemeProvider theme={THEME}>
-      <AppBar position='static' style={{ background: 'transparent', boxShadow: 'none'}}>
-        <ToolBar>
-          <Grid container xs={12}>
-            <Grid item xs={7}>
-              <Typography color='primary' noWrap style = {{fontSize: 40}}>
-                X TUTOR
-              </Typography>
-            </Grid>
-            <NavBtn name = "HOME" link = '/'/>
-            <NavBtn name = "ABOUT"/>
-            <NavBtn name = "BLOG"/>
-            <NavBtn name = "LOGIN" link = '/user'/>
-            <NavBtn name = "SIGN UP"/>
-          </Grid>
-        </ToolBar>
-      </AppBar>
+      
+      <LText/>
+      <BookingButton/>
       
     </MuiThemeProvider>
     </div>
