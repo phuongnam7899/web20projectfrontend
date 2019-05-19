@@ -33,13 +33,15 @@ const THEME = createMuiTheme({
 
 class App extends React.Component {
   state = {
-    color : "primary"
+    color : "primary",
+    colors: 'white'
 
   }
   changeLogin = (status) => {
-    const {color} = status
+    const {color,colors} = status
     this.setState ({
-      color : color
+      color : color,
+      colors : colors
     })
   }
   render() {
@@ -48,7 +50,7 @@ class App extends React.Component {
         <div style={styles.paperContainer}>
           <div style={styles.root}>
             <MuiThemeProvider theme={THEME}>
-              <NavBar color = {this.state.color} changeLogin = {this.changeLogin}/>
+              <NavBar color = {this.state.color} colors = {this.state.colors} changeLogin = {this.changeLogin}/>
               <Route exact path='/' component={LandingPage} />
               <Route path='/login' component={Login} />
             </MuiThemeProvider>

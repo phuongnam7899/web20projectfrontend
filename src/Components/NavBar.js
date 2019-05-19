@@ -8,11 +8,13 @@ import {Link, NavLink} from 'react-router-dom'
 
 class NavBar extends React.Component {
   state = {
-    color : 'secondary'
+    color : 'secondary',
+    colors: 'black'
   }
   handleClick = (e) => {
     this.props.changeLogin(this.state);
   }
+  
   render () {
     return (
       <div>
@@ -25,29 +27,44 @@ class NavBar extends React.Component {
                 </Typography>
               </Grid>
               <Grid item xs={1}>
-              <Typography color={this.props.color} style = {{fontSize: 18}}>
-                <Link to = '/'>HOME</Link>
+              <Typography color = {this.props.color} style = {{fontSize: 18}}>
+                <NavLink to = '/'  style={{ textDecoration: 'none', color: this.props.colors}}>HOME</NavLink>
               </Typography>
               
               </Grid>
               <Grid item xs={1}>
-              <Link color={this.props.color} style = {{fontSize: 18}} to = '/about'>ABOUT</Link>
+              <Typography color = {this.props.color} style = {{fontSize: 18}}>
+              <Link color={this.props.color} style={{ textDecoration: 'none', color: this.props.colors}} to = '/about'>ABOUT</Link>
+              </Typography>
               </Grid>
+
               <Grid item xs={1}>
-              <Link color={this.props.color} style = {{fontSize: 18}} to = '/blog'>BLOG</Link>
+              <Typography color = {this.props.color} style = {{fontSize: 18}}>
+              <Link color={this.props.color} style={{ textDecoration: 'none', color: this.props.colors}} to = '/blog'>BLOG</Link>
+              </Typography>
               </Grid>
+
               <Grid item xs={1}>
-              <Link color={this.props.color} style = {{fontSize: 18}} to = '/login' onClick = {this.handleClick}>LOG IN</Link>
+              <Typography color = {this.props.color} style = {{fontSize: 18}}>
+              <Link color={this.props.color} style={{ textDecoration: 'none', color: this.props.colors}} to = '/login' onClick = {this.handleClick}>LOG IN</Link>
+              </Typography>
               </Grid>
+
               <Grid item xs={1}>
-              <Link color={this.props.color} style = {{fontSize: 18}} to = '/signup'>SIGN UP</Link>
+              <Typography color = {this.props.color} style = {{fontSize: 18}}>
+
+              <Link color={this.props.color} style={{ textDecoration: 'none', color: this.props.colors}} to = '/signup'>SIGN UP</Link>
+              </Typography>
+
               </Grid>
             </Grid>
           </ToolBar>
         </AppBar>
       </div>
     );
+    
   }
 }
+
 
 export default NavBar;
