@@ -4,7 +4,9 @@ import { BrowserRouter, Route } from 'react-router-dom'
 import grey from '@material-ui/core/colors/grey'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 import LandingPage from './Components/LandingPage'
-import Login from './Components/Login'
+import Signup from './Components/Signup'
+import Signin from './Components/Signin'
+import User from './Components/User'
 
 
 
@@ -52,7 +54,9 @@ class App extends React.Component {
             <MuiThemeProvider theme={THEME}>
               <NavBar color = {this.state.color} colors = {this.state.colors} changeLogin = {this.changeLogin}/>
               <Route exact path='/' component={LandingPage} />
-              <Route path='/login' component={Login} />
+              <Route path='/login' component={Signin} />
+              <Route path = '/signup' component = {Signup}/>
+              <Route path = '/user' component = {User}/>
             </MuiThemeProvider>
           </div>
         </div>
