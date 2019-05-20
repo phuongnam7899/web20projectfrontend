@@ -19,7 +19,7 @@ class CreateAccount extends React.Component {
                         <Typography style={{ fontSize: 18 }} >
                             or
                         </Typography>
-                        <Link>
+                        <Link to = '/signup'>
                             <Typography style={{ fontSize: 18 }} >
                                 Create Account
                                 </Typography>
@@ -40,7 +40,7 @@ class CreateAccount extends React.Component {
                         </Typography>
 
                     </Grid>
-                    <Button style={{ backgroundColor: '#E9E9E9', color: "#A7A7A7"}} href = '/user'>Create Account</Button>
+                    <Button style={{ backgroundColor: '#E9E9E9', color: "#A7A7A7"}} href = '/user'>Log In</Button>
                 </Grid>
             </div>
         );

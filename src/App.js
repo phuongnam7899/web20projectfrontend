@@ -7,18 +7,14 @@ import LandingPage from './Components/LandingPage'
 import Signup from './Components/Signup'
 import Signin from './Components/Signin'
 import User from './Components/User'
+import { Paper } from '@material-ui/core';
 
 
 
 const styles = {
-  paperContainer: {
-    height: 1356,
-    backgroundImage: `url(${"https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1082&q=80"})`,
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: "cover"
-  },
+  
   root: {
-    margin: 80,
+    
     marginTop: 0,
   },
 }
@@ -49,7 +45,6 @@ class App extends React.Component {
   render() {
     return (
       <BrowserRouter>
-        <div style={styles.paperContainer}>
           <div style={styles.root}>
             <MuiThemeProvider theme={THEME}>
               <NavBar color = {this.state.color} colors = {this.state.colors} changeLogin = {this.changeLogin}/>
@@ -59,7 +54,7 @@ class App extends React.Component {
               <Route path = '/user' component = {User}/>
             </MuiThemeProvider>
           </div>
-        </div>
+        
       </BrowserRouter>
     );
   }

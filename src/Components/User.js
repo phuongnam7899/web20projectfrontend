@@ -7,13 +7,14 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import { Typography } from '@material-ui/core';
 
 const styles = theme => ({
   root: {
     width: '66%',
     marginTop: theme.spacing.unit * 3,
     overflowX: 'auto',
-    marginLeft:  500
+    marginLeft:  400
   },
   table: {
     minWidth: 700,
@@ -37,7 +38,7 @@ function User(props) {
 
   return (
     <Paper className={classes.root}>
-      <Table className={classes.table}>
+      <Table className={classes.table} border = {0}>
         <TableBody>
           {rows.map(row => (
             <TableRow key={row.id}>
@@ -52,6 +53,7 @@ function User(props) {
           ))}
         </TableBody>
       </Table>
+      <Typography></Typography>
     </Paper>
   );
 }

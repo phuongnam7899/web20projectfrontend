@@ -17,7 +17,7 @@ class NavBar extends React.Component {
   render () {
     return (
       <div>
-        <AppBar position='static' style={{ background: 'transparent', boxShadow: 'none', paddingTop : 30}}>
+        <AppBar position='absolute' style={{ background: 'transparent', boxShadow: 'none', paddingTop : 30}}>
           <ToolBar>
             <Grid container xs={12}>
               <Grid item xs={7}>
