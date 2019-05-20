@@ -12,16 +12,16 @@ class Login extends React.Component {
                 <Grid container direction='column' xs={12} style={{ marginTop: 63 }} alignContent = 'center'>
                     <Grid item xs={4}>
                         <Typography style={{ fontSize: 18 }} align = 'center'>
-                            LOG IN
+                            Create Accout
                         </Typography>
                     </Grid>
                     <Grid container xs={4} justify = 'center'>
                         <Typography style={{ fontSize: 18 }} >
                             or
                         </Typography>
-                        <Link>
+                        <Link to = '/login'>
                             <Typography style={{ fontSize: 18 }} >
-                                Create Account
+                                Log In
                                 </Typography>
                         </Link>
                     </Grid>
