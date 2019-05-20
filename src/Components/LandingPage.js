@@ -16,7 +16,7 @@ const styles = {
     backgroundSize: "cover",
     position : 'fixed',
     top: 0
-  },
+  }
 }
 
 
@@ -25,8 +25,8 @@ const LandingPage = () => {
   return (
     <div fullWidth>
       <Paper style={styles.paperContainer}>
-      <LText />
-      <BookingButton />
+      <LText/>
+      <BookingButton/>
         </Paper>
       
 
