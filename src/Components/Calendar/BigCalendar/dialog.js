@@ -224,17 +224,6 @@ class FormDialog extends React.Component {
                   </form>
                 </Grid>
               </Grid>
-              <TextField
-                margin="normal"
-                name="notes"
-                id="notes"
-                label="Note"
-                type="text"
-                disabled={disabledEdit}
-                fullWidth
-                onChange={this.handleChange}
-                value={notes}
-              />
             </DialogContent>
             <DialogActions>
               {!disabledEdit && (
