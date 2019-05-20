@@ -15,7 +15,8 @@ class CalendarApp extends Component {
       editState: false,
       open: false,
       events: [],
-      event: {}
+      event: {},
+      subject: ""
     };
     this.onSelectSlot = this.onSelectSlot.bind(this);
     this.closeDialogHandle = this.closeDialogHandle.bind(this);
@@ -119,7 +120,7 @@ class CalendarApp extends Component {
     if (!disabledEdit) {
       if (!editState) {
         events.pop();
-        const title = pack.notes;
+        const title = this.state.subject;
         const start = this.convertToICT(pack.dateTimeStart);
         const end = this.convertToICT(pack.dateTimeEnd);
         const packaged = [
@@ -173,7 +174,14 @@ class CalendarApp extends Component {
   convertToICT(value) {
     return moment(value).toDate();
   }
-
+  handleSubChange = (e) => {
+    this.setState(
+      {subject: e.target.value},
+      () => {
+        console.log(this.state.subject)
+      }
+    )
+  }
   // Function Older
   // combine(d1, d2) {
   //   const m1 = moment(d1);
@@ -215,6 +223,7 @@ class CalendarApp extends Component {
           onSelectSlot={this.onSelectSlot}
           onSelectEvent={this.onClickSlot}
         />
+        <input type = "text" onChange = {this.handleSubChange} />
         {
           <FormDialog
             open={open}

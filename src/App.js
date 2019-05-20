@@ -48,7 +48,7 @@ class App extends React.Component {
       <BrowserRouter>
           <div style={styles.root}>
             <MuiThemeProvider theme={THEME}>
-              <NavBar color = {this.state.color} colors = {this.state.colors} changeLogin = {this.changeLogin}/>
+               */}
               <Route exact path='/' component={LandingPage} />
               <Route path='/login' component={Signin} />
               <Route path = '/signup' component = {Signup}/>
