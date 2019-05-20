@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-filename-extension */
 import React, { Component } from "react";
 import BigCalendar from "react-big-calendar";
 import PropTypes from "prop-types";
@@ -8,10 +7,6 @@ import "./react-big-calendar.css";
 import moment from "moment";
 
 const localizer = BigCalendar.momentLocalizer(moment);
-
-// const MyToolBar = props => {
-//   console.log(props);
-// }
 
 class CalendarApp extends Component {
   constructor(props) {
@@ -39,7 +34,7 @@ class CalendarApp extends Component {
     }));
     this.setState({
       // eslint-disable-next-line react/prop-types
-      events
+      events: events
     });
   }
 
@@ -61,7 +56,7 @@ class CalendarApp extends Component {
       });
     }
   }
-
+  componentDidUpdate() {}
   onSelectSlot(e) {
     const { events } = this.state;
     const { disabledEdit } = this.props;
@@ -81,7 +76,6 @@ class CalendarApp extends Component {
 
   onClickSlot(event, e) {
     e.preventDefault();
-
     this.setState({
       open: true,
       editState: true,
@@ -91,13 +85,13 @@ class CalendarApp extends Component {
 
   deleteHandle(event) {
     let { events } = this.state;
-    const { getData } = this.props;
+    const { getAddedEvents } = this.props;
     const indexEventChoose = _.findIndex(events, el => _.isEqual(event, el));
     events = _.filter(
       events,
       (el, index) => !_.isEqual(event, el) && index !== indexEventChoose
     );
-    getData(events);
+    getAddedEvents(events);
     this.setState({
       events,
       open: false
@@ -121,7 +115,7 @@ class CalendarApp extends Component {
 
   submitDialogHandle(pack) {
     const { event, events, editState } = this.state;
-    const { getData, disabledEdit } = this.props;
+    const { getAddedEvents, disabledEdit } = this.props;
     if (!disabledEdit) {
       if (!editState) {
         events.pop();
@@ -137,7 +131,7 @@ class CalendarApp extends Component {
             end
           }
         ];
-        getData(packaged);
+        getAddedEvents(packaged);
         this.setState({
           open: false,
           events: [
@@ -165,7 +159,7 @@ class CalendarApp extends Component {
         };
         events[indexEventChoose] = eventAfterEdit;
         const packaged = events;
-        getData(packaged);
+        getAddedEvents(packaged);
         this.setState({
           events,
           event: eventAfterEdit,
@@ -199,6 +193,23 @@ class CalendarApp extends Component {
           events={events}
           startAccessor="start"
           endAccessor="end"
+          eventPropGetter={
+            (event,start,end,isSelected) => {
+                if(event.status === "unchangable"){
+                  return{
+                    style :{ backgroundColor: "#123456",
+                    borderRadius: '10px'
+                  }
+                  }
+                }else{
+                  return{
+                    style :{
+                     backgroundColor: "#000000"
+                    }  
+                  }
+                }
+          }
+          }
           selectable
           // toolbar={MyToolBar}
           onSelectSlot={this.onSelectSlot}
@@ -228,7 +239,7 @@ CalendarApp.defaultProps = {
 };
 
 CalendarApp.propTypes = {
-  getData: PropTypes.func.isRequired,
+  getAddedEvents: PropTypes.func.isRequired,
   disabledEdit: PropTypes.bool,
   dataFromProps: PropTypes.arrayOf(PropTypes.shape({}))
   // MyToolBar: PropTypes.bool,
