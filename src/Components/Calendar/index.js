@@ -1,6 +1,7 @@
 import React from "react";
 import BigCalendar from "./BigCalendar";
 import axios from "../../axios";
+import Grid from '@material-ui/core/Grid'
 
 class Calendar extends React.Component {
     constructor(props) {
@@ -35,16 +36,18 @@ class Calendar extends React.Component {
         const addedEvents = currentEvents.slice(this.state.oldEvents.length, currentEvents.length);
         console.log(addedEvents);
     }
-
-    render() {
-        const { newEvents } = this.state;
-        const events = this.state.oldEvents.concat(newEvents);
-        return (
-            <BigCalendar
-                dataFromProps={events}
-                getAddedEvents={currentEvents => this.getAddedEvents(currentEvents)}
-            />
-        );
+    
+    render() {  
+      const { newEvents } = this.state;
+      const events = this.state.oldEvents.concat(newEvents);
+      return (
+        <Grid style = {{marginTop : 100}}>
+        <BigCalendar
+          dataFromProps={events}
+          getAddedEvents={currentEvents => this.getAddedEvents(currentEvents)}
+        />
+        </Grid>
+      );
     }
 }
 export default Calendar;

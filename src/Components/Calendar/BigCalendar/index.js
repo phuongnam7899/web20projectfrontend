@@ -190,7 +190,7 @@ class CalendarApp extends Component {
       <div style={{ height: "100vh" }}>
         <BigCalendar
           length={120}
-          localizer={localizer}
+          localizer={localizer} 
           events={events}
           startAccessor="start"
           endAccessor="end"

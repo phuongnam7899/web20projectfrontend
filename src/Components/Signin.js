@@ -9,7 +9,7 @@ class CreateAccount extends React.Component {
     render() {
         return (
             <div>
-                <Grid container direction='column' xs={12} style={{ marginTop: 63 }} alignContent = 'center'>
+                <Grid container direction='column' xs={12} style={{ marginTop: 200 }} alignContent = 'center'>
                     <Grid item xs={4}>
                         <Typography style={{ fontSize: 18 }} align = 'center'>
                             LOG IN
