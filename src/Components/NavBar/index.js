@@ -16,20 +16,22 @@ class NavBar extends React.Component {
   
   render () {
     return (
-      <div>
-        <AppBar position='absolute' style={{ background: 'transparent', boxShadow: 'none', paddingTop : 30, marginLeft : 80}}>
+      <div style = {{marginLeft : 80}}>
+        <AppBar position='absolute' style={{ background: 'transparent', boxShadow: 'none', paddingTop : 30}}>
           <ToolBar>
-            <Grid container xs={12}>
+          <Grid container xs={12} >
               <Grid item xs={7}>
-                <Typography color={this.props.color} noWrap style = {{fontSize: 40}}>
+                <Typography color={this.props.color} noWrap style = {{fontSize: 40, marginLeft : 80}}>
                   X TUTOR
                 </Typography>
               </Grid>
+
               <Grid item xs={1}>
               <Typography color = {this.props.color} style = {{fontSize: 18}}>
                 <NavLink to = '/'  style={{ textDecoration: 'none', color: this.props.colors}}>HOME</NavLink>
               </Typography>
               </Grid>
+
               <Grid item xs={1}>
               <Typography color = {this.props.color} style = {{fontSize: 18}}>
               <Link color={this.props.color} style={{ textDecoration: 'none', color: this.props.colors}} to = '/about'>ABOUT</Link>
@@ -48,15 +50,16 @@ class NavBar extends React.Component {
               </Typography>
               </Grid>
 
-              <Grid item xs={1}>
-              <Typography color = {this.props.color} style = {{fontSize: 18}}>
+              <Grid item xs={1} justify = 'center' alignContent = 'center' >
+              <Typography  color = {this.props.color} style = {{fontSize: 18 }} >
 
               <Link color={this.props.color} style={{ textDecoration: 'none', color: this.props.colors}} to = '/signup'>SIGN UP</Link>
               </Typography>
 
               </Grid>
-            </Grid>
+              </Grid>
           </ToolBar>
+
         </AppBar>
       </div>
     );
