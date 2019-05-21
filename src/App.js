@@ -9,6 +9,7 @@ import Signin from './Components/Signin'
 import User from './Components/User'
 import Calendar from './Components/Calendar'
 import { Paper } from '@material-ui/core';
+import StdCalendar from './Components/Calendar/calendar_std';
 
 
 
@@ -48,14 +49,14 @@ class App extends React.Component {
       <BrowserRouter>
           <div style={styles.root}>
             <MuiThemeProvider theme={THEME}>
-               */}
+              <NavBar color = {this.state.color} colors = {this.state.colors} changeLogin = {this.changeLogin}/>
               <Route exact path='/' component={LandingPage} />
               <Route path='/login' component={Signin} />
               <Route path = '/signup' component = {Signup}/>
-              <Route path = '/user' component = {User,Calendar}/>
+              <Route path = '/user' component = { Calendar }/>
+              <Route path = '/student/allclasses' component = { StdCalendar } />
             </MuiThemeProvider>
           </div>
-        
       </BrowserRouter>
     );
   }

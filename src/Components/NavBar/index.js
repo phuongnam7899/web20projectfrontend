@@ -29,7 +29,6 @@ class NavBar extends React.Component {
               <Typography color = {this.props.color} style = {{fontSize: 18}}>
                 <NavLink to = '/'  style={{ textDecoration: 'none', color: this.props.colors}}>HOME</NavLink>
               </Typography>
-              
               </Grid>
               <Grid item xs={1}>
               <Typography color = {this.props.color} style = {{fontSize: 18}}>
