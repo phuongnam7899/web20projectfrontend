@@ -52,7 +52,7 @@ class App extends React.Component {
               <Route exact path='/' component={LandingPage} />
               <Route path='/login' component={Signin} />
               <Route path = '/signup' component = {Signup}/>
-              <Route path = '/user' component = {Calendar}/>
+              <Route path = '/user' render={() => <Calendar role="student" />}/>
             </MuiThemeProvider>
           </div>
         
