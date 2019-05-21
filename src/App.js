@@ -9,6 +9,8 @@ import Signin from './Components/Signin'
 import User from './Components/TuitionDetail'
 import Calendar from './Components/Calendar'
 import Filter from './Components/Filter'
+import { Paper } from '@material-ui/core';
+import StdCalendar from './Components/Calendar/calendar_std';
 
 
 
@@ -55,9 +57,9 @@ class App extends React.Component {
               <Route path = '/user' component = {Calendar}/>
               {/* <Route path = '/schedule' component = {}> */}
               <Route path = '/filter' component = {Filter}/>
+              <Route path = '/student/allclasses' component = { StdCalendar } />
             </MuiThemeProvider>
           </div>
-        
       </BrowserRouter>
     );
   }
