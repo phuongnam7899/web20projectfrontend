@@ -5,37 +5,36 @@ import Grid from '@material-ui/core/Grid'
 
 class Calendar extends React.Component {
     constructor(props) {
-      super(props);
-      this.state = {
-        newEvents: [],
-        oldEvents: [
-          {
-            start: "2019-05-18T15:00:00.000Z",
-            end: "2019-05-18T15:00:00.000Z",
-            title: "busy",
-            status:"unchangable"
-          },
-          {
-            start: "2019-05-17T15:00:00.000Z",
-            end: "2019-05-17T15:00:00.000Z",
-            title: "busy",
-            status:"unchangable"
-          }
-        ]
-      };
+        super(props);
+        this.state = {
+            newEvents: [],
+            oldEvents: []
+        };
     }
-    componentDidMount(){
-      axios.get("api/class/tutor/5cde90dc1ffe4c181c88f7f2?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRoYW9ucDA0MTA5OUBnbWFpbC5jb20iLCJwYXNzd29yZCI6IjEyMzQ1NiIsImlhdCI6MTU1ODMyOTI1NX0.lkqx-o-14-saMoKmbEJQKWqIUSyTgyMZtdv5QLjQ-1c")  
-          .then(data => {
-            //lịch thằng tutor nhé cả rảnh cả lớp của n
-              console.log(data.data)
-            })
-          .catch(err => console.error(err))
+    componentDidMount() {
+        if (this.props.role === "student") {
+            axios.get("/api/class/tutor/5ce3a5c42480ca0eec0d0cae?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRoYW9ucDA0MTA5OUBnbWFpbC5jb20iLCJwYXNzd29yZCI6IjEyMzQ1NiIsImlhdCI6MTU1ODMyOTI1NX0.lkqx-o-14-saMoKmbEJQKWqIUSyTgyMZtdv5QLjQ-1c")
+                .then(data => {
+                    // lịch thằng tutor nhé cả rảnh cả lớp của n
+                    const events = data.data;
+                    console.log(events)
+                    events.forEach(element => {
+                        if(element.title !== "free time") element.status = "booked";
+                        else element.status = "free_time";
+                    });
+                    this.setState({
+                        oldEvents: events
+                    })
+                })
+                .catch(err => console.error(err))
+            // }else if(this.props.role === "student"){
+            //     axios.get("api/")
+            // }else console.log("role not exist")
+        }
     }
     getAddedEvents(currentEvents) {
-      // Data sau khi pick sẽ vào đây
-      const addedEvents = currentEvents.slice(this.state.oldEvents.length,currentEvents.length);
-      console.log(addedEvents);
+        const addedEvents = currentEvents.slice(this.state.oldEvents.length, currentEvents.length);
+        console.log(addedEvents);
     }
     
     render() {  
@@ -50,5 +49,5 @@ class Calendar extends React.Component {
         </Grid>
       );
     }
-  }
+}
 export default Calendar;

@@ -58,6 +58,7 @@ class App extends React.Component {
               <Route path = '/filter' component = {Filter}/>
               <Route path = '/student/allclasses' component = { StdCalendar } />
               <Route path = '/editmyprofile' component = {Editmyprofile}/>
+              <Route path = '/student/book_class' render ={() => <Calendar role="student"/>} />
             </MuiThemeProvider>
           </div>
       </BrowserRouter>

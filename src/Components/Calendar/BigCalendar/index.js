@@ -57,7 +57,7 @@ class CalendarApp extends Component {
       });
     }
   }
-  componentDidUpdate() {}
+  componentDidUpdate() { }
   onSelectSlot(e) {
     const { events } = this.state;
     const { disabledEdit } = this.props;
@@ -176,19 +176,12 @@ class CalendarApp extends Component {
   }
   handleSubChange = (e) => {
     this.setState(
-      {subject: e.target.value},
+      { subject: e.target.value },
       () => {
         console.log(this.state.subject)
       }
     )
   }
-  // Function Older
-  // combine(d1, d2) {
-  //   const m1 = moment(d1);
-  //   const m2 = moment(d2);
-  //   const m3 = m1.set('hour', m2.get('hour')).set('minute', m2.get('minute'));
-  //   return m3.toDate();
-  // }
 
   render() {
     const { open, event, events, editState } = this.state;
@@ -202,28 +195,37 @@ class CalendarApp extends Component {
           startAccessor="start"
           endAccessor="end"
           eventPropGetter={
-            (event,start,end,isSelected) => {
-                if(event.status === "unchangable"){
-                  return{
-                    style :{ backgroundColor: "#123456",
+            (event, start, end, isSelected) => {
+              if (event.status === "free_time") {
+                return {
+                  style: {
+                    backgroundColor: "#123456",
                     borderRadius: '10px'
                   }
-                  }
-                }else{
-                  return{
-                    style :{
-                     backgroundColor: "#000000"
-                    }  
+                }
+              }
+              else if (event.status === "booked") {
+                return {
+                  style: {
+                    backgroundColor: "#654321"
                   }
                 }
-          }
+              }
+              else {
+                return {
+                  style: {
+                    backgroundColor: "#000000"
+                  }
+                }
+              }
+            }
           }
           selectable
           // toolbar={MyToolBar}
           onSelectSlot={this.onSelectSlot}
           onSelectEvent={this.onClickSlot}
         />
-        <input type = "text" onChange = {this.handleSubChange} />
+        <input type="text" onChange={this.handleSubChange} />
         {
           <FormDialog
             open={open}
