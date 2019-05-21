@@ -6,7 +6,7 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 import LandingPage from './Components/LandingPage'
 import Signup from './Components/Signup'
 import Signin from './Components/Signin'
-import User from './Components/User'
+import User from './Components/TuitionDetail'
 import Calendar from './Components/Calendar'
 import { Paper } from '@material-ui/core';
 import StdCalendar from './Components/Calendar/calendar_std';
@@ -49,11 +49,12 @@ class App extends React.Component {
       <BrowserRouter>
           <div style={styles.root}>
             <MuiThemeProvider theme={THEME}>
-              <NavBar color = {this.state.color} colors = {this.state.colors} changeLogin = {this.changeLogin}/>
+               <NavBar/>
               <Route exact path='/' component={LandingPage} />
               <Route path='/login' component={Signin} />
               <Route path = '/signup' component = {Signup}/>
-              <Route path = '/user' component = { Calendar }/>
+              <Route path = '/user' component = {Calendar}/>
+              {/* <Route path = '/schedule' component = {}> */}
               <Route path = '/student/allclasses' component = { StdCalendar } />
             </MuiThemeProvider>
           </div>
