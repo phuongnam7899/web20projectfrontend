@@ -9,7 +9,8 @@ import Paper from '@material-ui/core/Paper';
 import { Typography } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import { Button } from '@material-ui/core';
-import SessionCard from './SessionCard'
+import SessionCard from './SessionCard';
+import CancelTuition from './CancelTuition';
 
 const styles = theme => ({
   root: {
@@ -45,7 +46,7 @@ function User(props) {
     <Typography style = {{marginTop : 162, fontSize:18, marginLeft:400}}>
     MATHP1-20191111-00000444
     </Typography>
-    <Button style = {{ marginTop: 162,marginRight: 30,backgroundColor: '#B23B37', color: "#ffffff" ,height : 22, width: 149, paddingTop:0}}>Cancel</Button>
+    <CancelTuition/>
     </Grid>
     <Grid item xs = {11}>
     <Paper className={classes.root}>
