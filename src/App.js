@@ -54,7 +54,7 @@ class App extends React.Component {
               <Route exact path='/' component={LandingPage} />
               <Route path='/login' component={Signin} />
               <Route path = '/signup' component = {Signup}/>
-              <Route path = '/user' component = {Calendar}/>
+              <Route path = '/user' component = {User}/>
               {/* <Route path = '/schedule' component = {}> */}
               <Route path = '/filter' component = {Filter}/>
               <Route path = '/student/allclasses' component = { StdCalendar } />
