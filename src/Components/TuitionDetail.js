@@ -116,6 +116,7 @@ function User(props) {
       </Grid>
       
     </Grid>
+    <Button href = '/editmyprofile'>Edit My Profile</Button>
     </div>
   );
 }
