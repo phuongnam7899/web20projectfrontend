@@ -122,7 +122,6 @@ class User extends React.Component {
                   })}
           </Grid>
         </Grid>
-<<<<<<< HEAD:src/Components/TuitionDetail.js
               </div>
             )
         })} 
@@ -130,14 +129,6 @@ class User extends React.Component {
     );
 
   }
-=======
-      </Grid>
-      
-    </Grid>
-    <Button href = '/editmyprofile'>Edit My Profile</Button>
-    </div>
-  );
->>>>>>> 68b522a35c391b68d4248a0e70e0582c4b506360:src/Components/Std/TuitionDetail.js
 }
 
 User.propTypes = {
