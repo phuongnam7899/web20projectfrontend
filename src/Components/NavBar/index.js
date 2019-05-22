@@ -10,7 +10,7 @@ class NavBar extends React.Component {
     color : 'secondary',
     colors: 'black'
   }
-  handleClick = (e) => {
+  handleClick = (e) => {  
     this.props.changeLogin(this.state);
   }
   
@@ -34,26 +34,26 @@ class NavBar extends React.Component {
 
               <Grid item xs={1}>
               <Typography color = {this.props.color} style = {{fontSize: 18}}>
-              <Link color={this.props.color} style={{ textDecoration: 'none', color: this.props.colors}} to = '/about'>ABOUT</Link>
+                <NavLink color= {this.props.colors} style ={{ textDecoration: 'none', color: this.props.colors}} to = '/about'>ABOUT</NavLink>
               </Typography>
               </Grid>
 
               <Grid item xs={1}>
               <Typography color = {this.props.color} style = {{fontSize: 18}}>
-              <Link color={this.props.color} style={{ textDecoration: 'none', color: this.props.colors}} to = '/blog'>BLOG</Link>
+              <NavLink style={{ textDecoration: 'none', color: this.props.colors}} to = '/blog'>BLOG</NavLink>
               </Typography>
               </Grid>
 
               <Grid item xs={1}>
               <Typography color = {this.props.color} style = {{fontSize: 18}}>
-              <Link color={this.props.color} style={{ textDecoration: 'none', color: this.props.colors}} to = '/login' onClick = {this.handleClick}>LOG IN</Link>
+              <NavLink style={{ textDecoration: 'none', color: this.props.colors}} to = '/login' onClick = {this.handleClick}>LOG IN</NavLink>
               </Typography>
               </Grid>
 
               <Grid item xs={1} justify = 'center' alignContent = 'center' >
               <Typography  color = {this.props.color} style = {{fontSize: 18 }} >
 
-              <Link color={this.props.color} style={{ textDecoration: 'none', color: this.props.colors}} to = '/signup'>SIGN UP</Link>
+              <NavLink style={{ textDecoration: 'none', color: this.props.colors}} to = '/signup'>SIGN UP</NavLink>
               </Typography>
 
               </Grid>

@@ -9,7 +9,7 @@ import Paper from '@material-ui/core/Paper';
 import { Typography } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import { Button } from '@material-ui/core';
-import SessionCard from './SessionCard';
+import SessionCard from '../SessionCard';
 import CancelTuition from './CancelTuition';
 import axios from '../axios';
 import _ from "lodash";
@@ -122,6 +122,7 @@ class User extends React.Component {
                   })}
           </Grid>
         </Grid>
+<<<<<<< HEAD:src/Components/TuitionDetail.js
               </div>
             )
         })} 
@@ -129,6 +130,14 @@ class User extends React.Component {
     );
 
   }
+=======
+      </Grid>
+      
+    </Grid>
+    <Button href = '/editmyprofile'>Edit My Profile</Button>
+    </div>
+  );
+>>>>>>> 68b522a35c391b68d4248a0e70e0582c4b506360:src/Components/Std/TuitionDetail.js
 }
 
 User.propTypes = {

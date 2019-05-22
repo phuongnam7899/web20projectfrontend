@@ -41,10 +41,17 @@ class Calendar extends React.Component {
                 this.setState({
                     oldEvents: events
                 })
+<<<<<<< HEAD
             })
             .catch(err => console.error(err));
 
 
+=======
+                .catch(err => console.error(err))
+        }else{
+            
+        }
+>>>>>>> 68b522a35c391b68d4248a0e70e0582c4b506360
     }
     getAddedEvents(currentEvents) {
         const addedEvents = currentEvents.slice(this.state.oldEvents.length, currentEvents.length);
