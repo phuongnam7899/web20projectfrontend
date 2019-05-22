@@ -1,5 +1,5 @@
 import BigCalendar from "react-big-calendar";
-import React, { Component } from "react";
+import React from "react";
 import axios from "../../axios";
 import "./BigCalendar/react-big-calendar.css"
 import moment from "moment";

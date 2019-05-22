@@ -1,7 +1,5 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper'
 import FilterBar from '../FilterBar'
 import FilterColumn from '../FilterColumn'
 import Typography from '@material-ui/core/Typography'
