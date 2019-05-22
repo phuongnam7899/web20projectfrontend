@@ -27,9 +27,8 @@ class Calendar extends React.Component {
                     })
                 })
                 .catch(err => console.error(err))
-            // }else if(this.props.role === "student"){
-            //     axios.get("api/")
-            // }else console.log("role not exist")
+        }else{
+            
         }
     }
     getAddedEvents(currentEvents) {

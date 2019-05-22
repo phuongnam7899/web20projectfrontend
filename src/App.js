@@ -10,7 +10,8 @@ import User from './Components/TuitionDetail'
 import Filter from './Components/Filter'  
 import Editmyprofile from './Components/EditMyProfile'
 import StdCalendar from './Components/Calendar/calendar_std';
-
+import Calendar from './Components/Calendar';
+import { resolve } from 'url';
 
 
 const styles = {
@@ -34,9 +35,10 @@ const THEME = createMuiTheme({
 class App extends React.Component {
   state = {
     color : "primary",
-    colors: 'white'
-
+    colors: 'white',
+    role: localStorage.getItem('role')
   }
+  
   changeLogin = (status) => {
     const {color,colors} = status
     this.setState ({
@@ -45,20 +47,31 @@ class App extends React.Component {
     })
   }
   render() {
+    let display;
+    if(this.state.role === "student"){
+      display = <Route path = '/filter' component = {Filter}/>
+    }
+    if(this.state.role === "tutor"){
+      display = <Route path = '/user' component = {User}/>
+    }
     return (
       <BrowserRouter>
           <div style={styles.root}>
             <MuiThemeProvider theme={THEME}>
-              <NavBar/>
+              {/* <NavBar/>
               <Route exact path='/' component={LandingPage} />
               <Route path='/login' component={Signin} />
               <Route path = '/signup' component = {Signup}/>
               <Route path = '/user' component = {User}/>
-              {/* <Route path = '/schedule' component = {}> */}
               <Route path = '/filter' component = {Filter}/>
               <Route path = '/student/allclasses' component = { StdCalendar } />
               <Route path = '/editmyprofile' component = {Editmyprofile}/>
-              <Route path = '/student/book_class' render ={() => <Calendar role="student"/>} />
+              <Route path = '/student/book_class' render ={() => <Calendar role="student"/>} /> */}
+              <Route exact path='/' component={LandingPage} />
+              <Route path='/login' render = {props => {
+              return <Signin {... props} handleLogin = {this.handleLogin}
+              />}}/>
+              {display}
             </MuiThemeProvider>
           </div>
       </BrowserRouter>
