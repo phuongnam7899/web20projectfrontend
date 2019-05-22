@@ -10,8 +10,14 @@ import User from './Components/TuitionDetail'
 import Filter from './Components/Filter'  
 import Editmyprofile from './Components/EditMyProfile'
 import StdCalendar from './Components/Calendar/calendar_std';
+<<<<<<< HEAD
 import Calendar from './Components/Calendar';
 import { resolve } from 'url';
+=======
+import Calendar from './Components/Calendar'
+import TeacherDetail from './Components/TeacherDetail';
+
+>>>>>>> 0d383f2e958a43f8b31e40296f0e8ecb81fec054
 
 
 const styles = {
@@ -29,6 +35,7 @@ const THEME = createMuiTheme({
     primary: { main: grey[50] },
     secondary: { main: grey[900] },
   },
+  shadows: ["none"]
 });
 
 
@@ -59,6 +66,7 @@ class App extends React.Component {
           <div style={styles.root}>
             <MuiThemeProvider theme={THEME}>
               {/* <NavBar/>
+              <NavBar changeLogin = {this.changeLogin} color = {this.state.color}/>
               <Route exact path='/' component={LandingPage} />
               <Route path='/login' component={Signin} />
               <Route path = '/signup' component = {Signup}/>
@@ -72,6 +80,8 @@ class App extends React.Component {
               return <Signin {... props} handleLogin = {this.handleLogin}
               />}}/>
               {display}
+              {/* <Route path = '/student/book_class' render ={() => <Calendar role="student"/>} />
+              <Route path = '/teacherdetail' component = {TeacherDetail}/> */}
             </MuiThemeProvider>
           </div>
       </BrowserRouter>

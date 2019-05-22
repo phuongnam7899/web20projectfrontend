@@ -1,7 +1,7 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
-import FilterBar from '../FilterBar'
-import FilterColumn from '../FilterColumn'
+import FilterBar from './FilterBar'
+import FilterColumn from './FilterColumn'
 import Typography from '@material-ui/core/Typography'
 import SessionCard from '../SessionCard'
 
