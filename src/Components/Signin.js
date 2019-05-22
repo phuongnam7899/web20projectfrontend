@@ -31,15 +31,7 @@ class CreateAccount extends React.Component {
                     <Grid item xs={4}>
                         <Input placeholder='Password' fullWidth/>
                     </Grid>
-                    <Grid item xs={4}>
-
-                        <Typography style={{ fontSize: 17 }} align = 'center' >
-
-                            By creating an account, you agree to our Terms of Service and have read and understood the Privacy Policy
-    
-                        </Typography>
-
-                    </Grid>
+                    
                     <Button style={{ backgroundColor: '#E9E9E9', color: "#A7A7A7"}} href = '/user'>Log In</Button>
                 </Grid>
             </div>
