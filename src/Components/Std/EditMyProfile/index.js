@@ -1,7 +1,7 @@
 import React from 'react';
 import Input from '@material-ui/core/Input';
 import Grid from '@material-ui/core/Grid';
-import Menu from '../Menu'
+import Menu from '../../Menu'
 import { Button } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography'
 
@@ -11,7 +11,7 @@ class EditMyProfile extends React.Component {
     };
 
     handleChange = name => event => {
-        this.setState({ [name]: event.target.value });
+        this.setState({ [name]: event.target.value });  
     };
     render() {
         return (

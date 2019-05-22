@@ -10,8 +10,10 @@ import Grid from '@material-ui/core/Grid'
 import Field from './Field';
 import TextField from './TextField'
 import Paper from '@material-ui/core/Paper'
-import Menu from '../Menu'
-import Calendar from '../Calendar'
+import Menu from '../../Menu'
+import Calendar from '../../Calendar'
+
+
 const styles = {
   root: {
     marginLeft: 80,

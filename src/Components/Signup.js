@@ -25,19 +25,19 @@ class Login extends React.Component {
                                 </Typography>
                         </Link>
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={4} style = {{marginTop : 20}}>
                         <Input placeholder='First Name' fullWidth/>
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={4} style = {{marginTop : 20}}>
                         <Input placeholder='Last Name' fullWidth/>
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={4} style = {{marginTop : 20}}>
                         <Input placeholder='Email Address' fullWidth/>
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={4} style = {{marginTop : 20}}>
                         <Input placeholder='Password' fullWidth/>
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={4} style = {{marginTop : 20}}>
 
                         <Typography style={{ fontSize: 17 }} align = 'center' >
 
@@ -46,7 +46,7 @@ class Login extends React.Component {
                         </Typography>
 
                     </Grid>
-                    <Button style={{ backgroundColor: '#E9E9E9', color: "#A7A7A7"}}>Create Account</Button>
+                    <Button style={{ backgroundColor: '#E9E9E9', color: "#A7A7A7", marginTop : 20}}>Create Account</Button>
                 </Grid>
             </div>
         );

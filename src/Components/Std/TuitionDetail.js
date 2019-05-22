@@ -9,7 +9,7 @@ import Paper from '@material-ui/core/Paper';
 import { Typography } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import { Button } from '@material-ui/core';
-import SessionCard from './SessionCard';
+import SessionCard from '../SessionCard';
 import CancelTuition from './CancelTuition';
 
 const styles = theme => ({
