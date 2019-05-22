@@ -9,7 +9,8 @@ const jwt_decode = require('jwt-decode');
 class CreateAccount extends React.Component {
     state = {
         email: "",
-        password: ""
+        password: "",
+        role:""
     }
     handleMailChange = (e) => {
         this.setState({
@@ -40,13 +41,15 @@ class CreateAccount extends React.Component {
             //lay role va luu vao localStorage
             localStorage.setItem('role', sent_data.data.userInfo.role)
             console.log(sent_data.data.userInfo.role)
+            this.setState({role: sent_data.data.userInfo.role})
         })
         .catch(err => console.error(err))
         setTimeout(() => {
-            if(this.state.email === "student"){
-                this.props.history.push('/filter');
-            }else{
-                this.props.history.push('/user');
+            if(this.state.role === "student"){
+                this.props.history.push('/filter')
+            }    
+            if(this.state.role === "tutor"){
+                this.props.history.push('/teacher/tuitionpreference');
             }
         }, 5000
         )
@@ -70,16 +73,7 @@ class CreateAccount extends React.Component {
                             </Typography>
                         </Link>
                     </Grid>
-<<<<<<< HEAD
-                    <Grid item xs={4} style={{ marginTop: 20 }}>
-                        <Input placeholder='Email Address' fullWidth />
-                    </Grid>
-                    <Grid item xs={4} style={{ marginTop: 20 }}>
-                        <Input placeholder='Password' fullWidth />
-                    </Grid>
 
-                    <Button style={{ backgroundColor: '#E9E9E9', color: "#A7A7A7", marginTop: 20 }} href='/user'>Log In</Button>
-=======
                     <Grid item xs={4}>
                         <Input placeholder='Email Address' fullWidth onChange = {this.handleMailChange}/>
                     </Grid>
@@ -95,8 +89,7 @@ class CreateAccount extends React.Component {
                         </Typography>
 
                     </Grid>
-                    <button onClick = {this.handleLogin} >Log In</button>
->>>>>>> 09da16eab3c18d545a92facbf454cf714ba32cad
+                    <Button style={{ backgroundColor: '#E9E9E9', color: "#A7A7A7", marginTop: 20 }}  onClick = {this.handleLogin}>Log In</Button>
                 </Grid>
             </div>
         );
