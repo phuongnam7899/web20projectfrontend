@@ -199,7 +199,7 @@ class CalendarApp extends Component {
               if (event.status === "free_time") {
                 return {
                   style: {
-                    backgroundColor: "#123456",
+                    backgroundColor: "#27e820",
                     borderRadius: '10px'
                   }
                 }
@@ -207,14 +207,14 @@ class CalendarApp extends Component {
               else if (event.status === "booked") {
                 return {
                   style: {
-                    backgroundColor: "#654321"
+                    backgroundColor: "#e23f1b"
                   }
                 }
               }
               else {
                 return {
                   style: {
-                    backgroundColor: "#000000"
+                    backgroundColor: "#0b3be8"
                   }
                 }
               }

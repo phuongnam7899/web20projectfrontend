@@ -11,113 +11,124 @@ import Grid from '@material-ui/core/Grid';
 import { Button } from '@material-ui/core';
 import SessionCard from './SessionCard';
 import CancelTuition from './CancelTuition';
+import axios from '../axios';
+import _ from "lodash";
 
 const styles = theme => ({
   root: {
     width: '66%',
     marginTop: 0,
     overflowX: 'auto',
-    marginLeft:  400
+    marginLeft: 400
   },
   table: {
     minWidth: 700,
   },
-  
+  listSession: {
+    marginLeft: -14,
+    "& > div > div > div": {
+      padding: 8
+    },
+    "& > div > div": {
+      padding: 8
+    }
+  }
 });
 
-let id = 0;
-function createData(tuitionsubject, lessonnum, recurring, hourlyrate) {
-  id += 1;
-  return { id, tuitionsubject, lessonnum, recurring, hourlyrate };
-}
+// let id = 0;
+// function createData(tuitionsubject, lessonnum, recurring, hourlyrate) {
+//   id += 1;
+//   return { id, tuitionsubject, lessonnum, recurring, hourlyrate };
+// }
 
-const rows = [
-  createData('Tuition Subject','Indonesia Primary 1 - Mathematics','Hourly Rate', 'SGD 1 per hour'),
-  createData('Number of Lessons', 8, "Recurring", 3),
+// const rows = [
+//   createData('Tuition Subject', 'Indonesia Primary 1 - Mathematics', 'Hourly Rate', 'SGD 1 per hour'),
+//   createData('Number of Lessons', 8, "Recurring", 3),
 
-];
+// ];
 
-function User(props) {
-  const { classes } = props;
+class User extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      classes: []
+    }
+  }
+  componentDidMount() {
+    axios.get(`/api/class/student/${this.props.student_id}`, {
+      headers: { 'X-Auth-Token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRoYW9ucDA0MTA5OUBnbWFpbC5jb20iLCJwYXNzd29yZCI6IjEyMzQ1NiIsImlhdCI6MTU1ODMyOTI1NX0.lkqx-o-14-saMoKmbEJQKWqIUSyTgyMZtdv5QLjQ-1c' },
+    }).then((classes) => {this.setState({classes : classes.data});console.log(classes)});
+  
+  };
 
-  return (
-    <div>
-    <Grid container xs = {11} justify = 'space-between'>
-    <Typography style = {{marginTop : 162, fontSize:18, marginLeft:400}}>
-    MATHP1-20191111-00000444
-    </Typography>
-    <CancelTuition/>
-    </Grid>
-    <Grid item xs = {11}>
-    <Paper className={classes.root}>
-    
-      <Table className={classes.table} border = {0}>
-        <TableBody>
-          {rows.map(row => (
-            <TableRow key={row.id}>
-              <TableCell component="th" scope="row">
-                {row.tuitionsubject}
-              </TableCell>
-              <TableCell align="right">{row.lessonnum}</TableCell>
-              <TableCell align="right">{row.recurring}</TableCell>
-              <TableCell align="right">{row.hourlyrate}</TableCell>
-              <TableCell align="right">{row.protein}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-      
-    </Paper>
-    </Grid>
-    <Grid>
-    <Typography style = {{marginTop:20,fontSize:18, marginLeft:400}}>
-    Course Detail
-    </Typography>
-    </Grid>
-    <Grid>
-    <Typography style = {{fontSize:14, marginLeft:400}}>
-    - Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
-    </Typography>
-    </Grid>
-    <Grid container justify = 'flexstart' xs = {11} style = {{marginBottom:20}}>
-    <Typography  style = {{fontSize:14, marginLeft:400, marginTop : 10}}>
-      Session 1 - Session 8
-    </Typography> 
-    <Button style = {{marginTop : 10,marginLeft:10,backgroundColor: '#B23B37', color: "#ffffff", width : 44, height:20, fontSize:14, paddingTop:0}}>Hold</Button>
-    </Grid>
-    <Grid container spacing = {8} style = {{marginLeft : 400}} xs = {8}>
-      <Grid container item xs={12} spacing={24}>
-        <Grid item xs={3}>
-          <SessionCard />
+  render() {
+    const { classes } = this.props;
+    console.log(this.state.classes)
+    if (_.isEmpty(this.state.classes)) {
+      return "Loading..."
+    }
+    return (
+      <div>
+        {this.state.classes.map((one_class) => {
+            return(
+              <div>
+                <Grid container xs={11} justify='space-between'>
+          <Typography style={{ marginTop: 162, fontSize: 18, marginLeft: 400 }}>
+           {one_class.subject}
+      </Typography>
+          <CancelTuition />
         </Grid>
-        <Grid item xs={3}>
-          <SessionCard />
+        <Grid item xs={11}>
+          <Paper className={classes.root}>
+
+            <Table className={classes.table} border={0}>
+              <TableBody>
+                {/* {rows.map(row => (
+                  <TableRow key={row.id}>
+                    <TableCell component="th" scope="row">
+                      {row.tuitionsubject}
+                    </TableCell>
+                    <TableCell align="right">{row.lessonnum}</TableCell>
+                    <TableCell align="right">{row.recurring}</TableCell>
+                    <TableCell align="right">{row.hourlyrate}</TableCell>
+                    <TableCell align="right">{row.protein}</TableCell>
+                  </TableRow>
+                ))} */}
+                <TableRow>
+                  <TableCell align="left" scope="row" >Fee : {one_class.hourly_rate}$/hour </TableCell>
+                  <TableCell align="left" scope="row" > Number of lessons: {one_class.sessions.length} </TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+
+          </Paper>
         </Grid>
-        <Grid item xs={3}>
-          <SessionCard />
+        <Grid container justify='flexstart' xs={11} style={{ marginBottom: 20 }}>
+          <Typography style={{ fontSize: 14, marginLeft: 400, marginTop: 10 }}>
+            Session 1 - Session {one_class.sessions.length}
+      </Typography>
+          <Button style={{ marginTop: 10, marginLeft: 10, backgroundColor: '#B23B37', color: "#ffffff", width: 44, height: 20, fontSize: 14, paddingTop: 0 }}>Hold</Button>
         </Grid>
-        <Grid item xs={3}>
-          <SessionCard />
+        <Grid container spacing={8} style={{ marginLeft: 400 }} xs={8}>
+          <Grid container item xs={12} spacing={24} className={classes.listSession}>
+                  {one_class.sessions.map((session,index) => {
+                    return(
+                      <div>
+                        <Grid item>
+                          <SessionCard ss_name={`Session ${index + 1}`} date={session.start.slice(0,10)} time={session.start.slice(10,16)} />
+                        </Grid>
+                      </div>
+                    )
+                  })}
+          </Grid>
         </Grid>
-      </Grid>
-      <Grid container item xs={12} spacing={24}>
-        <Grid item xs={3}>
-          <SessionCard />
-        </Grid>
-        <Grid item xs={3}>
-          <SessionCard />
-        </Grid>
-        <Grid item xs={3}>
-          <SessionCard />
-        </Grid>
-        <Grid item xs={3}>
-          <SessionCard />
-        </Grid>
-      </Grid>
-      
-    </Grid>
-    </div>
-  );
+              </div>
+            )
+        })} 
+      </div>
+    );
+
+  }
 }
 
 User.propTypes = {

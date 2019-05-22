@@ -15,9 +15,9 @@ import StdCalendar from './Components/Calendar/calendar_std';
 
 
 const styles = {
-  
+
   root: {
-    
+
     marginTop: 0,
   },
 }
@@ -34,33 +34,33 @@ const THEME = createMuiTheme({
 
 class App extends React.Component {
   state = {
-    color : "primary",
+    color: "primary",
     colors: 'white'
 
   }
   changeLogin = (status) => {
-    const {color,colors} = status
-    this.setState ({
-      color : color,
-      colors : colors
+    const { color, colors } = status
+    this.setState({
+      color: color,
+      colors: colors
     })
   }
   render() {
     return (
       <BrowserRouter>
-          <div style={styles.root}>
-            <MuiThemeProvider theme={THEME}>
-              <NavBar/>
-              <Route exact path='/' component={LandingPage} />
-              <Route path='/login' component={Signin} />
-              <Route path = '/signup' component = {Signup}/>
-              <Route path = '/user' component = {User}/>
-              {/* <Route path = '/schedule' component = {}> */}
-              <Route path = '/filter' component = {Filter}/>
-              <Route path = '/student/allclasses' component = { StdCalendar } />
-              <Route path = '/student/book_class' render ={() => <Calendar role="student"/>} />
-            </MuiThemeProvider>
-          </div>
+        <div style={styles.root}>
+          <MuiThemeProvider theme={THEME}>
+            <NavBar />
+            <Route exact path='/' component={LandingPage} />
+            <Route path='/login' component={Signin} />
+            <Route path='/signup' component={Signup} />
+            <Route path='/user' render={() => <User student_id="5ce11e792ace3f3d4c9b49e8"/>} />
+            {/* <Route path = '/schedule' component = {}> */}
+            <Route path='/filter' component={Filter} />
+            <Route path='/student/allclasses' component={StdCalendar} />
+            <Route path='/student/book_class' render={() => <Calendar role="student" />} />
+          </MuiThemeProvider>
+        </div>
       </BrowserRouter>
     );
   }

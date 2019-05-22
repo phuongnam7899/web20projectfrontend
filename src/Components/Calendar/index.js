@@ -12,42 +12,56 @@ class Calendar extends React.Component {
         };
     }
     componentDidMount() {
-        if (this.props.role === "student") {
-            axios.get("/api/class/tutor/5ce3a5c42480ca0eec0d0cae?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRoYW9ucDA0MTA5OUBnbWFpbC5jb20iLCJwYXNzd29yZCI6IjEyMzQ1NiIsImlhdCI6MTU1ODMyOTI1NX0.lkqx-o-14-saMoKmbEJQKWqIUSyTgyMZtdv5QLjQ-1c")
-                .then(data => {
-                    // lịch thằng tutor nhé cả rảnh cả lớp của n
-                    const events = data.data;
-                    console.log(events)
+        axios.get("/api/class/tutor/5ce3a5c42480ca0eec0d0cae", {
+                headers: {'X-Auth-Token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRoYW9ucDA0MTA5OUBnbWFpbC5jb20iLCJwYXNzd29yZCI6IjEyMzQ1NiIsImlhdCI6MTU1ODMyOTI1NX0.lkqx-o-14-saMoKmbEJQKWqIUSyTgyMZtdv5QLjQ-1c'},
+            })
+            .then(data => {
+                // lịch thằng tutor nhé cả rảnh cả lớp của n
+                const events = data.data;
+                console.log(events);
+                if (this.props.role === "student") {
                     events.forEach(element => {
-                        if(element.title !== "free time") element.status = "booked";
-                        else element.status = "free_time";
+                        if (element.title !== "free time") {
+                            element.status = "booked";
+                        }
+                        else {
+                            element.status = "free_time";
+                        }
                     });
-                    this.setState({
-                        oldEvents: events
+
+                } else{
+                    events.forEach(element => {
+                        if(element.title === "free time"){
+                            element.status = "free_time";
+                        }else{
+                            element.status = "booked";
+                        }
                     })
+                }
+                this.setState({
+                    oldEvents: events
                 })
-                .catch(err => console.error(err))
-            // }else if(this.props.role === "student"){
-            //     axios.get("api/")
-            // }else console.log("role not exist")
-        }
+            })
+            .catch(err => console.error(err));
+
+
     }
     getAddedEvents(currentEvents) {
         const addedEvents = currentEvents.slice(this.state.oldEvents.length, currentEvents.length);
         console.log(addedEvents);
     }
-    
-    render() {  
-      const { newEvents } = this.state;
-      const events = this.state.oldEvents.concat(newEvents);
-      return (
-        <Grid style = {{marginTop : 100}}>
-        <BigCalendar
-          dataFromProps={events}
-          getAddedEvents={currentEvents => this.getAddedEvents(currentEvents)}
-        />
-        </Grid>
-      );
+
+    render() {
+        const { newEvents } = this.state;
+        const events = this.state.oldEvents.concat(newEvents);
+        return (
+            <Grid style={{ marginTop: 100 }}>
+                <BigCalendar
+                    dataFromProps={events}
+                    getAddedEvents={currentEvents => this.getAddedEvents(currentEvents)}
+                />
+            </Grid>
+        );
     }
 }
 export default Calendar;

@@ -31,17 +31,13 @@ function SessionCard(props) {
     <Card className={classes.card}>
       <CardContent>
         <Typography className={classes.title} color="secondary" gutterBottom>
-          Session1
+         {props.ss_name}
         </Typography>
         <Typography variant="h5" component="h2">
-          10 Mar 18
-        </Typography>
-        <Typography className={classes.pos} color="textSecondary">
-          adjective
+          {props.date}
         </Typography>
         <Typography component="p">
-          8:30hrs - 9:30hrs
-          
+        {props.time}          
         </Typography>
       </CardContent>
       
