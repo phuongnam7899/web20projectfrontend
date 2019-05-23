@@ -13,7 +13,7 @@ import StdCalendar from './Components/Calendar/calendar_std';
 import Calendar from './Components/Calendar';
 import TeacherDetail from './Components/Std/TeacherDetail';
 import TuitionPreference from './Components/Teacher/TuitionPreference';
-
+import NavStd from './Components/Std/NavBar'
 
 
 const styles = {
@@ -51,7 +51,16 @@ class App extends React.Component {
   }
   render() {
     let display;
+    let navbar;
+    if (this.state.role != 'student' && this.state.role != 'tutor'){
+      navbar = (
+        <NavBar color = {this.state.color} colors = {this.state.colors}/>
+      )
+    }
     if(this.state.role === "student"){
+      navbar = (
+        <NavStd />
+      )
       display = (
         <Fragment>
           <Route path = '/filter' component = {Filter}/>
@@ -70,7 +79,10 @@ class App extends React.Component {
       <BrowserRouter>
         <div style={styles.root}>
           <MuiThemeProvider theme={THEME}>
-            <Route path = '/signup' component = {Signup}/>
+            {navbar}
+            <Route path='/signup' render = {props => {
+              return <Signup {... props}
+            />}}/>
             <Route exact path='/' component={LandingPage} />
             <Route path='/login' render = {props => {
               return <Signin {... props} handleLogin = {this.handleLogin}

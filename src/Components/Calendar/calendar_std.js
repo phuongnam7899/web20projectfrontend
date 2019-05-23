@@ -21,13 +21,19 @@ class  StdCalendar extends React.Component {
       };
     }
     componentDidMount(){
-      axios.get("api/class/student/5ce16d258f4ad720dc491ff6?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRoYW9ucDA0MTA5OUBnbWFpbC5jb20iLCJwYXNzd29yZCI6IjEyMzQ1NiIsImlhdCI6MTU1ODMyOTI1NX0.lkqx-o-14-saMoKmbEJQKWqIUSyTgyMZtdv5QLjQ-1c")  
+      axios.get(`api/class/student/${localStorage.id}?token=${localStorage.token}`)  
           .then(data => {
-              this.setState(
-                  {events: data.data},
-                  () => {
-                      console.log(data.data)
-                  }
+            let allClasses = [];
+            for(let i = 0; i < data.data.length; i++) {
+              for (let j = 0; j < data.data[i].sessions.length; j++) {
+                  allClasses.push(data.data[i].sessions[j])     
+              }
+            }
+            this.setState(
+              {events: allClasses},
+                () => {
+                  console.log(data.data)
+                }
               )
             })
           .catch(err => console.error(err))

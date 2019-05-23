@@ -4,9 +4,6 @@ import Menu from '../../Menu'
 import Grid from '@material-ui/core/Grid';
 
 class FilterColumn extends React.Component {
-    constructor(props){
-        super(props);
-    }
     render() {
         return (
             <div style={{ margin: '0px 80px' }}>
