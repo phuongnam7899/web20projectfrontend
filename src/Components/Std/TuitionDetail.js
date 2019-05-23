@@ -11,7 +11,7 @@ import Grid from '@material-ui/core/Grid';
 import { Button } from '@material-ui/core';
 import SessionCard from '../SessionCard';
 import CancelTuition from './CancelTuition';
-import axios from '../axios';
+import axios from '../../axios';
 import _ from "lodash";
 
 const styles = theme => ({
@@ -34,19 +34,6 @@ const styles = theme => ({
     }
   }
 });
-
-// let id = 0;
-// function createData(tuitionsubject, lessonnum, recurring, hourlyrate) {
-//   id += 1;
-//   return { id, tuitionsubject, lessonnum, recurring, hourlyrate };
-// }
-
-// const rows = [
-//   createData('Tuition Subject', 'Indonesia Primary 1 - Mathematics', 'Hourly Rate', 'SGD 1 per hour'),
-//   createData('Number of Lessons', 8, "Recurring", 3),
-
-// ];
-
 class User extends React.Component {
   constructor(props) {
     super(props);
@@ -55,21 +42,22 @@ class User extends React.Component {
     }
   }
   componentDidMount() {
-    axios.get(`/api/class/student/${this.props.student_id}`, {
+    // console.log(localStorage.id)
+    axios.get(`/api/class/student/${localStorage.id}`, {
       headers: { 'X-Auth-Token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRoYW9ucDA0MTA5OUBnbWFpbC5jb20iLCJwYXNzd29yZCI6IjEyMzQ1NiIsImlhdCI6MTU1ODMyOTI1NX0.lkqx-o-14-saMoKmbEJQKWqIUSyTgyMZtdv5QLjQ-1c' },
-    }).then((classes) => {this.setState({classes : classes.data});console.log(classes)});
+    }).then((data) => this.setState({classes : data.data}))
   
   };
 
   render() {
     const { classes } = this.props;
-    console.log(this.state.classes)
     if (_.isEmpty(this.state.classes)) {
-      return "Loading..."
+      return `loading`
     }
     return (
       <div>
         {this.state.classes.map((one_class) => {
+                console.log(this.state.classes)
             return(
               <div>
                 <Grid container xs={11} justify='space-between'>
@@ -80,20 +68,8 @@ class User extends React.Component {
         </Grid>
         <Grid item xs={11}>
           <Paper className={classes.root}>
-
             <Table className={classes.table} border={0}>
               <TableBody>
-                {/* {rows.map(row => (
-                  <TableRow key={row.id}>
-                    <TableCell component="th" scope="row">
-                      {row.tuitionsubject}
-                    </TableCell>
-                    <TableCell align="right">{row.lessonnum}</TableCell>
-                    <TableCell align="right">{row.recurring}</TableCell>
-                    <TableCell align="right">{row.hourlyrate}</TableCell>
-                    <TableCell align="right">{row.protein}</TableCell>
-                  </TableRow>
-                ))} */}
                 <TableRow>
                   <TableCell align="left" scope="row" >Fee : {one_class.hourly_rate}$/hour </TableCell>
                   <TableCell align="left" scope="row" > Number of lessons: {one_class.sessions.length} </TableCell>
