@@ -3,7 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import FilterBar from './FilterBar'
 import FilterColumn from './FilterColumn'
 import Typography from '@material-ui/core/Typography'
-import SessionCard from '../SessionCard'
+import TeacherCard from './TeacherCard'
 
 const Filter = () => {
     return (
@@ -15,11 +15,11 @@ const Filter = () => {
                 </Grid>
                 <Grid xs={6} style ={{marginTop : 60}}>
                     <Typography variant='h4'>FIND A TUTOR</Typography>
-                    <SessionCard />
-                    <SessionCard />
-                    <SessionCard />
-                    <SessionCard />
-                    <SessionCard />
+                    <TeacherCard/>
+                    <TeacherCard/>
+                    <TeacherCard/>
+                    <TeacherCard/>
+                    <TeacherCard/>
                 </Grid>
 
             </Grid>
