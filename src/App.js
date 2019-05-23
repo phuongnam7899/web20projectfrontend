@@ -70,7 +70,9 @@ class App extends React.Component {
       <BrowserRouter>
         <div style={styles.root}>
           <MuiThemeProvider theme={THEME}>
-            <Route path = '/signup' component = {Signup}/>
+            <Route path='/signup' render = {props => {
+              return <Signup {... props}
+            />}}/>
             <Route exact path='/' component={LandingPage} />
             <Route path='/login' render = {props => {
               return <Signin {... props} handleLogin = {this.handleLogin}
