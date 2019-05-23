@@ -64,7 +64,7 @@ class App extends React.Component {
     }
     if(this.state.role === "tutor"){
       display = 
-      <Route path = '/teacher/tuitionpreference' component = {TuitionPreference}/>
+      <Route path = '/teacher/tuitionpreference' component ={ TuitionDetail } />
     }
     return (
       <BrowserRouter>
