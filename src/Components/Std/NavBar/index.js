@@ -4,7 +4,7 @@ import ToolBar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid';
 import Menu from './Menu'
-import {Link, NavLink} from 'react-router-dom'
+import {NavLink} from 'react-router-dom'
 
 class NavBar extends React.Component {
   state = {
