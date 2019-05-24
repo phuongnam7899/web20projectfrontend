@@ -159,6 +159,7 @@ const FormDefault = ({ values, handleChange, errors, touched, handleblur }) => {
                                 variant='extendedFab'
                                 color='primary'
                                 type='submit'
+                                handleSubmit = {this.props}    
                             >
                                 Update Profile
                                 </Button>
@@ -214,7 +215,7 @@ const FormikForm = withFormik({
             .min(8, 'Password must have min 8 characters')
     }),
     handleSubmit(values) {
-        console.log(values)
+        console.log(this.props)
     }
 
 })(FormDefault)

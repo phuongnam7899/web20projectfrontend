@@ -4,7 +4,7 @@ import ToolBar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid';
 import Menu from './Menu'
-import {Link, NavLink} from 'react-router-dom'
+import {NavLink} from 'react-router-dom'
 
 class NavBar extends React.Component {
   state = {
@@ -29,24 +29,23 @@ class NavBar extends React.Component {
 
               <Grid item xs={1}>
               <Typography color = {this.props.color} style = {{fontSize: 18}}>
-                <NavLink to = '/'  style={{ textDecoration: 'none', color: this.props.colors}}>FIND A TUTOR</NavLink>
+                <NavLink to = '/filter'  style={{ textDecoration: 'none', color: 'black'}}>FIND A TUTOR</NavLink>
               </Typography>
               </Grid>
 
               <Grid item xs={1}>
               <Typography color = {this.props.color} style = {{fontSize: 18}}>
-                <NavLink color= {this.props.colors} style ={{ textDecoration: 'none', color: this.props.colors}} to = '/about'>MY TUITION</NavLink>
+                <NavLink to = '/student/tuitiondetail' style ={{ textDecoration: 'none', color: 'black'}} >MY TUITION</NavLink>
               </Typography>
               </Grid>
 
               <Grid item xs={1}>
-              <Typography color = {this.props.color} style = {{fontSize: 18}}>
-              <NavLink style={{ textDecoration: 'none', color: this.props.colors}} to = '/login' onClick = {this.handleClick}>STUDENT'S NAME</NavLink>
+              <Typography color = {this.props.color} style = {{fontSize: 18}} noWrap>
+                STUDENT'S NAME
               </Typography>
               </Grid>
 
               <Grid item xs={1} justify = 'center' alignContent = 'center' >
-              
                 <Menu/>
               </Grid>
               </Grid>
