@@ -3,14 +3,14 @@ import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-
+import axios from '../../../axios';
+import LandingPage from '../../LandingPage'
 const options = [
   'None',
   'Sign Out',
   'Edit Profile',
   'My Calendar'
 ];
-
 const ITEM_HEIGHT = 48;
 
 class LongMenu extends React.Component {
@@ -25,7 +25,28 @@ class LongMenu extends React.Component {
   handleClose = () => {
     this.setState({ anchorEl: null });
   };
+  handleMenuItem = (index) => {
+    if(index == 1){
+      console.log("sign out");
+      axios.get(`api/auth/logout?token=${localStorage.getItem('token')}`)
+      .then(() => {
+          localStorage.removeItem('role');
+          localStorage.removeItem('token');
+          localStorage.removeItem('id');
+          document.location.href = "/"
+      })
+      .catch(err => {
+        console.log(err)
+      })
 
+    }
+    if(index == 2){
+      console.log("edit")
+    }
+    if(index == 3){
+      console.log("my calendar")
+    }
+  }
   render() {
     const { anchorEl } = this.state;
     const open = Boolean(anchorEl);
@@ -52,8 +73,11 @@ class LongMenu extends React.Component {
             },
           }}
         >
-          {options.map(option => (
-            <MenuItem key={option} selected={option === 'Pyxis'} onClick={this.handleClose}>
+          {options.map((option, index) => (
+            <MenuItem 
+              key={option} 
+              selected={option === 'Pyxis'} 
+              onClick={() => this.handleMenuItem(index)}>
               {option}
             </MenuItem>
           ))}
