@@ -19,7 +19,6 @@ import NavStd from './Components/Std/NavBar'
 const styles = {
 
   root: {
-
     marginTop: 0,
   },
 }
@@ -67,7 +66,9 @@ class App extends React.Component {
           <Route path = '/editmyprofile' component = {Editmyprofile}/>
           <Route path = '/student/allclasses' component = { StdCalendar } />  
           <Route path = '/student/book_class' render ={() => <Calendar role="student"/>} /> 
-          <Route path = '/student/tuitiondetail' component = {TuitionDetail}/> 
+          <Route path = '/user'  render = {props => {
+              return <TuitionDetail {... props}
+          />}}/> 
         </Fragment>  
       )
     }
@@ -83,7 +84,9 @@ class App extends React.Component {
             <Route path='/signup' render = {props => {
               return <Signup {... props}
             />}}/>
-            <Route exact path='/' component={LandingPage} />
+            <Route exact path='/' render = {props => {
+              return <LandingPage {... props}
+            />}} />
             <Route path='/login' render = {props => {
               return <Signin {... props} handleLogin = {this.handleLogin}
             />}}/>
