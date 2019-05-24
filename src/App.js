@@ -67,7 +67,7 @@ class App extends React.Component {
           <Route path = '/editmyprofile' component = {Editmyprofile}/>
           <Route path = '/student/allclasses' component = { StdCalendar } />  
           <Route path = '/student/book_class' render ={() => <Calendar role="student"/>} /> 
-          <Route path = '/user' component = {TuitionDetail}/> 
+          <Route path = '/student/tuitiondetail' component = {TuitionDetail}/> 
         </Fragment>  
       )
     }

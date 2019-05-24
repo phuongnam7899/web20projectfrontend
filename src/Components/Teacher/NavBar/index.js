@@ -29,7 +29,7 @@ class NavBar extends React.Component {
 
               <Grid item xs={1}>
               <Typography color = {this.props.color} style = {{fontSize: 18}}>
-                <NavLink to = '/filter'  style={{ textDecoration: 'none', color: 'black'}}>FIND A TUTOR</NavLink>
+                <NavLink to = '/filter'  style={{ textDecoration: 'none', color: 'black'}}>My Calendar</NavLink>
               </Typography>
               </Grid>
 
