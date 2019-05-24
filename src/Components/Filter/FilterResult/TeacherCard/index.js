@@ -6,7 +6,7 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid'
-import Field from './Field';
+import Field from '../../Field';
 import Paper from '@material-ui/core/Paper'
 
 
@@ -14,7 +14,7 @@ import Paper from '@material-ui/core/Paper'
 const styles = {
   root: {
     marginLeft: 80,
-    marginTop: 200,
+    marginTop: 30,
     marginRight: 80,
   },
   card: {
@@ -42,7 +42,7 @@ function TeacherDetail(props) {
       <Grid container xs={24} justify = 'space-between'>
         <Paper className={classes.background}>
           <Grid container xs={16}>
-            <Grid item xs={2}>
+            <Grid item xs={3}>
               <Card className={classes.card}>
                 <CardActionArea>
                   <CardMedia
@@ -55,12 +55,12 @@ function TeacherDetail(props) {
             </Grid>
             <Grid item xs={7} style={{ marginLeft: 30 }}>
               <Typography variant='h5'>
-                Teacher's Name
+                {props.name}
               </Typography>
               <Grid container xs={12} spacing={50} style={{ marginTop: 10 }}>
-                <Field tag='Subject' content='English' />
-                <Field tag='Teaches' content='Dotoral' />
-                <Field tag='Resides In' content='Ha Noi' />
+                <Field tag='Subject' content={props.subject} />
+                <Field tag='Teaches' content={props.teach} />
+                <Field tag='Phone Number' content={props.phone} />
               </Grid>
             </Grid>
           </Grid>

@@ -84,7 +84,7 @@ class Login extends React.Component {
         .then((sent_data) => {
             let status = sent_data.data.success;
             console.log(sent_data.data.success)
-            if(status == 1){
+            if(status === 1){
                 this.props.history.push("/login")
             }
         })

@@ -50,6 +50,13 @@ class Calendar extends React.Component {
     }
 
     render() {
+        if(localStorage.role === "tutor"){
+            const newEventsWithStatus = this.state.newEvents.map((item) => {
+                item.status = "free_time"
+                return item
+            });
+            this.setState({newEvents : newEventsWithStatus});
+        }
         const { newEvents } = this.state;
         const events = this.state.oldEvents.concat(newEvents);
         return (
