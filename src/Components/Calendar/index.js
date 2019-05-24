@@ -7,16 +7,19 @@ class Calendar extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            newEvents: [],
-            oldEvents: []
+            firstEvvents: [],
+            oldEvents: [],
+            addEvents: [],
+            subject: "Math",
         };
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.updateOldEvents = this.updateOldEvents.bind(this);
     }
     componentDidMount() {
-        axios.get("/api/class/tutor/5ce3a5c42480ca0eec0d0cae", {
-                headers: {'X-Auth-Token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRoYW9ucDA0MTA5OUBnbWFpbC5jb20iLCJwYXNzd29yZCI6IjEyMzQ1NiIsImlhdCI6MTU1ODMyOTI1NX0.lkqx-o-14-saMoKmbEJQKWqIUSyTgyMZtdv5QLjQ-1c'},
+        axios.get(`/api/class/${localStorage.role}/${localStorage.id}`, {
+                headers: {'X-Auth-Token': `${localStorage.token}`},
             })
             .then(data => {
-                // lịch thằng tutor nhé cả rảnh cả lớp của n
                 const events = data.data;
                 console.log(events);
                 if (this.props.role === "student") {
@@ -31,40 +34,82 @@ class Calendar extends React.Component {
 
                 } else{
                     events.forEach(element => {
-                        if(element.title === "free time"){
+                        if(element.status === "free_time"){
                             element.status = "free_time";
                         }else{
                             element.status = "booked";
                         }
-                    })
+                    });
                 }
                 this.setState({
-                    oldEvents: events
+                    firstEvents: events,
+                    oldEvents : events
                 })
             })
             .catch(err => console.error(err));
     }
     getAddedEvents(currentEvents) {
-        const addedEvents = currentEvents.slice(this.state.oldEvents.length, currentEvents.length);
-        console.log(addedEvents);
+        const addedEvents = currentEvents.slice(this.state.firstEvents.length, currentEvents.length);
+        console.log(currentEvents);
+        this.setState({
+            addEvents : addedEvents,
+            currentEvents : currentEvents,
+        });
+        // console.log(this.state.addEvents)
     }
-
-    render() {
-        if(localStorage.role === "tutor"){
-            const newEventsWithStatus = this.state.newEvents.map((item) => {
-                item.status = "free_time"
-                return item
-            });
-            this.setState({newEvents : newEventsWithStatus});
+    handleSubmit(){
+        if(localStorage.role === "student"){
+                 axios(
+            {
+                url:"/api/class",
+                method:"post",
+                data:{
+                    tutor_id : "5ce6cee1138b461508163e1c",
+                    student_id : localStorage.id,
+                    hourly_rate: 323,
+                    sessions : this.state.addEvents,
+                    subject: this.state.subject
+                },
+                headers: { "X-Auth-Token": `${localStorage.token}` }
+            }
+        )   
+        }else if(localStorage.role === "tutor" ){
+            const free_time = []
+            this.state.oldEvents.forEach((item) =>{
+                if (item.status === "free_time") free_time.push(item)
+            })
+            // this.state.addEvents.forEach((item) => {
+            //      if (item.status === "free_time") free_time.push(item)
+            // })
+            axios(
+                {
+                    url:`/api/user/tutor/update_free_time/${localStorage.id}`,
+                    method: "put",
+                    data: {
+                        free_time : free_time
+                    },
+                    headers: {'X-Auth-Token': `${localStorage.token}`}
+                }
+            )
         }
-        const { newEvents } = this.state;
-        const events = this.state.oldEvents.concat(newEvents);
+
+    }
+    updateOldEvents(currentEvents){
+        this.setState({oldEvents : currentEvents});
+    }
+    
+    render() {
+        const { oldEvents} = this.state;
+
+        // console.log(this.state.addEvents);
         return (
-            <Grid style={{ marginTop: 100 }}>
+            <Grid style={{ marginTop : 100 }}>
                 <BigCalendar
-                    dataFromProps={events}
+                    updateOldEvents={this.updateOldEvents}
+                    dataFromProps={oldEvents}
                     getAddedEvents={currentEvents => this.getAddedEvents(currentEvents)}
                 />
+                <button onClick={this.handleSubmit}>submit</button>
             </Grid>
         );
     }

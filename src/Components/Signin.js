@@ -34,15 +34,14 @@ class CreateAccount extends React.Component {
             }
         })
         .then((sent_data) => {
-            console.log(sent_data);
             //api login tra ve cai token 
             //save token vao localstorage
+            console.log(sent_data)
             localStorage.setItem('token', sent_data.data.token);
             //lay role va luu vao localStorage
-            localStorage.setItem('role', sent_data.data.userInfo.role);
+            localStorage.setItem('role', sent_data.data.userInfo.user_id.role);
             localStorage.setItem("id",sent_data.data.userInfo._id);
-            console.log(localStorage.id);
-            this.setState({role: sent_data.data.userInfo.role})
+            this.setState({role: sent_data.data.userInfo.user_id.role})
         })
         .catch(err => console.error(err))
         setTimeout(() => {

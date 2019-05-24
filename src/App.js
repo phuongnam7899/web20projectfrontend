@@ -66,14 +66,15 @@ class App extends React.Component {
           <Route path = '/filter' component = {Filter}/>
           <Route path = '/editmyprofile' component = {Editmyprofile}/>
           <Route path = '/student/allclasses' component = { StdCalendar } />  
-          <Route path = '/student/book_class' render ={() => <Calendar role="student"/>} /> 
+          <Route path = '/student/book_class' render ={() => <Calendar role={this.state.role}/>} /> 
           <Route path = '/user' component = {TuitionDetail}/> 
         </Fragment>  
       )
     }
     if(this.state.role === "tutor"){
-      display = 
-      <Route path = '/teacher/tuitionpreference' component ={ TuitionDetail } />
+      display = (
+        <Route path = '/tutor/update_freetime' render ={() => <Calendar role={this.state.role}/>} />
+      )
     }
     return (
       <BrowserRouter>
