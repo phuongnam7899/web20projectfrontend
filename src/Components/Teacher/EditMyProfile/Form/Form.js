@@ -234,7 +234,8 @@ const FormikForm = withFormik({
             }
         })
         .then((updated) => {
-           console.log(updated)
+           console.log(updated);
+           document.location.href = '/';
         })
         .catch(err => console.error(err))
     }
