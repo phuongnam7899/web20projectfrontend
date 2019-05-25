@@ -14,7 +14,7 @@ import * as Yup from 'yup';
 import axios from '../../../../axios'
 
 
-const FormDefault = ({ values, handleChange, errors, touched, handleblur }) => {
+const FormDefault = ({ values, handleChange, errors, touched, handleBlur }) => {
     return (
         <Form>
             <Grid container justify='center' alignContent='center'>
@@ -27,8 +27,8 @@ const FormDefault = ({ values, handleChange, errors, touched, handleblur }) => {
                             <Grid item xs={6} margin='normal'>
                                 <FormControl fullWidth error={!!touched.firstname && errors.firstname}>
                                     <InputLabel>First Name</InputLabel>
-                                    <Input name='firstname' value={values.firstname} onChange={handleChange} onBlur={handleblur} fullWidth />
-                                    <FormHelperText>{errors.firstname}</FormHelperText>
+                                    <Input name='firstname' value={values.firstname} onChange={handleChange} onBlur={handleBlur} fullWidth />
+                                    <FormHelperText>{touched.firstname && errors.firstname}</FormHelperText>
                                 </FormControl>
                             </Grid>
 
@@ -36,7 +36,7 @@ const FormDefault = ({ values, handleChange, errors, touched, handleblur }) => {
                                 <FormControl fullWidth error={touched.lastname && errors.lastname}>
                                     <InputLabel>Last Name</InputLabel>
                                     <Input name='lastname' value={values.lastname} onChange={handleChange} fullWidth />
-                                    <FormHelperText>{errors.lastname}</FormHelperText>
+                                    <FormHelperText>{touched.lastname && errors.lastname}</FormHelperText>
                                 </FormControl>
                             </Grid>
                         </Grid>
@@ -46,14 +46,14 @@ const FormDefault = ({ values, handleChange, errors, touched, handleblur }) => {
                                 <FormControl fullWidth error={touched.dob && errors.dob}>
                                     <InputLabel>Date Of Birth</InputLabel>
                                     <Input name='dob' value={values.dob} onChange={handleChange} fullWidth />
-                                    <FormHelperText>{errors.dob}</FormHelperText>
+                                    <FormHelperText>{touched.dob && errors.dob}</FormHelperText>
                                 </FormControl>
                             </Grid>
                             <Grid item xs={6} margin='normal'>
                                 <FormControl fullWidth error={touched.phonenumber && errors.phonenumber}>
                                     <InputLabel>Phone Number</InputLabel>
                                     <Input name='phonenumber' value={values.phonenumber} onChange={handleChange} fullWidth />
-                                    <FormHelperText>{errors.phonenumber}</FormHelperText>
+                                    <FormHelperText>{touched.phonenumber && errors.phonenumber}</FormHelperText>
                                 </FormControl>
                             </Grid>
                         </Grid>
@@ -63,14 +63,14 @@ const FormDefault = ({ values, handleChange, errors, touched, handleblur }) => {
                                 <FormControl fullWidth error={touched.payment && errors.payment}>
                                     <InputLabel>Payment Method</InputLabel>
                                     <Input name='payment' value={values.payment} onChange={handleChange} fullWidth />
-                                    <FormHelperText>{errors.payment}</FormHelperText>
+                                    <FormHelperText>{touched.payment && errors.payment}</FormHelperText>
                                 </FormControl>
                             </Grid>
                             <Grid item xs={6} margin='normal'>
                                 <FormControl fullWidth error={touched.paypal && errors.paypal}>
                                     <InputLabel>PayPal Email</InputLabel>
                                     <Input name='paypal' value={values.paypal} onChange={handleChange} fullWidth />
-                                    <FormHelperText>{errors.paypal}</FormHelperText>
+                                    <FormHelperText>{touched.paypal && errors.paypal}</FormHelperText>
                                 </FormControl>
                             </Grid>
                         </Grid>
@@ -80,14 +80,14 @@ const FormDefault = ({ values, handleChange, errors, touched, handleblur }) => {
                                 <FormControl fullWidth error={touched.address && errors.address}>
                                     <InputLabel>Address</InputLabel>
                                     <Input name='address' value={values.address} onChange={handleChange} fullWidth />
-                                    <FormHelperText>{errors.address}</FormHelperText>
+                                    <FormHelperText>{touched.address && errors.address}</FormHelperText>
                                 </FormControl>
                             </Grid>
                             <Grid item xs={6} margin='normal'>
                                 <FormControl fullWidth error={touched.postal && errors.postal}>
                                     <InputLabel>Postal Code</InputLabel>
                                     <Input name='postal' value={values.postal} onChange={handleChange} fullWidth />
-                                    <FormHelperText>{errors.postal}</FormHelperText>
+                                    <FormHelperText>{touched.postal && errors.postal}</FormHelperText>
                                 </FormControl>
                             </Grid>
                         </Grid>
@@ -95,12 +95,12 @@ const FormDefault = ({ values, handleChange, errors, touched, handleblur }) => {
                             <FormControl fullWidth margin='normal' error={touched.email && errors.email}>
                                 <InputLabel>Email</InputLabel>
                                 <Input name='email' value={values.email} onChange={handleChange} fullWidth />
-                                <FormHelperText>{errors.email}</FormHelperText>
+                                <FormHelperText>{touched.email && errors.email}</FormHelperText>
                             </FormControl>
                             <FormControl fullWidth margin='normal' error={touched.password && errors.password}>
                                 <InputLabel>Password</InputLabel>
                                 <Input fullWidth name='password' type='password' value={values.password} onChange={handleChange} />
-                                <FormHelperText>{errors.password}</FormHelperText>
+                                <FormHelperText>{touched.password && errors.password}</FormHelperText>
                             </FormControl>
                         </Grid>
 

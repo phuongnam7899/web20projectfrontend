@@ -58,7 +58,7 @@ class CalendarApp extends Component {
     }
   }
   componentDidUpdate() {
-    console.log(this.state.events);
+    // console.log(this.state.events);
    }
   onSelectSlot(e) {
     const { events ,disabledEdit} = this.state;
@@ -86,7 +86,7 @@ class CalendarApp extends Component {
       editState: true,
       event
     });
-    console.log(this.state);
+    // console.log(this.state);
   }
 
   deleteHandle(event) {
@@ -115,7 +115,7 @@ class CalendarApp extends Component {
         events
       });
     }
-    console.log(this.state)
+    // console.log(this.state)
     this.setState({
       open: false,
       editState: false,
@@ -176,7 +176,7 @@ class CalendarApp extends Component {
         };
         events[indexEventChoose] = eventAfterEdit;
         const packaged = events;
-        console.log(packaged);
+        // console.log(packaged);
         getAddedEvents(packaged);
         updateOldEvents(packaged)
         this.setState({
@@ -196,7 +196,7 @@ class CalendarApp extends Component {
     this.setState(
       { subject: e.target.value },
       () => {
-        console.log(this.state.subject)
+        // console.log(this.state.subject)
       }
     )
   }

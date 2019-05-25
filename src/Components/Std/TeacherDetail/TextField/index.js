@@ -26,12 +26,12 @@ class TextFields extends React.Component {
     };
 
     render() {
-        const { classes } = this.props;
+        const { classes , tag , content } = this.props;
 
         return (
             <div className = {classes.container}>
-                <Tag content = 'Speak/Language'/>
-                <Content content =  'English'/>
+                <Tag content = {tag}/>
+                <Content content = {content}/>
             </div>
         );
     }

@@ -3,12 +3,10 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 // import TextField from '@material-ui/core/TextField';
 import Tag from './Tag'
-import Content from './Content'
 
 const styles = theme => ({
     container: {
         display: 'flex',
-        flexDirection: 'column',
         flexWrap: 'wrap',
         marginTop : 30
     },
@@ -25,13 +23,16 @@ class TextFields extends React.Component {
         
     };
 
+    handleChange = name => event => {
+        this.setState({ [name]: event.target.value });
+    };
+
     render() {
         const { classes } = this.props;
 
         return (
             <div className = {classes.container}>
                 <Tag content = 'Speak/Language'/>
-                <Content content =  'English'/>
             </div>
         );
     }

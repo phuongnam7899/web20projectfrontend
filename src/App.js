@@ -13,11 +13,17 @@ import StdCalendar from './Components/Calendar/calendar_std';
 import Calendar from './Components/Calendar';
 import TeacherDetail from './Components/Std/TeacherDetail';
 import TuitionPreference from './Components/Teacher/TuitionPreference';
+<<<<<<< HEAD
+import NavStd from './Components/Std/NavBar'
+import NavTutor from './Components/Teacher/NavBar'
+import MyDetail from './Components/Teacher/TeacherDetail'
+=======
 import NavStd from './Components/Std/NavBar';
 import NavTeacher from './Components/Teacher/NavBar';
 import Tutor_Editmyprofile from './Components/Teacher/EditMyProfile'
 
 
+>>>>>>> 6c20d76682b45cb69999ebb95a11eadaffa5f0ae
 const styles = {
 
   root: {
@@ -38,10 +44,11 @@ const THEME = createMuiTheme({
 
 class App extends React.Component {
   state = {
-    color : "primary",
+    color: "primary",
     colors: 'white',
     role: localStorage.getItem('role')
   }
+
   changeLogin = (status) => {
     const { color, colors } = status
     this.setState({
@@ -57,24 +64,31 @@ class App extends React.Component {
   render() {
     let display;
     let navbar;
-  
-    if(this.state.role === "student"){
+    if (this.state.role !== 'student' && this.state.role !== 'tutor'){
+      navbar = (
+        <NavBar color={this.state.color} colors={this.state.colors} />
+      )
+    }
+    if (this.state.role === "student") {
       navbar = (
         <NavStd />
       )
       display = (
         <Fragment>
-          <Route path = '/filter' component = {Filter}/>
-          <Route path = '/editmyprofile' component = {Editmyprofile}/>
-          <Route path = '/student/allclasses' component = { StdCalendar } />  
-          <Route path = '/student/book_class' render ={() => <Calendar role="student"/>} /> 
-          <Route path = '/user'  render = {props => {
-              return <TuitionDetail {... props}
-          />}}/> 
-        </Fragment>  
+          <Route path='/filter' component={Filter} />
+          <Route path='/editmyprofile' component={Editmyprofile} />
+          <Route path='/student/allclasses' component={StdCalendar} />
+          <Route path='/student/book_class' render={() => <Calendar role="student" tutor_id="5ce6cee1138b461508163e1c" />} />
+          <Route path='/user' render={props => {
+            return <TuitionDetail {...props}
+            />
+          }} />
+          <Route path='/tutor/detail' render={() => <TeacherDetail tutor_id = "5ce6001cd7133c301cf2f428" />} />
+          <Route path = '/preference' component = {TuitionPreference} />
+        </Fragment>
       )
     }
-    if(this.state.role === "tutor"){
+    if (this.state.role === "tutor") {
       display = (
         <Fragment>
           <Route path = '/teacher/tuitionpreference' render = {props => {

@@ -1,6 +1,6 @@
 import React from 'react';
-import TeachingExperience from '../TeachingExperience'
-import TeachingSubject from '../TeachingSubject'
+import TeachingExperience from './TeachingExperience'
+import TeachingSubject from './TeachingSubject'
 
 class EditMyProfile extends React.Component {
     state = {
