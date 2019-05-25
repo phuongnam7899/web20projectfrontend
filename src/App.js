@@ -69,6 +69,7 @@ class App extends React.Component {
           <Route path = '/user'  render = {props => {
               return <TuitionDetail {... props}
           />}}/> 
+          <Route path = '/preference' component = {TuitionPreference} />
         </Fragment>  
       )
     }
