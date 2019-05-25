@@ -6,7 +6,7 @@ import Link from '@material-ui/core/Link'
 import Input from '@material-ui/core/Input';
 import axios from '../axios';
 import Filter from './Filter';
-import TuitionDetail from './Std/TuitionDetail';
+import TuitionPreference from './Teacher/TuitionPreference';
 
 const jwt_decode = require('jwt-decode');
 class CreateAccount extends React.Component {
@@ -37,34 +37,26 @@ class CreateAccount extends React.Component {
             }
         })
         .then((sent_data) => {
-            //api login tra ve cai token 
-            //save token vao localstorage
-            console.log(sent_data)
+            console.log(sent_data);
             localStorage.setItem('token', sent_data.data.token);
-            //lay role va luu vao localStorage
             localStorage.setItem('role', sent_data.data.userInfo.user_id.role);
             localStorage.setItem("id",sent_data.data.userInfo._id);
-            this.setState({role: sent_data.data.userInfo.user_id.role})
+            localStorage.setItem("user_id", sent_data.data.userInfo.user_id._id)
             console.log(localStorage.getItem('role'));
-            console.log(localStorage.id);
-            this.setState({role: sent_data.data.userInfo.user_id.role})
-        })
-        .catch(err => console.error(err))
-        setTimeout(() => {
-            if(this.state.role === "student"){
+            this.props.updateRole(localStorage.getItem('role'))
+            if(localStorage.getItem('role') === "student"){
                 this.props.history.push('/user')
-                console.log(this.props.history)
             }    
-            if(this.state.role === "tutor"){
+            if(localStorage.getItem('role') === "tutor"){
                 this.props.history.push('/teacher/tuitionpreference');
             }
-        }, 3000
-        )
+        })
+        .catch(err => console.error(err))
     }
     render() {
         let display = localStorage.getItem('token')?(
             localStorage.getItem('role') === "tutor"?(
-                <TuitionDetail/>
+                <TuitionPreference/>
             ):(
                 <Filter/>
             )

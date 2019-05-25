@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import NavBar from './Components/NavBar';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import grey from '@material-ui/core/colors/grey';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import LandingPage from './Components/LandingPage';
@@ -13,14 +13,16 @@ import StdCalendar from './Components/Calendar/calendar_std';
 import Calendar from './Components/Calendar';
 import TeacherDetail from './Components/Std/TeacherDetail';
 import TuitionPreference from './Components/Teacher/TuitionPreference';
-import NavStd from './Components/Std/NavBar'
+import NavStd from './Components/Std/NavBar';
+import NavTeacher from './Components/Teacher/NavBar';
+import Tutor_Editmyprofile from './Components/Teacher/EditMyProfile'
 
 
 const styles = {
 
   root: {
     marginTop: 0,
-  },
+  }
 }
 const THEME = createMuiTheme({
   typography: {
@@ -40,7 +42,6 @@ class App extends React.Component {
     colors: 'white',
     role: localStorage.getItem('role')
   }
-  
   changeLogin = (status) => {
     const { color, colors } = status
     this.setState({
@@ -48,14 +49,15 @@ class App extends React.Component {
       colors: colors
     })
   }
+  updateRole = (role) => {
+    this.setState({
+      role: role
+    })
+  }
   render() {
     let display;
     let navbar;
-    if (this.state.role != 'student' && this.state.role != 'tutor'){
-      navbar = (
-        <NavBar color = {this.state.color} colors = {this.state.colors}/>
-      )
-    }
+  
     if(this.state.role === "student"){
       navbar = (
         <NavStd />
@@ -75,7 +77,13 @@ class App extends React.Component {
     }
     if(this.state.role === "tutor"){
       display = (
-        <Route path = '/tutor/update_freetime' render ={() => <Calendar role={this.state.role}/>} />
+        <Fragment>
+          <Route path = '/teacher/tuitionpreference' render = {props => {
+          return <TuitionPreference />
+          }}/>
+          <Route path = '/teacher/editmyprofile' component = {Tutor_Editmyprofile}/>
+          <Route path = '/tutor/update_freetime' render ={() => <Calendar role={this.state.role}/>} />
+        </Fragment>
       )
     }
     return (
@@ -83,16 +91,18 @@ class App extends React.Component {
         <div style={styles.root}>
           <MuiThemeProvider theme={THEME}>
             {navbar}
-            <Route path='/signup' render = {props => {
-              return <Signup {... props}
-            />}}/>
-            <Route exact path='/' render = {props => {
-              return <LandingPage {... props}
-            />}} />
-            <Route path='/login' render = {props => {
-              return <Signin {... props} handleLogin = {this.handleLogin}
-            />}}/>
-            {display}
+            <Switch>
+              <Route path='/signup' render = {props => {
+                return <Signup {... props}
+              />}}/>
+              <Route exact path='/' render = {props => {
+                return <LandingPage {... props}
+              />}} />
+              <Route path='/login' render = {props => {
+                return <Signin {... props} updateRole = {this.updateRole}
+              />}}/>
+              {display}
+            </Switch>
           </MuiThemeProvider>
         </div>
       </BrowserRouter>

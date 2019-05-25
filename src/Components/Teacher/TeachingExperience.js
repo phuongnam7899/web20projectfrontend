@@ -8,7 +8,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 
 class EditMyProfile extends React.Component {
     state = {
-
+        
     };
 
     handleChange = name => event => {
