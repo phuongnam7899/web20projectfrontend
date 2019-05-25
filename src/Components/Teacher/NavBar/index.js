@@ -29,19 +29,19 @@ class NavBar extends React.Component {
 
               <Grid item xs={1}>
               <Typography color = {this.props.color} style = {{fontSize: 18}}>
-                <NavLink to = '/filter'  style={{ textDecoration: 'none', color: 'black'}}>My Calendar</NavLink>
+                <NavLink to = '/teacher/my_calendar'  style={{ textDecoration: 'none', color: 'black'}}>MY CALENDAR</NavLink>
               </Typography>
               </Grid>
 
               <Grid item xs={1}>
               <Typography color = {this.props.color} style = {{fontSize: 18}}>
-                <NavLink to = '/student/tuitiondetail' style ={{ textDecoration: 'none', color: 'black'}} >MY TUITION</NavLink>
+                <NavLink to = '/teacher/tuitiondetail' style ={{ textDecoration: 'none', color: 'black'}} >MY TUITION</NavLink>
               </Typography>
               </Grid>
 
               <Grid item xs={1}>
               <Typography color = {this.props.color} style = {{fontSize: 18}} noWrap>
-                STUDENT'S NAME
+                TUTOR'S NAME
               </Typography>
               </Grid>
 

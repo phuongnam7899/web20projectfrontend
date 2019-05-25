@@ -14,8 +14,8 @@ import Calendar from './Components/Calendar';
 import TeacherDetail from './Components/Std/TeacherDetail';
 import TuitionPreference from './Components/Teacher/TuitionPreference';
 import NavStd from './Components/Std/NavBar'
-
-
+import NavTutor from './Components/Teacher/NavBar'
+import MyDetail from './Components/Teacher/TeacherDetail'
 const styles = {
 
   root: {
@@ -51,7 +51,7 @@ class App extends React.Component {
   render() {
     let display;
     let navbar;
-    if (this.state.role != 'student' && this.state.role != 'tutor'){
+    if (this.state.role !== 'student' && this.state.role !== 'tutor'){
       navbar = (
         <NavBar color = {this.state.color} colors = {this.state.colors}/>
       )
@@ -68,7 +68,8 @@ class App extends React.Component {
           <Route path = '/student/book_class' render ={() => <Calendar role="student"/>} /> 
           <Route path = '/user'  render = {props => {
               return <TuitionDetail {... props}
-          />}}/> 
+          />}}/>
+          <Route path = '/teacherdetail' component = {TeacherDetail}/>
         </Fragment>  
       )
     }

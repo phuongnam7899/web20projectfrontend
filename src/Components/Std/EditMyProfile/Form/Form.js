@@ -11,7 +11,7 @@ import FormHelperText from '@material-ui/core/FormHelperText'
 import Typography from '@material-ui/core/Typography'
 import { withFormik, Form } from 'formik';
 import * as Yup from 'yup';
-
+import axios from '../../../../axios'
 
 const FormDefault = ({ values, handleChange, errors, touched, handleblur }) => {
     return (
@@ -215,7 +215,25 @@ const FormikForm = withFormik({
             .min(8, 'Password must have min 8 characters')
     }),
     handleSubmit(values) {
-        console.log(this.props)
+        axios({
+            method:'put',
+            url : '/api/user',
+            data : {
+                address: values.address,
+                date_of_birth: values.dob,
+                first_name : values.firstname,
+                gender_name: values.gender,
+                last_name: values.lastname,
+                nationality_name: values.nation,
+                postal_code: values.payment,
+                paypal_email: values.paypal,
+                phone_number:values.phonenumber,
+                _id: localStorage.getItem('user_id')
+            },
+            headers: { 'X-Auth-Token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRoYW9ucDA0MTA5OUBnbWFpbC5jb20iLCJwYXNzd29yZCI6IjEyMzQ1NiIsImlhdCI6MTU1ODMyOTI1NX0.lkqx-o-14-saMoKmbEJQKWqIUSyTgyMZtdv5QLjQ-1c' }
+        }).then(() => {
+            console.log('updated')
+        })
     }
 
 })(FormDefault)

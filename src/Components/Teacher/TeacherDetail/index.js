@@ -43,9 +43,8 @@ function TeacherDetail(props) {
   return (
     <div className={classes.root}>
       <Grid container xs={24} justify = 'space-between'>
-        <Grid item xs = {12}>
         <Paper className={classes.background}>
-          <Grid container xs={12}>
+          <Grid container xs={16}>
             <Grid item xs={2}>
               <Card className={classes.card}>
                 <CardActionArea>
@@ -69,14 +68,13 @@ function TeacherDetail(props) {
             </Grid>
           </Grid>
           <Grid container xs={12} direction='column'>
-            <TextField/>
-            <TextField/>
-            <TextField/>
-            <TextField/>
+            <TextField />
+            <TextField tag='Teaches' content='Doctoral' />
+            <TextField tag='Teaching Experience' content='2018 - 2020 : Expert Programming' />
+            <TextField tag='Teaching Subject' content='XXX' />
           </Grid>
         </Paper>
-        </Grid>
-        <Grid item xs={4} direction='column'>
+        <Grid container xs={4} direction='column'>
           <Paper className={classes.background1} style={{ marginLeft: 80 }} >
             <Grid item>
               <Typography variant='h5'>Add Schedule</Typography>

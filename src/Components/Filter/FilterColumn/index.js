@@ -1,37 +1,106 @@
-import React from 'react';
-import Button from '@material-ui/core/Button';
-import Menu from '../../Menu'
-import Grid from '@material-ui/core/Grid';
+import React from 'react'
+import FormControl from '@material-ui/core/FormControl'
+import InputLabel from '@material-ui/core/InputLabel'
+import Grid from '@material-ui/core/Grid'
+import Select from '@material-ui/core/Select'
+import MenuItem from '@material-ui/core/MenuItem'
+import { withFormik, Form } from 'formik'
+import Button from '@material-ui/core/Button'
+import axios from '../../../axios'
 
-class FilterColumn extends React.Component {
-    render() {
-        return (
-            <div style={{ margin: '0px 80px' }}>
-                <Grid container xs={12} style={{ marginTop: 60, marginLeft: 80 }} direction='column'>
-                    <Grid item xs={3}>
-                        <Menu name='Language Spoken' />
-                    </Grid>
-                    <Grid item xs={2}>
-                        <Menu name='Gender' />
-                    </Grid>
-                    <Grid item xs={2}>
-                        <Menu name='Nationality' />
-                    </Grid>
-                    <Grid item xs={2}>
-                        <Menu name='Education' />
-                    </Grid>
-                    <Grid item xs={2}>
-                        <Menu name='Age' />
-                    </Grid>
-                    <Grid container xs={3} alignContent='center'>
-                        <Button style={{ backgroundColor: '#52C1C8', color: "#FFFFFF", paddingLeft: 60, paddingRight: 60 }} >Filter</Button>
-                    </Grid>
-                    <Grid container xs={3} alignContent='center'>
-                        <Button variant="outlined" style={{ backgroundColor: '#FFFFFF', color: "#52C1C8", paddingLeft: 60, paddingRight: 60, marginTop: 10 }} >Reset</Button>
-                    </Grid>
-                </Grid>
-            </div>)
-    }
+const FilterColumn = ({values, handleChange}) => {
+    return(
+        <Grid container xs={12} style={{ marginTop: 10, marginLeft: 80 }}justify='center' direction="column">
+            <Grid item xs={2}>
+                <Form>
+                    <FormControl fullWidth margin='normal'>
+                        <InputLabel>Language</InputLabel>
+                        <Select
+                            displayEmpty
+                            name='language'
+                            value={values.language}
+                            onChange={handleChange}
+                        >
+                            <MenuItem value={'english'}>English</MenuItem>
+                            <MenuItem value={'german'}>German</MenuItem>
+                            <MenuItem value={'vietnamese'}>Vietnamese</MenuItem>
+                            <MenuItem value={'mandarin'}>Mandarin</MenuItem>
+                        </Select>
+                    </FormControl>
+                </Form>
+            </Grid>
 
+            <Grid item xs={2}>
+                <Form>
+                    <FormControl fullWidth margin='normal'>
+                        <InputLabel>Education</InputLabel>
+                        <Select
+                            displayEmpty
+                            name='education'
+                            value={values.education}
+                            onChange={handleChange}
+                        >
+                            <MenuItem value={'highschool'}>High School</MenuItem>
+                            <MenuItem value={'kindergarten'}>Kindergarten</MenuItem>
+                            <MenuItem value={'University'}>University</MenuItem>
+                        </Select>
+                    </FormControl>
+                </Form>
+            </Grid>
+            <Grid item xs= {2}>
+                <Form>
+                    <FormControl fullWidth margin='normal'>
+                        <InputLabel>Gender</InputLabel>
+                        <Select
+                            displayEmpty
+                            name='gender'
+                            value={values.gender}
+                            onChange={handleChange}
+                        >
+                            <MenuItem value={'male'}>Male</MenuItem>
+                            <MenuItem value={'female'}>Female</MenuItem>
+                        </Select>
+                    </FormControl>
+
+                    <FormControl fullWidth margin='normal'>
+                        <Button
+                            variant='extendedFab'
+                            color='primary'
+                            type='submit'
+                            style={{ backgroundColor: '#52C1C8', color: "#FFFFFF", paddingLeft : 60, paddingRight: 60, marginTop : 10}}
+                        >
+                            Filter
+                        </Button>
+                    </FormControl>
+                </Form>
+            </Grid>
+        </Grid>
+
+    )
 }
-export default FilterColumn;
+
+const FormikForm = withFormik({
+    mapPropsToValues({ }) {
+        return {
+            language: '',
+            education: '',
+            gender: ''
+        }
+    },
+    handleSubmit(values) {
+        console.log(values)
+        axios({ 
+            method : 'post',
+            url: '/api/user/tutor/filter',
+            data: {
+                language_name: values.language,
+                academic_level_name: values.education,
+                gender_name: values.gender,
+            },
+            headers: { 'X-Auth-Token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRoYW9ucDA0MTA5OUBnbWFpbC5jb20iLCJwYXNzd29yZCI6IjEyMzQ1NiIsImlhdCI6MTU1ODMyOTI1NX0.lkqx-o-14-saMoKmbEJQKWqIUSyTgyMZtdv5QLjQ-1c' } 
+        }).then(data => console.log(data))
+    }
+})(FilterColumn)
+
+
+export default FormikForm 

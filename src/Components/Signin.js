@@ -44,17 +44,12 @@ class CreateAccount extends React.Component {
             //lay role va luu vao localStorage
             localStorage.setItem('role', sent_data.data.userInfo.user_id.role);
             localStorage.setItem("id",sent_data.data.userInfo._id);
-<<<<<<< HEAD
             console.log(localStorage.getItem('role'));
             this.setState(
                 {
                     role: sent_data.data.userInfo.user_id.role,
                 }
             )
-=======
-            console.log(localStorage.id);
-            this.setState({role: sent_data.data.userInfo.user_id.role})
->>>>>>> 71df502a3a6a443a6812dbbd740fbf23a26866bb
         })
         .catch(err => console.error(err))
         setTimeout(() => {
