@@ -6,6 +6,7 @@ import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
 import { withFormik, Form } from 'formik'
 import Button from '@material-ui/core/Button'
+import axios from '../../../axios'
 
 const FilterBar = ({ values, handleChange }) => {
     return (
@@ -97,7 +98,7 @@ const FilterBar = ({ values, handleChange }) => {
         </Grid>
 
     )
-}
+} 
 
 const FormikForm = withFormik({
     mapPropsToValues({ }) {
@@ -108,9 +109,19 @@ const FormikForm = withFormik({
             course: ''
         }
     },
-    handleSubmit(values) {
-        console.log(values)
+    handleSubmit(values, { props }) {
+        const { changeTutors } = props;
+        axios({
+            method : 'post',
+            url: '/api/user/tutor/filter',
+            data: {
+                country_name: values.country,
+                academic_level: values.level,
+            },
+            headers: { 'X-Auth-Token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRoYW9ucDA0MTA5OUBnbWFpbC5jb20iLCJwYXNzd29yZCI6IjEyMzQ1NiIsImlhdCI6MTU1ODMyOTI1NX0.lkqx-o-14-saMoKmbEJQKWqIUSyTgyMZtdv5QLjQ-1c' } 
+        }).then((data) => {
+            changeTutors(data.data)})
     }
 })(FilterBar)
 
-export default FormikForm;
+export default FormikForm; 

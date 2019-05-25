@@ -13,11 +13,17 @@ import StdCalendar from './Components/Calendar/calendar_std';
 import Calendar from './Components/Calendar';
 import TeacherDetail from './Components/Std/TeacherDetail';
 import TuitionPreference from './Components/Teacher/TuitionPreference';
+<<<<<<< HEAD
+import NavStd from './Components/Std/NavBar'
+import NavTutor from './Components/Teacher/NavBar'
+import MyDetail from './Components/Teacher/TeacherDetail'
+=======
 import NavStd from './Components/Std/NavBar';
 import NavTeacher from './Components/Teacher/NavBar';
 import Tutor_Editmyprofile from './Components/Teacher/EditMyProfile'
 
 
+>>>>>>> 6c20d76682b45cb69999ebb95a11eadaffa5f0ae
 const styles = {
 
   root: {
@@ -58,7 +64,7 @@ class App extends React.Component {
   render() {
     let display;
     let navbar;
-    if (this.state.role != 'student' && this.state.role != 'tutor') {
+    if (this.state.role !== 'student' && this.state.role !== 'tutor'){
       navbar = (
         <NavBar color={this.state.color} colors={this.state.colors} />
       )
