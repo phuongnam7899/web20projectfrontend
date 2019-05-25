@@ -214,10 +214,12 @@ const FormikForm = withFormik({
             .min(8, 'Password must have min 8 characters')
     }),
     handleSubmit(values) {
+        const id = localStorage.getItem('user_id')
         axios({
             method:'put',
-            url : '/api/user',
+            url : `/api/user?token=${localStorage.getItem('token')}`,
             data : {
+                id:id,
                 address: values.address,
                 date_of_birth: values.dob,
                 first_name : values.firstname,
@@ -227,12 +229,12 @@ const FormikForm = withFormik({
                 postal_code: values.payment,
                 paypal_email: values.paypal,
                 phone_number:values.phonenumber,
-                _id: localStorage.getItem('user_id')
             },
             headers: { 'X-Auth-Token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRoYW9ucDA0MTA5OUBnbWFpbC5jb20iLCJwYXNzd29yZCI6IjEyMzQ1NiIsImlhdCI6MTU1ODMyOTI1NX0.lkqx-o-14-saMoKmbEJQKWqIUSyTgyMZtdv5QLjQ-1c' }
-        }).then(() => {
-            console.log('updated')
+        }).then((updated) => {
+            console.log(updated)
         })
+        .catch(err => console.log(err))
     }
 
 })(FormDefault)

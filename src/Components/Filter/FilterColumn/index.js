@@ -10,8 +10,8 @@ import axios from '../../../axios'
 
 const FilterColumn = ({values, handleChange}) => {
     return(
-        <Grid container xs={12} style={{ marginTop: 10, marginLeft: 80 }}justify='center' direction="column">
-            <Grid item xs={2}>
+        <Grid container xs={12} style={{ marginTop: 80, marginLeft: 140 }}justify='center' direction="column">
+            <Grid item xs={5}>
                 <Form>
                     <FormControl fullWidth margin='normal'>
                         <InputLabel>Language</InputLabel>
@@ -30,7 +30,7 @@ const FilterColumn = ({values, handleChange}) => {
                 </Form>
             </Grid>
 
-            <Grid item xs={2}>
+            <Grid item xs={5}>
                 <Form>
                     <FormControl fullWidth margin='normal'>
                         <InputLabel>Education</InputLabel>
@@ -47,7 +47,7 @@ const FilterColumn = ({values, handleChange}) => {
                     </FormControl>
                 </Form>
             </Grid>
-            <Grid item xs= {2}>
+            <Grid item xs= {5}>
                 <Form>
                     <FormControl fullWidth margin='normal'>
                         <InputLabel>Gender</InputLabel>

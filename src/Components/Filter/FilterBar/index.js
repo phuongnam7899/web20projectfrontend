@@ -10,10 +10,10 @@ import axios from '../../../axios'
 
 const FilterBar = ({ values, handleChange }) => {
     return (
-        <Grid container style={{ marginTop: 150 }}justify='center' direction="row">
+        <Grid container style={{ backgroundColor:"#eeeeee" }}justify='space-around' direction="row" xs = {12}>
             <Grid item xs={2}>
                 <Form>
-                    <FormControl fullWidth margin='normal'>
+                    <FormControl style = {{width: 150, marginLeft: 80}} margin='normal'>
                         <InputLabel>Academic Level</InputLabel>
                         <Select
                             displayEmpty
@@ -28,9 +28,9 @@ const FilterBar = ({ values, handleChange }) => {
                 </Form>
             </Grid>
 
-            <Grid item xs={2}>
+            <Grid item xs={1}>
                 <Form>
-                    <FormControl fullWidth margin='normal'>
+                    <FormControl style = {{width: 150}} margin='normal'>
                         <InputLabel>Grade</InputLabel>
                         <Select
                             displayEmpty
@@ -47,9 +47,9 @@ const FilterBar = ({ values, handleChange }) => {
                 </Form>
             </Grid>
 
-            <Grid item xs={2}>
+            <Grid item xs={1}>
                 <Form>
-                    <FormControl fullWidth margin='normal'>
+                    <FormControl style = {{width: 150}} margin='normal'>
                         <InputLabel>Course</InputLabel>
                         <Select
                             displayEmpty
@@ -66,9 +66,9 @@ const FilterBar = ({ values, handleChange }) => {
                 </Form>
             </Grid>
 
-            <Grid item xs= {2}>
+            <Grid item xs= {4}>
                 <Form>
-                    <FormControl fullWidth margin='normal'>
+                    <FormControl style = {{width: 150}} margin='normal'>
                         <InputLabel>Select Country</InputLabel>
                         <Select
                             displayEmpty
@@ -83,7 +83,7 @@ const FilterBar = ({ values, handleChange }) => {
                         </Select>
                     </FormControl>
 
-                    <FormControl fullWidth margin='normal'>
+                    <FormControl style = {{width: 150, marginLeft: 50}} margin='normal'>
                         <Button
                             variant='extendedFab'
                             color='primary'
@@ -94,7 +94,7 @@ const FilterBar = ({ values, handleChange }) => {
                         </Button>
                     </FormControl>
                 </Form>
-            </Grid>
+                </Grid>
         </Grid>
 
     )

@@ -103,7 +103,7 @@ class Calendar extends React.Component {
 
         // console.log(this.state.addEvents);
         return (
-            <Grid style={{ marginTop : 100 }}>
+            <Grid style={{ marginTop : 150 }}>
                 <BigCalendar
                     updateOldEvents={this.updateOldEvents}
                     dataFromProps={oldEvents}

@@ -17,25 +17,25 @@ class NavBar extends React.Component {
   
   render () {
     return (
-      <div style = {{marginLeft : 80}}>
-        <AppBar position='absolute' style={{ background: 'transparent', boxShadow: 'none', paddingTop : 30}}>
+      <div style = {{marginLeft : 0}}>
+        <AppBar position='static' style={{ background: '#52C1C8', boxShadow: 'none', paddingTop : 30}}>
           <ToolBar>
           <Grid container xs={12} >
               <Grid item xs={7}>
-                <Typography color={this.props.color} noWrap style = {{fontSize: 40, marginLeft : 80}}>
+                <Typography noWrap style = {{fontSize: 40, marginLeft : 80, color: 'white', fontWeight: 700}}>
                   X TUTOR
                 </Typography>
               </Grid>
 
               <Grid item xs={1}>
               <Typography color = {this.props.color} style = {{fontSize: 18}}>
-                <NavLink to = '/filter'  style={{ textDecoration: 'none', color: 'black'}}>FIND A TUTOR</NavLink>
+                <NavLink to = '/filter'  style={{ textDecoration: 'none', color: 'black', fontWeight : 500}} margin = 'auto'>FIND A TUTOR</NavLink>
               </Typography>
               </Grid>
 
               <Grid item xs={1}>
               <Typography color = {this.props.color} style = {{fontSize: 18}}>
-                <NavLink to = '/student/tuitiondetail' style ={{ textDecoration: 'none', color: 'black'}} >MY TUITION</NavLink>
+                <NavLink to = '/user' style ={{ textDecoration: 'none', color: 'black'}} >MY TUITION</NavLink>
               </Typography>
               </Grid>
 

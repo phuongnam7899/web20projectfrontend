@@ -3,7 +3,7 @@ import AppBar from '@material-ui/core/AppBar'
 import ToolBar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid';
-import Menu from '../../Menu'
+import Menu from './Menu'
 import {NavLink} from 'react-router-dom'
 
 class NavBar extends React.Component {
@@ -18,7 +18,7 @@ class NavBar extends React.Component {
   render () {
     return (
       <div style = {{marginLeft : 80}}>
-        <AppBar position='absolute' style={{ background: 'transparent', boxShadow: 'none', paddingTop : 30}}>
+        <AppBar position='static' style={{ background: 'transparent', boxShadow: 'none', paddingTop : 30}}>
           <ToolBar>
           <Grid container xs={12} >
               <Grid item xs={7}>
@@ -29,19 +29,19 @@ class NavBar extends React.Component {
 
               <Grid item xs={1}>
               <Typography color = {this.props.color} style = {{fontSize: 18}}>
-                <NavLink to = '/teacher/my_calendar'  style={{ textDecoration: 'none', color: 'black'}}>MY CALENDAR</NavLink>
+                <NavLink to = '/tutor/update_freetime'  style={{ textDecoration: 'none', color: 'black'}}>MY CALENDAR</NavLink>
               </Typography>
               </Grid>
 
               <Grid item xs={1}>
               <Typography color = {this.props.color} style = {{fontSize: 18}}>
-                <NavLink to = '/teacher/tuitiondetail' style ={{ textDecoration: 'none', color: 'black'}} >MY TUITION</NavLink>
+                <NavLink to = 'tutor/my_profile' style ={{ textDecoration: 'none', color: 'black'}} >MY PROFILE</NavLink>
               </Typography>
               </Grid>
 
               <Grid item xs={1}>
               <Typography color = {this.props.color} style = {{fontSize: 18}} noWrap>
-                TUTOR'S NAME
+                TEACHER'S NAME
               </Typography>
               </Grid>
 

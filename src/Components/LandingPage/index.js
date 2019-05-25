@@ -24,10 +24,10 @@ const LandingPage = () => {
 
   return (
     <div fullWidth>
-      <Paper style={styles.paperContainer}>
+      {/* <Paper style={styles.paperContainer}> */}
       <LText/>
       <BookingButton/>
-        </Paper>
+        {/* </Paper> */}
       
 
 

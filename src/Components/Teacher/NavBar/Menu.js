@@ -6,10 +6,10 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import axios from '../../../axios';
 import LandingPage from '../../LandingPage'
 const options = [
-  'None',
   'Sign Out',
   'Edit Profile',
-  'My Calendar'
+  'Edit Preference',
+  'My Calendar',
 ];
 const ITEM_HEIGHT = 48;
 
@@ -26,7 +26,7 @@ class LongMenu extends React.Component {
     this.setState({ anchorEl: null });
   };
   handleMenuItem = (index) => {
-    if(index == 1){
+    if(index == 0){
       console.log("sign out");
       axios.get(`api/auth/logout?token=${localStorage.getItem('token')}`)
       .then(() => {
@@ -41,11 +41,15 @@ class LongMenu extends React.Component {
 
     }
     if(index == 2){
-      console.log("edit")
+      console.log("edit profile")
     }
     if(index == 3){
-      console.log("my calendar")
+      console.log("edit preference")
     }
+    if(index == 4){
+      console.log("calendar")
+    }
+    
   }
   render() {
     const { anchorEl } = this.state;
