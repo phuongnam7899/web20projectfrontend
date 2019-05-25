@@ -13,6 +13,7 @@ import Paper from '@material-ui/core/Paper'
 import Menu from '../../Menu'
 import Calendar from '../../Calendar'
 import axios from '../../../axios';
+import _ from "lodash";
 
 
 
@@ -28,12 +29,17 @@ class TeacherDetail extends React.Component {
   componentDidMount() {
     axios.get(`/api/user/tutor/${this.props.tutor_id}`, {
       headers: { 'X-Auth-Token': `${localStorage.token}` },
-    }).then((data) => {this.setState({tutorInfo : data.data});console.log(data.data)})
+    }).then((data) => { this.setState({ tutorInfo: data.data }); console.log(this.state.tutorInfo) })
   }
   render() {
 
     const { classes } = this.props;
-    const {tutorInfo} = this.state;
+    const { tutorInfo } = this.state;
+    // const { user_id } = tutorInfo;
+    if (_.isEmpty(tutorInfo)) {
+      return "Loading"
+    }
+    console.log(tutorInfo);
     return (
       <div className={classes.root}>
         <Grid container xs={24} justify='space-between'>
@@ -52,20 +58,23 @@ class TeacherDetail extends React.Component {
               </Grid>
               <Grid item xs={7} style={{ marginLeft: 30 }}>
                 <Typography variant='h5'>
-                  {` ${tutorInfo.user_id.first_name} ${tutorInfo.user_id.last_name} `}
+                  {` ${tutorInfo.user_id.profile.first_name} ${tutorInfo.user_id.profile.last_name} `}
                 </Typography>
                 <Grid container xs={12} spacing={50} style={{ marginTop: 10 }}>
-                  <Field tag='Subject' content='English' />
-                  <Field tag='Teaches' content='Dotoral' />
-                  <Field tag='Resides In' content='Ha Noi' />
+                  <Field tag='Date of birth' content={tutorInfo.user_id.profile.date_of_birth} />
+                  <Field tag='Gender' content={tutorInfo.user_id.profile.gender_name} />
+                  <Field tag='Resides In' content={tutorInfo.user_id.profile.city_name} />
+                  <Field tag='Phone number' content={tutorInfo.user_id.profile.phone_number} />
                 </Grid>
               </Grid>
             </Grid>
             <Grid container xs={12} direction='column'>
-              <TextField tag='Speak/Language' content='English' />
-              <TextField tag='Teaches' content='Doctoral' />
-              <TextField tag='Teaching Experience' content='2018 - 2020 : Expert Programming' />
-              <TextField tag='Teaching Subject' content='XXX' />
+              <TextField tag='About me' content={tutorInfo.reference.about_me} />
+              <TextField tag='Major' content={tutorInfo.reference.major} />
+              <TextField tag='Certificate' content={tutorInfo.reference.certificate} />
+              <TextField tag='Speak/Language' content={tutorInfo.user_id.profile.language_name} />
+              <TextField tag='Teaching Experience' content={tutorInfo.working_experience} />
+              <TextField tag='Teaching Subject'content={tutorInfo.teaching_subject} />
             </Grid>
           </Paper>
           <Grid container xs={4} direction='column'>

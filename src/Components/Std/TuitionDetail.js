@@ -56,49 +56,48 @@ class User extends React.Component {
     return (
       <div>
         {this.state.classes.map((one_class) => {
-                console.log(this.state.classes)
-            return(
-              <div>
-                <Grid container xs={11} justify='space-between'>
-          <Typography style={{ marginTop: 162, fontSize: 18, marginLeft: 400 }}>
-           {one_class.subject}
-      </Typography>
-          <CancelTuition />
-        </Grid>
-        <Grid item xs={11}>
-          <Paper className={classes.root}>
-            <Table className={classes.table} border={0}>
-              <TableBody>
-                <TableRow>
-                  <TableCell align="left" scope="row" >Fee : {one_class.hourly_rate}$/hour </TableCell>
-                  <TableCell align="left" scope="row" > Number of lessons: {one_class.sessions.length} </TableCell>
-                </TableRow>
-              </TableBody>
-            </Table>
-
-          </Paper>
-        </Grid>
-        <Grid container justify='flexstart' xs={11} style={{ marginBottom: 20 }}>
-          <Typography style={{ fontSize: 14, marginLeft: 400, marginTop: 10 }}>
-            Session 1 - Session {one_class.sessions.length}
-      </Typography>
-          <Button style={{ marginTop: 10, marginLeft: 10, backgroundColor: '#B23B37', color: "#ffffff", width: 44, height: 20, fontSize: 14, paddingTop: 0 }}>Hold</Button>
-        </Grid>
-        <Grid container spacing={8} style={{ marginLeft: 400 }} xs={8}>
-          <Grid container item xs={12} spacing={24} className={classes.listSession}>
-                  {one_class.sessions.map((session,index) => {
-                    return(
-                      <div>
-                        <Grid item>
-                          <SessionCard ss_name={`Session ${index + 1}`} date={session.start.slice(0,10)} time={session.start.slice(10,16)} />
-                        </Grid>
-                      </div>
-                    )
-                  })}
-          </Grid>
-        </Grid>
-              </div>
-            )
+          console.log(this.state.classes)
+          return(
+            <div>
+              <Grid container xs={11} justify='space-between'>
+                <Typography style={{ marginTop: 162, fontSize: 18, marginLeft: 400 }}>
+                {one_class.subject}
+                </Typography>
+                <CancelTuition />
+              </Grid>
+              <Grid item xs={11}>
+              <Paper className={classes.root}>
+                <Table className={classes.table} border={0}>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell align="left" scope="row" >Fee : {one_class.hourly_rate}$/hour </TableCell>
+                      <TableCell align="left" scope="row" > Number of lessons: {one_class.sessions.length} </TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </Paper>
+              </Grid> 
+              <Grid container justify='flexstart' xs={11} style={{ marginBottom: 20 }}>
+                <Typography style={{ fontSize: 14, marginLeft: 400, marginTop: 10 }}>
+                  Session 1 - Session {one_class.sessions.length}
+                </Typography>
+                <Button style={{ marginTop: 10, marginLeft: 10, backgroundColor: '#B23B37', color: "#ffffff", width: 44, height: 20, fontSize: 14, paddingTop: 0 }}>Hold</Button>
+              </Grid>
+              <Grid container spacing={8} style={{ marginLeft: 400 }} xs={8}>
+                <Grid container item xs={12} spacing={24} className={classes.listSession}>
+                {one_class.sessions.map((session,index) => {
+                  return(
+                    <div>
+                      <Grid item>
+                        <SessionCard ss_name={`Session ${index + 1}`} date={session.start.slice(0,10)} time={session.start.slice(10,16)} />
+                      </Grid>
+                    </div>
+                  )
+                })}
+                </Grid>
+              </Grid>
+            </div>
+          )
         })} 
       </div>
     );

@@ -1,32 +1,116 @@
-import React from 'react';
-import Button from '@material-ui/core/Button';
-import Menu from '../../Menu';
-import Grid from '@material-ui/core/Grid';
+import React from 'react'
+import FormControl from '@material-ui/core/FormControl'
+import InputLabel from '@material-ui/core/InputLabel'
+import Grid from '@material-ui/core/Grid'
+import Select from '@material-ui/core/Select'
+import MenuItem from '@material-ui/core/MenuItem'
+import { withFormik, Form } from 'formik'
+import Button from '@material-ui/core/Button'
 
-class FilterBar extends React.Component {
-    render() {
-        return (
-            <div style={{ margin: '0px 80px' }}>
-                <Grid container xs={12} style={{ marginTop: 100, marginLeft: 80 }}>
-                    <Grid item xs={3}>
-                        <Menu name='Select Country' />
-                    </Grid>
-                    <Grid item xs={2}>
-                        <Menu name='Academic Level' />
-                    </Grid>
-                    <Grid item xs={2}>
-                        <Menu name='Your Grade' />
-                    </Grid>
-                    <Grid item xs={2}>
-                        <Menu name='Course' />
-                    </Grid>
-                    <Grid container xs={3} alignContent='center'>
-                        <Button onClick={this} style={{ backgroundColor: '#52C1C8', color: "#FFFFFF", paddingLeft: 60, paddingRight: 60 }} >Go</Button>
-                    </Grid>
-                </Grid>
-            </div>
-        );
-    }
+const FilterBar = ({ values, handleChange }) => {
+    return (
+        <Grid container style={{ marginTop: 150 }}justify='center' direction="row">
+            <Grid item xs={2}>
+                <Form>
+                    <FormControl fullWidth margin='normal'>
+                        <InputLabel>Academic Level</InputLabel>
+                        <Select
+                            displayEmpty
+                            name='level'
+                            value={values.level}
+                            onChange={handleChange}
+                        >
+                            <MenuItem value={'highschool'}>High School</MenuItem>
+                            <MenuItem value={'uni'}>University</MenuItem>
+                        </Select>
+                    </FormControl>
+                </Form>
+            </Grid>
 
+            <Grid item xs={2}>
+                <Form>
+                    <FormControl fullWidth margin='normal'>
+                        <InputLabel>Grade</InputLabel>
+                        <Select
+                            displayEmpty
+                            name='grade'
+                            value={values.grade}
+                            onChange={handleChange}
+                        >
+                            <MenuItem value={'grade1'}>Grade 1</MenuItem>
+                            <MenuItem value={'grade2'}>Grade 2</MenuItem>
+                            <MenuItem value={'grade3'}>Grade 3</MenuItem>
+
+                        </Select>
+                    </FormControl>
+                </Form>
+            </Grid>
+
+            <Grid item xs={2}>
+                <Form>
+                    <FormControl fullWidth margin='normal'>
+                        <InputLabel>Course</InputLabel>
+                        <Select
+                            displayEmpty
+                            name='course'
+                            value={values.course}
+                            onChange={handleChange}
+                        >
+                            <MenuItem value={'beginner'}>Beginner</MenuItem>
+                            <MenuItem value={'intermediate'}>Intermadiate</MenuItem>
+                            <MenuItem value={'advance'}>Advance</MenuItem>
+
+                        </Select>
+                    </FormControl>
+                </Form>
+            </Grid>
+
+            <Grid item xs= {2}>
+                <Form>
+                    <FormControl fullWidth margin='normal'>
+                        <InputLabel>Select Country</InputLabel>
+                        <Select
+                            displayEmpty
+                            name='country'
+                            value={values.country}
+                            onChange={handleChange}
+                        >
+                            <MenuItem value={'usa'}>USA</MenuItem>
+                            <MenuItem value={'aus'}>Australia</MenuItem>
+                            <MenuItem value={'eng'}>England</MenuItem>
+                            <MenuItem value={'vn'}>Vietnam</MenuItem>
+                        </Select>
+                    </FormControl>
+
+                    <FormControl fullWidth margin='normal'>
+                        <Button
+                            variant='extendedFab'
+                            color='primary'
+                            type='submit'
+                            style={{backgroundColor: '#52C1C8', color: "#FFFFFF"}}
+                        >
+                            Go
+                        </Button>
+                    </FormControl>
+                </Form>
+            </Grid>
+        </Grid>
+
+    )
 }
-export default FilterBar;
+
+const FormikForm = withFormik({
+    mapPropsToValues({ }) {
+        return {
+            level: '',
+            country: '',
+            grade: '',
+            course: ''
+        }
+    },
+    handleSubmit(values) {
+        console.log(values)
+    }
+})(FilterBar)
+
+export default FormikForm;

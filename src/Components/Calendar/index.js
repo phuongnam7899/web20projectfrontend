@@ -7,7 +7,7 @@ class Calendar extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            firstEvvents: [],
+            firstEvents: [],
             oldEvents: [],
             addEvents: [],
             subject: "Math",
@@ -16,7 +16,7 @@ class Calendar extends React.Component {
         this.updateOldEvents = this.updateOldEvents.bind(this);
     }
     componentDidMount() {
-        axios.get(`/api/class/${localStorage.role}/${localStorage.id}`, {
+        axios.get(`/api/class/tutor/${this.props.tutor_id}`, {
                 headers: {'X-Auth-Token': `${localStorage.token}`},
             })
             .then(data => {
@@ -24,7 +24,7 @@ class Calendar extends React.Component {
                 // console.log(events);
                 if (this.props.role === "student") {
                     events.forEach(element => {
-                        if (element.title !== "free time") {
+                        if (element.status !== "free_time") {
                             element.status = "booked";
                         }
                         else {
