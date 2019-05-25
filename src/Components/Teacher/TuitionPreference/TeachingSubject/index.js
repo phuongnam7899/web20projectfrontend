@@ -5,7 +5,7 @@ import { Button } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography'
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
-import Menu from '../Menu'
+import Menu from '../../../Menu'
 
 class EditMyProfile extends React.Component {
     state = {

@@ -26,10 +26,11 @@ class LongMenu extends React.Component {
     this.setState({ anchorEl: null });
   };
   handleMenuItem = (index) => {
-    if(index == 1){
+    if(index === 1){
       console.log("sign out");
       axios.get(`api/auth/logout?token=${localStorage.getItem('token')}`)
       .then(() => {
+          console.log('ghjhgg')
           localStorage.removeItem('role');
           localStorage.removeItem('token');
           localStorage.removeItem('id');
