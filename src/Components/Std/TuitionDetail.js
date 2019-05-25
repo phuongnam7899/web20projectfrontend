@@ -50,6 +50,7 @@ class User extends React.Component {
 
   render() {
     const { classes } = this.props;
+    console.log(this.state.classes)
     if (_.isEmpty(this.state.classes)) {
       return `loading`
     }

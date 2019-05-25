@@ -6,11 +6,12 @@ import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
 import { withFormik, Form } from 'formik'
 import Button from '@material-ui/core/Button'
+import axios from '../../../axios'
 
 const FilterColumn = ({values, handleChange}) => {
     return(
-        <Grid container xs={12} style={{ marginTop: 10, marginLeft: 80 }}justify='center' direction="column">
-            <Grid item xs={2}>
+        <Grid container xs={12} style={{ marginTop: 80, marginLeft: 140 }}justify='center' direction="column">
+            <Grid item xs={5}>
                 <Form>
                     <FormControl fullWidth margin='normal'>
                         <InputLabel>Language</InputLabel>
@@ -29,7 +30,7 @@ const FilterColumn = ({values, handleChange}) => {
                 </Form>
             </Grid>
 
-            <Grid item xs={2}>
+            <Grid item xs={5}>
                 <Form>
                     <FormControl fullWidth margin='normal'>
                         <InputLabel>Education</InputLabel>
@@ -46,7 +47,7 @@ const FilterColumn = ({values, handleChange}) => {
                     </FormControl>
                 </Form>
             </Grid>
-            <Grid item xs= {2}>
+            <Grid item xs= {5}>
                 <Form>
                     <FormControl fullWidth margin='normal'>
                         <InputLabel>Gender</InputLabel>
@@ -88,8 +89,18 @@ const FormikForm = withFormik({
     },
     handleSubmit(values) {
         console.log(values)
+        axios({ 
+            method : 'post',
+            url: '/api/user/tutor/filter',
+            data: {
+                language_name: values.language,
+                academic_level_name: values.education,
+                gender_name: values.gender,
+            },
+            headers: { 'X-Auth-Token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRoYW9ucDA0MTA5OUBnbWFpbC5jb20iLCJwYXNzd29yZCI6IjEyMzQ1NiIsImlhdCI6MTU1ODMyOTI1NX0.lkqx-o-14-saMoKmbEJQKWqIUSyTgyMZtdv5QLjQ-1c' } 
+        }).then(data => console.log(data))
     }
 })(FilterColumn)
-    
 
-export default FormikForm
+
+export default FormikForm 

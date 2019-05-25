@@ -6,16 +6,31 @@ import FilterResult from './FilterResult';
 
 
 class Filter extends React.Component {
+    constructor(props){
+        super(props);
+        this.state= {
+            tutors: []
+        }
+        this.changeTutors = this.changeTutors.bind(this);
+    }
+
+    changeTutors(tutors) {
+        console.log(tutors)
+        this.setState ({
+            tutors : tutors
+        })
+    }
+
     render(){
         return (
             <div>
-                <FilterBar />
+                <FilterBar changeTutors={this.changeTutors} />
                 <Grid container xs={12} direction='row'>
                     <Grid item xs={3}>
                         <FilterColumn />
                     </Grid>
                     <Grid xs={6} style ={{marginTop : 60}}>
-                        <FilterResult/>
+                        <FilterResult tutors = {this.state.tutors}/>
                     </Grid>
     
                 </Grid>

@@ -7,6 +7,7 @@ import Input from '@material-ui/core/Input';
 import axios from '../axios';
 import Filter from './Filter';
 import TuitionPreference from './Teacher/TuitionPreference';
+import MyDetail from '../Components/Teacher/TeacherDetail';
 
 const jwt_decode = require('jwt-decode');
 class CreateAccount extends React.Component {
@@ -58,7 +59,7 @@ class CreateAccount extends React.Component {
             localStorage.getItem('role') === "tutor"?(
                 <TuitionPreference/>
             ):(
-                <Filter/>
+                <MyDetail/>
             )
         ):(
             <Grid container direction='column' xs={12} style={{ marginTop: 200 }} alignContent='center'>
@@ -78,21 +79,13 @@ class CreateAccount extends React.Component {
                     </Link>
                 </Grid>
 
-                <Grid item xs={4}>
+                <Grid item xs={4} style = {{margintop:20}}>
                     <Input placeholder='Email Address' fullWidth onChange = {this.handleMailChange}/>
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item xs={4} style = {{margintop:20}}>
                     <Input placeholder='Password' fullWidth onChange = {this.handlePassChange}/>
                 </Grid>
-                <Grid item xs={4}>
-
-                    <Typography style={{ fontSize: 17 }} align = 'center' >
-
-                        By creating an account, you agree to our Terms of Service and have read and understood the Privacy Policy
-
-                    </Typography>
-
-                </Grid>
+                
                 <Button style={{ backgroundColor: '#E9E9E9', color: "#A7A7A7", marginTop: 20 }}  onClick = {this.handleLogin}>Log In</Button>
             </Grid>
         )

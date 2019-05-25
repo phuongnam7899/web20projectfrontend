@@ -29,7 +29,7 @@ const styles = theme => ({
 class SimpleSelect extends React.Component {
     state = {
         age: '',
-        name: ' ',
+        name: '',
         labelWidth: 0,
     };
 
@@ -60,7 +60,7 @@ class SimpleSelect extends React.Component {
                         <MenuItem value="English">English</MenuItem>
                         <MenuItem value="Vietnamese">Vietnamese</MenuItem>
                         <MenuItem value="Japanese">Japanese</MenuItem>
-                    </Select>
+                    </Select>   
                 </FormControl>
                 
             </form>

@@ -25,10 +25,13 @@ const LandingPage = (props) => {
   const { classes } = props;
   return (
     <div fullWidth>
-      <Paper style={styles.paperContainer}>
+      {/* <Paper style={styles.paperContainer}> */}
       <LText/>
       <BookingButton/>
-        </Paper>
+        {/* </Paper> */}
+      
+
+
     </div>
   );
 }

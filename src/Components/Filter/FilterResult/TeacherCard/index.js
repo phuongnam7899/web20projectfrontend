@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid'
 import Field from '../../Field';
 import Paper from '@material-ui/core/Paper'
+import {NavLink} from 'react-router-dom'
 
 
 
@@ -39,33 +40,35 @@ function TeacherDetail(props) {
   const { classes } = props;
   return (
     <div className={classes.root}>
-      <Grid container xs={24} justify = 'space-between'>
-        <Paper className={classes.background}>
-          <Grid container xs={16}>
-            <Grid item xs={3}>
-              <Card className={classes.card}>
-                <CardActionArea>
-                  <CardMedia
-                    className={classes.media}
-                    image="https://images.unsplash.com/photo-1542304291-b9d13957968d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
-                    title="Teacher"
-                  />
-                </CardActionArea>
-              </Card>
-            </Grid>
-            <Grid item xs={7} style={{ marginLeft: 30 }}>
-              <Typography variant='h5'>
-                {props.name}
-              </Typography>
-              <Grid container xs={12} spacing={50} style={{ marginTop: 10 }}>
-                <Field tag='Subject' content={props.subject} />
-                <Field tag='Teaches' content={props.teach} />
-                <Field tag='Phone Number' content={props.phone} />
+      <NavLink to = '/tutor/detail' onClick ={() => localStorage.setItem('tutor_id', props.id)}>
+        <Grid container xs={24} justify='space-between'>
+          <Paper className={classes.background}>
+            <Grid container xs={16}>
+              <Grid item xs={3}>
+                <Card className={classes.card}>
+                  <CardActionArea>
+                    <CardMedia
+                      className={classes.media}
+                      image="https://images.unsplash.com/photo-1542304291-b9d13957968d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
+                      title="Teacher"
+                    />
+                  </CardActionArea>
+                </Card>
+              </Grid>
+              <Grid item xs={7} style={{ marginLeft: 30 }}>
+                <Typography variant='h5'>
+                  {props.name}
+                </Typography>
+                <Grid container xs={12} spacing={50} style={{ marginTop: 10 }}>
+                  <Field tag='Subject' content={props.subject} />
+                  <Field tag='Teaches' content={props.teach} />
+                  <Field tag='Phone Number' content={props.phone} />
+                </Grid>
               </Grid>
             </Grid>
-          </Grid>
-        </Paper>
+          </Paper>
         </Grid>
+      </NavLink>
     </div>
   );
 }

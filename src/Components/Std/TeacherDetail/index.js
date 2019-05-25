@@ -27,7 +27,7 @@ class TeacherDetail extends React.Component {
     }
   }
   componentDidMount() {
-    axios.get(`/api/user/tutor/${this.props.tutor_id}`, {
+    axios.get(`/api/user/tutor/${localStorage.getItem("tutor_id")}`, {
       headers: { 'X-Auth-Token': `${localStorage.token}` },
     }).then((data) => { this.setState({ tutorInfo: data.data }); console.log(this.state.tutorInfo) })
   }
@@ -77,23 +77,6 @@ class TeacherDetail extends React.Component {
               <TextField tag='Teaching Subject'content={tutorInfo.teaching_subject} />
             </Grid>
           </Paper>
-          <Grid container xs={4} direction='column'>
-            <Paper className={classes.background1} style={{ marginLeft: 80 }} >
-              <Grid item>
-                <Typography variant='h5'>Add Schedule</Typography>
-              </Grid>
-              <Grid item>
-                <Button style={{ backgroundColor: '#B2B2B2', color: "#000000", width: '100%', marginTop: 30 }} href='/user'>Add Schedule</Button>
-              </Grid>
-              <Grid container spacing={16} style={{ marginTop: 10 }} justify='space-around'>
-                <Menu name='Subject' />
-                <Menu name='Subject' />
-              </Grid>
-              <Grid item>
-                <Button style={{ backgroundColor: '#B23B37', color: "#FFFFFF", width: '100%', marginTop: 30 }} href='/user'>Book Tuition</Button>
-              </Grid>
-            </Paper>
-          </Grid>
         </Grid>
         <Typography variant='h4' style={{ marginTop: 30 }}>
           Teacher's Calendar

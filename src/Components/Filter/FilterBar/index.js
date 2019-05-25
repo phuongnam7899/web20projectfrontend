@@ -6,13 +6,14 @@ import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
 import { withFormik, Form } from 'formik'
 import Button from '@material-ui/core/Button'
+import axios from '../../../axios'
 
 const FilterBar = ({ values, handleChange }) => {
     return (
-        <Grid container style={{ marginTop: 150 }}justify='center' direction="row">
+        <Grid container style={{ backgroundColor:"#eeeeee" }}justify='space-around' direction="row" xs = {12}>
             <Grid item xs={2}>
                 <Form>
-                    <FormControl fullWidth margin='normal'>
+                    <FormControl style = {{width: 150, marginLeft: 80}} margin='normal'>
                         <InputLabel>Academic Level</InputLabel>
                         <Select
                             displayEmpty
@@ -27,9 +28,9 @@ const FilterBar = ({ values, handleChange }) => {
                 </Form>
             </Grid>
 
-            <Grid item xs={2}>
+            <Grid item xs={1}>
                 <Form>
-                    <FormControl fullWidth margin='normal'>
+                    <FormControl style = {{width: 150}} margin='normal'>
                         <InputLabel>Grade</InputLabel>
                         <Select
                             displayEmpty
@@ -46,9 +47,9 @@ const FilterBar = ({ values, handleChange }) => {
                 </Form>
             </Grid>
 
-            <Grid item xs={2}>
+            <Grid item xs={1}>
                 <Form>
-                    <FormControl fullWidth margin='normal'>
+                    <FormControl style = {{width: 150}} margin='normal'>
                         <InputLabel>Course</InputLabel>
                         <Select
                             displayEmpty
@@ -65,9 +66,9 @@ const FilterBar = ({ values, handleChange }) => {
                 </Form>
             </Grid>
 
-            <Grid item xs= {2}>
+            <Grid item xs= {4}>
                 <Form>
-                    <FormControl fullWidth margin='normal'>
+                    <FormControl style = {{width: 150}} margin='normal'>
                         <InputLabel>Select Country</InputLabel>
                         <Select
                             displayEmpty
@@ -82,7 +83,7 @@ const FilterBar = ({ values, handleChange }) => {
                         </Select>
                     </FormControl>
 
-                    <FormControl fullWidth margin='normal'>
+                    <FormControl style = {{width: 150, marginLeft: 50}} margin='normal'>
                         <Button
                             variant='extendedFab'
                             color='primary'
@@ -93,11 +94,11 @@ const FilterBar = ({ values, handleChange }) => {
                         </Button>
                     </FormControl>
                 </Form>
-            </Grid>
+                </Grid>
         </Grid>
 
     )
-}
+} 
 
 const FormikForm = withFormik({
     mapPropsToValues({ }) {
@@ -108,9 +109,19 @@ const FormikForm = withFormik({
             course: ''
         }
     },
-    handleSubmit(values) {
-        console.log(values)
+    handleSubmit(values, { props }) {
+        const { changeTutors } = props;
+        axios({
+            method : 'post',
+            url: '/api/user/tutor/filter',
+            data: {
+                country_name: values.country,
+                academic_level: values.level,
+            },
+            headers: { 'X-Auth-Token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRoYW9ucDA0MTA5OUBnbWFpbC5jb20iLCJwYXNzd29yZCI6IjEyMzQ1NiIsImlhdCI6MTU1ODMyOTI1NX0.lkqx-o-14-saMoKmbEJQKWqIUSyTgyMZtdv5QLjQ-1c' } 
+        }).then((data) => {
+            changeTutors(data.data)})
     }
 })(FilterBar)
 
-export default FormikForm;
+export default FormikForm; 
