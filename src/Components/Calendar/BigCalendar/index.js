@@ -12,6 +12,7 @@ class CalendarApp extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      disabledEdit: props.disabledEdit,
       editState: false,
       open: false,
       events: [],
@@ -52,26 +53,28 @@ class CalendarApp extends Component {
         end: this.convertToICT(el.end)
       }));
       this.setState({
-        // eslint-disable-next-line react/prop-types
         events
       });
     }
   }
-  componentDidUpdate() { }
+  componentDidUpdate() {
+    console.log(this.state.events);
+   }
   onSelectSlot(e) {
-    const { events } = this.state;
-    const { disabledEdit } = this.props;
+    const { events ,disabledEdit} = this.state;
     if (!disabledEdit) {
       const event = {
         start: e.start,
         end: e.end,
-        title: ""
+        title: "",
+        status : localStorage.getItem("role") === "tutor" ? "free_time" : "student_book"
       };
       this.setState({
         open: true,
         event,
         events: [...events, event]
       });
+      
     }
   }
 
@@ -79,23 +82,27 @@ class CalendarApp extends Component {
     e.preventDefault();
     this.setState({
       open: true,
+      disabledEdit: ((localStorage.role === "tutor") || ((event.status !== "free_time") && (event.status !== "booked")) ) ? false : true,
       editState: true,
       event
     });
+    console.log(this.state);
   }
 
   deleteHandle(event) {
     let { events } = this.state;
-    const { getAddedEvents } = this.props;
+    const { getAddedEvents, updateOldEvents } = this.props;
     const indexEventChoose = _.findIndex(events, el => _.isEqual(event, el));
     events = _.filter(
       events,
       (el, index) => !_.isEqual(event, el) && index !== indexEventChoose
     );
     getAddedEvents(events);
+    updateOldEvents(events)
     this.setState({
       events,
-      open: false
+      open: false,
+      disabledEdit: false
     });
   }
 
@@ -108,19 +115,23 @@ class CalendarApp extends Component {
         events
       });
     }
+    console.log(this.state)
     this.setState({
       open: false,
-      editState: false
+      editState: false,
+      disabledEdit: false
     });
+    
   }
 
   submitDialogHandle(pack) {
-    const { event, events, editState } = this.state;
-    const { getAddedEvents, disabledEdit } = this.props;
+    const { event, events, editState, disabledEdit } = this.state;
+    const { getAddedEvents, updateOldEvents} = this.props;
     if (!disabledEdit) {
       if (!editState) {
         events.pop();
         const title = this.state.subject;
+        const status = localStorage.getItem("role") === "tutor" ? "free_time" : "student_book"
         const start = this.convertToICT(pack.dateTimeStart);
         const end = this.convertToICT(pack.dateTimeEnd);
         const packaged = [
@@ -129,10 +140,12 @@ class CalendarApp extends Component {
             ...event,
             title,
             start,
-            end
+            end,
+            status
           }
         ];
         getAddedEvents(packaged);
+        updateOldEvents(packaged);
         this.setState({
           open: false,
           events: [
@@ -141,7 +154,8 @@ class CalendarApp extends Component {
               ...event,
               title,
               start,
-              end
+              end,
+              status
             }
           ]
         });
@@ -150,17 +164,21 @@ class CalendarApp extends Component {
           _.isEqual(event, el)
         );
         const title = pack.notes;
+        const status = localStorage.getItem("role") === "tutor" ? "free_time" : "student_book"
         const start = this.convertToICT(pack.dateTimeStart);
         const end = this.convertToICT(pack.dateTimeEnd);
         const eventAfterEdit = {
           ...event,
           title,
           start,
-          end
+          end,
+          status
         };
         events[indexEventChoose] = eventAfterEdit;
         const packaged = events;
+        console.log(packaged);
         getAddedEvents(packaged);
+        updateOldEvents(packaged)
         this.setState({
           events,
           event: eventAfterEdit,
@@ -184,8 +202,7 @@ class CalendarApp extends Component {
   }
 
   render() {
-    const { open, event, events, editState } = this.state;
-    const { disabledEdit } = this.props;
+    const { open, event, events, editState, disabledEdit} = this.state;
     return (
       <div style={{ height: "100vh" }}>
         <BigCalendar

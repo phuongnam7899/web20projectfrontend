@@ -81,6 +81,7 @@ class App extends React.Component {
           return <TuitionPreference />
           }}/>
           <Route path = '/teacher/editmyprofile' component = {Tutor_Editmyprofile}/>
+          <Route path = '/tutor/update_freetime' render ={() => <Calendar role={this.state.role}/>} />
         </Fragment>
       )
     }
