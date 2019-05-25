@@ -44,7 +44,7 @@ class User extends React.Component {
   componentDidMount() {
     // console.log(localStorage.id)
     axios.get(`/api/class/student/${localStorage.id}`, {
-      headers: { 'X-Auth-Token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRoYW9ucDA0MTA5OUBnbWFpbC5jb20iLCJwYXNzd29yZCI6IjEyMzQ1NiIsImlhdCI6MTU1ODMyOTI1NX0.lkqx-o-14-saMoKmbEJQKWqIUSyTgyMZtdv5QLjQ-1c' },
+      headers: { 'X-Auth-Token': `${localStorage.token}` },
     }).then((data) => this.setState({classes : data.data}))
   };
 

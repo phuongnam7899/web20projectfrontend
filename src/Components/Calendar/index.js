@@ -21,7 +21,7 @@ class Calendar extends React.Component {
             })
             .then(data => {
                 const events = data.data;
-                console.log(events);
+                // console.log(events);
                 if (this.props.role === "student") {
                     events.forEach(element => {
                         if (element.title !== "free time") {
@@ -50,7 +50,7 @@ class Calendar extends React.Component {
     }
     getAddedEvents(currentEvents) {
         const addedEvents = currentEvents.slice(this.state.firstEvents.length, currentEvents.length);
-        console.log(currentEvents);
+        // console.log(currentEvents);
         this.setState({
             addEvents : addedEvents,
             currentEvents : currentEvents,

@@ -159,7 +159,6 @@ const FormDefault = ({ values, handleChange, errors, touched, handleblur }) => {
                                 variant='extendedFab'
                                 color='primary'
                                 type='submit'
-                                handleSubmit = {this.props}    
                             >
                                 Update Profile
                                 </Button>
