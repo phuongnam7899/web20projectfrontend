@@ -2,12 +2,12 @@ import React from 'react'
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography'
 
-const LText = (props) => {
+const LText = () => {
     return (
         <div>
             <Grid item xs={4}>
-                <Typography color='black' className='text' style={{ marginTop: 288, fontSize: 36 , marginLeft : 80}}>
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                <Typography color='white' style={{ fontSize: 36 , marginLeft : 80, marginTop:150}}>
+                    Education is the key to success in life, and teachers make a lasting impact in the lives of their students.
                 </Typography>
             </Grid>
         </div>

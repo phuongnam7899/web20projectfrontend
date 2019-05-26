@@ -5,6 +5,7 @@ import _ from "lodash";
 import FormDialog from "./dialog";
 import "./react-big-calendar.css";
 import moment from "moment";
+import Input from '@material-ui/core/Input'
 
 const localizer = BigCalendar.momentLocalizer(moment);
 
@@ -204,7 +205,8 @@ class CalendarApp extends Component {
   render() {
     const { open, event, events, editState, disabledEdit} = this.state;
     return (
-      <div style={{ height: "100vh" }}>
+      <div style={{ height: "100vh",marginTop:20 }}>
+      <Input placeholder = 'Subject' type="text" onChange={this.handleSubChange} />
         <BigCalendar
           length={120}
           localizer={localizer} 
@@ -216,7 +218,7 @@ class CalendarApp extends Component {
               if (event.status === "free_time") {
                 return {
                   style: {
-                    backgroundColor: "#27e820",
+                    backgroundColor: "#c88f52",
                     borderRadius: '10px'
                   }
                 }
@@ -224,14 +226,14 @@ class CalendarApp extends Component {
               else if (event.status === "booked") {
                 return {
                   style: {
-                    backgroundColor: "#e23f1b"
+                    backgroundColor: "#c85452"
                   }
                 }
               }
               else {
                 return {
                   style: {
-                    backgroundColor: "#0b3be8"
+                    backgroundColor: "#52c1c8"
                   }
                 }
               }
@@ -242,7 +244,7 @@ class CalendarApp extends Component {
           onSelectSlot={this.onSelectSlot}
           onSelectEvent={this.onClickSlot}
         />
-        <input type="text" onChange={this.handleSubChange} />
+        
         {
           <FormDialog
             open={open}

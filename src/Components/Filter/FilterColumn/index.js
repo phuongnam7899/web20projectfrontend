@@ -10,7 +10,7 @@ import axios from '../../../axios'
 
 const FilterColumn = ({values, handleChange}) => {
     return(
-        <Grid container xs={12} style={{ marginTop: 80, marginLeft: 140 }}justify='center' direction="column">
+        <Grid container style={{ marginTop: 80, marginLeft: 100 }} direction="column">
             <Grid item xs={5}>
                 <Form>
                     <FormControl fullWidth margin='normal'>
@@ -87,8 +87,8 @@ const FormikForm = withFormik({
             gender: ''
         }
     },
-    handleSubmit(values) {
-        console.log(values)
+    handleSubmit(values, {props}) {
+        const {changeTutors} = props;
         axios({ 
             method : 'post',
             url: '/api/user/tutor/filter',
@@ -98,7 +98,8 @@ const FormikForm = withFormik({
                 gender_name: values.gender,
             },
             headers: { 'X-Auth-Token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRoYW9ucDA0MTA5OUBnbWFpbC5jb20iLCJwYXNzd29yZCI6IjEyMzQ1NiIsImlhdCI6MTU1ODMyOTI1NX0.lkqx-o-14-saMoKmbEJQKWqIUSyTgyMZtdv5QLjQ-1c' } 
-        }).then(data => console.log(data))
+        }).then(data =>
+           changeTutors(data.data))
     }
 })(FilterColumn)
 

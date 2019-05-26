@@ -7,10 +7,11 @@ import MenuItem from '@material-ui/core/MenuItem'
 import { withFormik, Form } from 'formik'
 import Button from '@material-ui/core/Button'
 import axios from '../../../axios'
+import Circle from '../../Circle'
 
 const FilterBar = ({ values, handleChange }) => {
     return (
-        <Grid container style={{ backgroundColor:"#eeeeee" }}justify='space-around' direction="row" xs = {12}>
+        <Grid container justify='space-around' direction="row">
             <Grid item xs={2}>
                 <Form>
                     <FormControl style = {{width: 150, marginLeft: 80}} margin='normal'>
@@ -28,7 +29,7 @@ const FilterBar = ({ values, handleChange }) => {
                 </Form>
             </Grid>
 
-            <Grid item xs={1}>
+            <Grid item xs={2}>
                 <Form>
                     <FormControl style = {{width: 150}} margin='normal'>
                         <InputLabel>Grade</InputLabel>
@@ -47,7 +48,7 @@ const FilterBar = ({ values, handleChange }) => {
                 </Form>
             </Grid>
 
-            <Grid item xs={1}>
+            <Grid item xs={2}>
                 <Form>
                     <FormControl style = {{width: 150}} margin='normal'>
                         <InputLabel>Course</InputLabel>
@@ -66,7 +67,7 @@ const FilterBar = ({ values, handleChange }) => {
                 </Form>
             </Grid>
 
-            <Grid item xs= {4}>
+            <Grid item xs={4}>
                 <Form>
                     <FormControl style = {{width: 150}} margin='normal'>
                         <InputLabel>Select Country</InputLabel>
@@ -83,7 +84,7 @@ const FilterBar = ({ values, handleChange }) => {
                         </Select>
                     </FormControl>
 
-                    <FormControl style = {{width: 150, marginLeft: 50}} margin='normal'>
+                    <FormControl style = {{width: 150, marginLeft: 120}} margin='normal'>
                         <Button
                             variant='extendedFab'
                             color='primary'

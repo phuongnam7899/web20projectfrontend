@@ -17,12 +17,7 @@ import NavStd from './Components/Std/NavBar'
 import NavTutor from './Components/Teacher/NavBar'
 import MyDetail from './Components/Teacher/TeacherDetail'
 import Tutor_Editmyprofile from './Components/Teacher/EditMyProfile'
-const styles = {
 
-  root: {
-    marginTop: 0,
-  }
-}
 const THEME = createMuiTheme({
   typography: {
     fontFamily: '"Oswald", sans-serif',
@@ -31,7 +26,6 @@ const THEME = createMuiTheme({
     primary: { main: grey[50] },
     secondary: { main: grey[900] },
   },
-  shadows: ["none"]
 });
 
 const ProtectedRoute = (props) => {
@@ -105,7 +99,7 @@ class App extends React.Component {
     }
     return (
       <BrowserRouter>
-        <div style={styles.root}>
+        <div>
           <MuiThemeProvider theme={THEME}>
             {navbar}
             <Switch>

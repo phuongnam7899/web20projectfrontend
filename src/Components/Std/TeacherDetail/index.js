@@ -14,6 +14,7 @@ import Menu from '../../Menu'
 import Calendar from '../../Calendar'
 import axios from '../../../axios';
 import _ from "lodash";
+import Circle from '../../Circle'
 
 
 
@@ -37,11 +38,14 @@ class TeacherDetail extends React.Component {
     const { tutorInfo } = this.state;
     // const { user_id } = tutorInfo;
     if (_.isEmpty(tutorInfo)) {
-      return "Loading"
+      return <Circle/>
     }
     console.log(tutorInfo);
     return (
       <div className={classes.root}>
+        <Typography variant='h4' style={{ marginBottom: 20,  marginTop: 20  }}>
+          Teacher's Info
+        </Typography>
         <Grid container xs={24} justify='space-between'>
           <Paper className={classes.background}>
             <Grid container xs={16}>
@@ -68,7 +72,7 @@ class TeacherDetail extends React.Component {
                 </Grid>
               </Grid>
             </Grid>
-            <Grid container xs={12} direction='column'>
+            <Grid container direction='column'>
               <TextField tag='About me' content={tutorInfo.reference.about_me} />
               <TextField tag='Major' content={tutorInfo.reference.major} />
               <TextField tag='Certificate' content={tutorInfo.reference.certificate} />
@@ -94,7 +98,6 @@ TeacherDetail.propTypes = {
 export default withStyles({
   root: {
     marginLeft: 80,
-    marginTop: 200,
     marginRight: 80,
   },
   card: {

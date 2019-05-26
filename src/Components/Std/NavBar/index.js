@@ -19,30 +19,30 @@ class NavBar extends React.Component {
   render () {
     const { history } = this.props;
     return (
-      <div style = {{marginLeft : 0}}>
-        <AppBar position='static' style={{ background: '#52C1C8', boxShadow: 'none', paddingTop : 30}}>
+      <div>
+        <AppBar position='static' style={{ background: '#c88f52',}}>
           <ToolBar>
-          <Grid container xs={12} >
-              <Grid item xs={7}>
-                <Typography noWrap style = {{fontSize: 40, marginLeft : 80, color: 'white', fontWeight: 700}}>
+          <Grid container style={{ alignContent: 'center' }}>
+              <Grid item xs={8}>
+                <Typography noWrap style = {{fontSize: 40, marginLeft : 80, color: 'white', fontWeight: 600}}>
                   X TUTOR
                 </Typography>
               </Grid>
 
               <Grid item xs={1}>
-              <Typography color = {this.props.color} style = {{fontSize: 18}}>
-                <NavLink to = '/filter'  style={{ textDecoration: 'none', color: 'black', fontWeight : 500}} margin = 'auto'>FIND A TUTOR</NavLink>
+              <Typography style = {{fontSize: 18, marginTop:15}}>
+                <NavLink to = '/filter'  style={{ textDecoration: 'none', color: '#ffffff'}}>FIND A TUTOR</NavLink>
               </Typography>
               </Grid>
 
               <Grid item xs={1}>
-              <Typography color = {this.props.color} style = {{fontSize: 18}}>
-                <NavLink to = '/user' style ={{ textDecoration: 'none', color: 'black'}} >MY TUITION</NavLink>
+              <Typography style = {{fontSize: 18, marginTop:15}}>
+                <NavLink to = '/user' style ={{ textDecoration: 'none', color: '#ffffff'}} >MY TUITION</NavLink>
               </Typography>
               </Grid>
 
               <Grid item xs={1}>
-              <Typography color = {this.props.color} style = {{fontSize: 18}} noWrap>
+              <Typography style = {{fontSize: 18, marginTop:15, color: '#ffffff'}} noWrap>
                 STUDENT'S NAME
               </Typography>
               </Grid>

@@ -6,7 +6,6 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import axios from '../../../axios';
 import LandingPage from '../../LandingPage'
 const options = [
-  'None',
   'Sign Out',
   'Edit Profile',
   'My Calendar'
@@ -27,7 +26,7 @@ class LongMenu extends React.Component {
   };
   handleMenuItem = (index) => {
     const { history } = this.props;
-    if(index === 1){
+    if(index === 0){
       console.log("sign out");
       axios.get(`api/auth/logout?token=${localStorage.getItem('token')}`)
       .then(() => {
@@ -42,10 +41,10 @@ class LongMenu extends React.Component {
       })
 
     }
-    if(index == 2){
-      console.log("edit")
+    if(index === 1){
+      history.push("/editmyprofile")
     }
-    if(index == 3){
+    if(index === 2){
       history.push("/student/allclasses")
     }
   }
@@ -57,6 +56,7 @@ class LongMenu extends React.Component {
     return (
       <div>
         <IconButton
+          style ={{color : 'white',marginTop : 5}}
           aria-label="More"
           aria-owns={open ? 'long-menu' : undefined}
           aria-haspopup="true"

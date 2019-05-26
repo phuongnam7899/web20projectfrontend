@@ -8,21 +8,21 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { Typography } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
-import { Button } from '@material-ui/core';
 import SessionCard from '../SessionCard';
 import CancelTuition from './CancelTuition';
 import axios from '../../axios';
 import _ from "lodash";
+import Circle from '../Circle'
 
 const styles = theme => ({
   root: {
     width: '66%',
-    marginTop: 0,
     overflowX: 'auto',
     marginLeft: 400
   },
   table: {
     minWidth: 700,
+    fontSize: 16
   },
   listSession: {
     marginLeft: -14,
@@ -52,7 +52,7 @@ class User extends React.Component {
     const { classes } = this.props;
     console.log(this.state.classes)
     if (_.isEmpty(this.state.classes)) {
-      return `loading`
+      return <Circle/>
     }
     return (
       <div>
@@ -61,14 +61,14 @@ class User extends React.Component {
           return(
             <div>
               <Grid container xs={11} justify='space-between'>
-                <Typography style={{ marginTop: 162, fontSize: 18, marginLeft: 400 }}>
+                <Typography style={{ marginTop: 50, fontSize: 24, marginLeft: 400 }}>
                 {one_class.subject}
                 </Typography>
                 <CancelTuition />
               </Grid>
-              <Grid item xs={11}>
+              <Grid item xs={11} style ={{marginTop:20}}>
               <Paper className={classes.root}>
-                <Table className={classes.table} border={0}>
+                <Table className={classes.table}>
                   <TableBody>
                     <TableRow>
                       <TableCell align="left" scope="row" >Fee : {one_class.hourly_rate}$/hour </TableCell>
@@ -79,10 +79,9 @@ class User extends React.Component {
               </Paper>
               </Grid> 
               <Grid container justify='flexstart' xs={11} style={{ marginBottom: 20 }}>
-                <Typography style={{ fontSize: 14, marginLeft: 400, marginTop: 10 }}>
-                  Session 1 - Session {one_class.sessions.length}
+                <Typography style={{ fontSize: 18, marginLeft: 400, marginTop: 10 }}>
+                  Session 1 / {one_class.sessions.length}
                 </Typography>
-                <Button style={{ marginTop: 10, marginLeft: 10, backgroundColor: '#B23B37', color: "#ffffff", width: 44, height: 20, fontSize: 14, paddingTop: 0 }}>Hold</Button>
               </Grid>
               <Grid container spacing={8} style={{ marginLeft: 400 }} xs={8}>
                 <Grid container item xs={12} spacing={24} className={classes.listSession}>

@@ -27,7 +27,7 @@ class Filter extends React.Component {
                 <FilterBar changeTutors={this.changeTutors} />
                 <Grid container xs={12} direction='row'>
                     <Grid item xs={3}>
-                        <FilterColumn />
+                        <FilterColumn  changeTutors = {this.changeTutors}/>
                     </Grid>
                     <Grid xs={6} style ={{marginTop : 60}}>
                         <FilterResult tutors = {this.state.tutors}/>

@@ -2,6 +2,7 @@ import React from "react";
 import BigCalendar from "./BigCalendar";
 import axios from "../../axios";
 import Grid from '@material-ui/core/Grid'
+import Button from '@material-ui/core/Button'
 
 class Calendar extends React.Component {
     constructor(props) {
@@ -103,13 +104,13 @@ class Calendar extends React.Component {
 
         // console.log(this.state.addEvents);
         return (
-            <Grid style={{ marginTop : 150 }}>
+            <Grid>
+                <Button style={{backgroundColor: '#52C1C8', color: "#FFFFFF",marginTop:20}} onClick={this.handleSubmit}>Book your class</Button>
                 <BigCalendar
                     updateOldEvents={this.updateOldEvents}
                     dataFromProps={oldEvents}
                     getAddedEvents={currentEvents => this.getAddedEvents(currentEvents)}
                 />
-                <button onClick={this.handleSubmit}>submit</button>
             </Grid>
         );
     }

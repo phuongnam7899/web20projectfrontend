@@ -40,7 +40,7 @@ function TeacherDetail(props) {
   const { classes } = props;
   return (
     <div className={classes.root}>
-      <NavLink to = '/tutor/detail' onClick ={() => localStorage.setItem('tutor_id', props.id)}>
+      <NavLink to = '/tutor/detail' style = {{textDecoration:'none'}} onClick ={() => localStorage.setItem('tutor_id', props.id)}>
         <Grid container xs={24} justify='space-between'>
           <Paper className={classes.background}>
             <Grid container xs={16}>

@@ -23,7 +23,7 @@ export default class FormDialog extends React.Component {
   render() {
     return (
       <div>
-        <Button variant="outlined" color="primary" onClick={this.handleClickOpen} style = {{marginTop :162, backgroundColor: "#B23B37"}}>
+        <Button variant="outlined" color="primary" onClick={this.handleClickOpen} style = {{marginTop :50, backgroundColor: "#c85452", marginRight: 75}}>
           Cancel Tuition
         </Button>
         <Dialog

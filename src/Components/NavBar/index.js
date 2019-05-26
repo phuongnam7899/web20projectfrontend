@@ -3,70 +3,68 @@ import AppBar from '@material-ui/core/AppBar'
 import ToolBar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid';
-import {NavLink} from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { withRouter } from "react-router";
 
 class NavBar extends React.Component {
-  state = {
-    color : 'secondary',
-    colors: 'black'
-  }
-  handleClick = (e) => {  
-    this.props.changeLogin(this.state);
-  }
-  
-  render () {
-    console.log("ádadasd")
-    console.log(this.props);
+
+  render() {
     return (
-      <div style = {{marginLeft : 80}}>
-        <AppBar position='absolute' style={{ background: 'transparent', boxShadow: 'none', paddingTop : 30}}>
+      <div>
+        <AppBar position='static' style={{ backgroundColor: '#c88f52' }}>
           <ToolBar>
-          <Grid container xs={12} >
-              <Grid item xs={7}>
-                <Typography color='black' noWrap style = {{fontSize: 40, marginLeft : 80}}>
+            <Grid container style={{ alignContent: 'center' }}>
+              <Grid item xs={6}>
+                <Typography noWrap style={{ fontSize: 40, marginLeft: 80, fontWeight: 600, color: '#ffffff' }}>
                   X TUTOR
                 </Typography>
               </Grid>
 
-              <Grid item xs={1}>
-              <Typography color = 'black' style = {{fontSize: 18}}>
-                <NavLink to = '/'  style={{ textDecoration: 'none', color: 'black'}}>HOME</NavLink>
-              </Typography>
+              <Grid item xs={1} >
+                <Typography style={{ fontSize: 18, marginTop: 15 }}>
+                  <NavLink to='/' style={{ textDecoration: 'none', color: 'white' }}>
+                    HOME
+                  </NavLink>
+                </Typography>
               </Grid>
 
               <Grid item xs={1}>
-              <Typography color = 'black' style = {{fontSize: 18}}>
-                <NavLink color= {this.props.colors} style ={{ textDecoration: 'none', color: 'black'}} to = '/about'>ABOUT</NavLink>
-              </Typography>
+                <Typography style={{ fontSize: 18, marginTop: 15 }}>
+                  <NavLink to='/about' style={{ textDecoration: 'none', color: 'white' }} >
+                  ABOUT
+                  </NavLink>
+                </Typography>
               </Grid>
 
               <Grid item xs={1}>
-              <Typography color = 'black' style = {{fontSize: 18}}>
-              <NavLink style={{ textDecoration: 'none', color: 'black'}} to = '/blog'>BLOG</NavLink>
-              </Typography>
+                <Typography color='white' style={{ fontSize: 18, marginTop: 15 }}>
+                  <NavLink style={{ textDecoration: 'none', color: 'white' }} to='/blog'>
+                  BLOG
+                  </NavLink>
+                </Typography>
               </Grid>
 
               <Grid item xs={1}>
-              <Typography color = 'black' style = {{fontSize: 18}}>
-              <NavLink style={{ textDecoration: 'none', color: 'black'}} to = '/login' onClick = {this.handleClick}>LOG IN</NavLink>
-              </Typography>
+                <Typography color='white' style={{ fontSize: 18, marginTop: 15 }}>
+                  <NavLink style={{ textDecoration: 'none', color: 'white' }} to='/login' onClick={this.handleClick}>
+                  LOG IN
+                  </NavLink>
+                </Typography>
               </Grid>
 
-              <Grid item xs={1} justify = 'center' alignContent = 'center' >
-              <Typography  color = 'black' style = {{fontSize: 18 }} >
-
-              <NavLink style={{ textDecoration: 'none', color: 'black'}} to = '/signup'>SIGN UP</NavLink>
-              </Typography>
-
+              <Grid item xs={1}>
+                <Typography color='white' style={{ fontSize: 18, marginTop: 15 }} >
+                  <NavLink style={{ textDecoration: 'none', color: 'white' }} to='/signup'>
+                  SIGN UP
+                  </NavLink>
+                </Typography>
               </Grid>
-              </Grid>
+            </Grid>
           </ToolBar>
-
         </AppBar>
       </div>
     );
-    
+
   }
 }
 

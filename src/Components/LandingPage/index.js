@@ -1,39 +1,28 @@
 import React from 'react';
-
 import Paper from '@material-ui/core/Paper'
-
-
-
 import BookingButton from './BookingButton'
 import LText from './LText'
-import { withStyles } from "@material-ui/core/styles";
+import Grid from '@material-ui/core/Grid'
 
-const styles = () => ({
-  paperContainer: {
-    height: 1356,
-    width : '100%',
-    backgroundImage: `url(${"https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1082&q=80"})`,
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: "cover",
-    position : 'fixed',
-    top: 0
-  }
-})
-
-
-const LandingPage = (props) => {
-  const { classes } = props;
+export default function LandingPage() {
   return (
-    <div fullWidth>
-      {/* <Paper style={styles.paperContainer}> */}
-      <LText/>
-      <BookingButton/>
-        {/* </Paper> */}
-      
-
-
-    </div>
+    <Grid container direction='column' justify='center'>
+      <Paper square style={{
+        height: 690,
+        width: '100%',
+        backgroundImage: `url(${"https://images.unsplash.com/photo-1504275107627-0c2ba7a43dba?ixlib=rb-1.2.1&auto=format&fit=crop&w=967&q=80"})`,
+        backgroundSize: "contain",
+        position: 'static',
+        top: 0
+      }}>
+        <Grid item xs = {12}>
+          <LText />
+        </Grid>
+        <Grid item  xs = {12}>
+          <BookingButton />
+        </Grid>
+      </Paper>
+    </Grid>
   );
 }
 
-export default withStyles(styles)(LandingPage);

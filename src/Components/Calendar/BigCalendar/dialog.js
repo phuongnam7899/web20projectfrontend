@@ -234,7 +234,7 @@ class FormDialog extends React.Component {
                       notes: ""
                     });
                   }}
-                  color="primary"
+                  color="#52c1c8"
                 >
                   Submit
                 </Button>

@@ -8,7 +8,6 @@ class FilterResult extends React.Component {
     constructor (props) {
         super(props);
         this.state = {
-            academic_level: '',
             tutors: []
         }
     }
@@ -18,12 +17,12 @@ class FilterResult extends React.Component {
         const { tutors } = this.props;
 
         if (_.isEmpty(tutors)) {
-            return null
+            return <Typography variant='h4' style = {{marginLeft : 80}}>FIND YOUR TUTOR</Typography>
         }
         console.log(tutors)
         return(
             <div>
-                <Typography variant='h4' style = {{marginLeft : 80}}>FIND A TUTOR</Typography>
+                <Typography variant='h4' style = {{marginLeft : 80}}>YOUR RESULT</Typography>
                 {tutors.map(tutor => {
                     return (
                 <TeacherCard 
