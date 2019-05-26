@@ -10,6 +10,7 @@ import Menu from '../../../Menu'
 import { withFormik, Form } from 'formik';
 import * as Yup from 'yup';
 
+
 const TeachingSubject = ({ values, handleChange, errors, handleBlur, touched }) => {
     return (
         <Form>
@@ -86,7 +87,26 @@ const FormikDefault = withFormik({
         rate: Yup.string(),
     }),
     handleSubmit(values){
-        console.log(values)
+        const id = localStorage.getItem('id');
+        const teaching_subs = {
+            academic_level: values.level,
+            academic_grade: values.grade,
+            subject: values.subject,
+            hourly_rate: values.rate
+        }
+        axios({
+            url: `/api/user/tutor/update_teaching_sub?token=${localStorage.getItem('token')}`,
+            method: 'put',
+            data: {
+                id: id
+            }
+        })
+        .then((updated) => {
+           console.log(updated);
+           document.location.href = '/';
+        })
+        .catch(err => console.error(err))
+    }
     }
 })(TeachingSubject)
 
