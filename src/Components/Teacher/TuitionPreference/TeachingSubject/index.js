@@ -9,62 +9,114 @@ import FormHelperText from '@material-ui/core/FormHelperText'
 import Menu from '../../../Menu'
 import { withFormik, Form } from 'formik';
 import * as Yup from 'yup';
+import _ from "lodash";
 
-const TeachingSubject = ({ values, handleChange, errors, handleBlur, touched }) => {
-    return (
-        <Form>
-            <Grid container xs={12} direction="column" style={{ marginTop: 50, marginLeft: 80 }} alignItems='flex-start' >
-                <Typography variant='h5'>Teaching Subject</Typography>
-                <Menu name='Based In' />
-                <Grid container direction='row' xs={12} justify='flex-start' spacing={16} style={{ marginTop: 20 }} >
-                    <Grid item xs={2}>
-                        <Typography style={{ fontSize: 20 }}>Subject</Typography>
-                    </Grid>
-                    <Grid item xs={3}>
-                        <Typography style={{ fontSize: 20 }}>Academic Level</Typography>
-                    </Grid>
-                    <Grid item xs={3}>
-                        <Typography style={{ fontSize: 20 }}>Grade</Typography>
-                    </Grid>
-                    <Grid item xs={3}>
-                        <Typography style={{ fontSize: 20 }}>Hourly Rate</Typography>
-                    </Grid>
+class TeachingSubject extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            subjects: [{
+                // subject: "math",
+                // academic_level: "highschool"
+                // grade : 10
+                //hourly_rate : 10
+            },
+            {
+                // subject: "math",
+                // academic_level: "highschool"
+                // grade : 10
+                //hourly_rate : 10
+            }]
+        };
+        this.addRecord = this.addRecord.bind(this);
+        this.deleteRecord = this.deleteRecord.bind(this);
+    }
+    addRecord() {
+        this.setState({
+            subjects: this.state.subjects.concat([{
+                // subject: "math",
+                // academic_level: "highschool"
+                // grade : 10
+                //hourly_rate : 10
+            }])
+        });
+        // console.log(this.state.subjects)
+    }
+    deleteRecord(index){
+        console.log("deleted");
+        let subjects = this.state.subjects;
+        subjects.splice(index,1);
+        this.setState({
+            subjects : subjects
+        })
+    }
+    render() {
+        const { values, handleChange, errors, handleBlur, touched } = this.props;
+        const { subjects } = this.state;
+        console.log(subjects)
+        if( _.isEmpty(subjects)){
+            return "loading"
+        }
+        return (
+            <Form>
+                <Grid container xs={12} direction="column" style={{ marginTop: 50, marginLeft: 80 }} alignItems='flex-start' >
+                    <Typography variant='h5'>Teaching Subject</Typography>
+                    <Menu name='Based In' />
                     <Grid container direction='row' xs={12} justify='flex-start' spacing={16} style={{ marginTop: 20 }} >
-                        <Grid item xs={3}>
-                            <FormControl error={!!touched.subject && errors.subject}>
-                            <Input placeholder='Subject' name='subject' value={values.subject} onChange={handleChange} onBlur={handleBlur} fullWidth />
-                            <FormHelperText>{touched.subject && errors.subject}</FormHelperText>
-                            </FormControl>
+                        <Grid item xs={2}>
+                            <Typography style={{ fontSize: 20 }}>Subject</Typography>
                         </Grid>
                         <Grid item xs={3}>
-                            <FormControl error={!!touched.level && errors.level}>
-                            <Input placeholder='Academic Level' name='level' value={values.level} onChange={handleChange} onBlur={handleBlur} fullWidth />
-                            <FormHelperText>{touched.level && errors.level}</FormHelperText>
-                            </FormControl>
+                            <Typography style={{ fontSize: 20 }}>Academic Level</Typography>
                         </Grid>
                         <Grid item xs={3}>
-                            <FormControl error={!!touched.grade && errors.grade}>
-                            <Input placeholder='Grade' name='grade' value={values.grade} onChange={handleChange} onBlur={handleBlur} fullWidth />
-                            <FormHelperText>{touched.grade && errors.grade}</FormHelperText>
-                            </FormControl>
+                            <Typography style={{ fontSize: 20 }}>Grade</Typography>
                         </Grid>
                         <Grid item xs={3}>
-                            <FormControl error={!!touched.rate && errors.rate}>
-                            <Input placeholder='Hourly Rate' name='rate' value={values.rate} onChange={handleChange} fullWidth />
-                            <FormHelperText>{touched.rate && errors.rate}</FormHelperText>
-                            </FormControl>
+                            <Typography style={{ fontSize: 20 }}>Hourly Rate</Typography>
                         </Grid>
-                        <Grid item xs={1}>
-                            <IconButton aria-label="Delete">
-                                <DeleteIcon />
-                            </IconButton>
-                        </Grid>
+                        {subjects.map((subject,index) => {
+                            return (
+                                <Grid container direction='row' xs={12} justify='flex-start' spacing={16} style={{ marginTop: 20 }} >
+                                    <Grid item xs={3}>
+                                        <FormControl error={!!touched.subject && errors.subject}>
+                                            <Input placeholder='Subject' name='subject' value={values.subject} onChange={handleChange} onBlur={handleBlur} fullWidth />
+                                            <FormHelperText>{touched.subject && errors.subject}</FormHelperText>
+                                        </FormControl>
+                                    </Grid>
+                                    <Grid item xs={3}>
+                                        <FormControl error={!!touched.level && errors.level}>
+                                            <Input placeholder='Academic Level' name='level' value={values.level} onChange={handleChange} onBlur={handleBlur} fullWidth />
+                                            <FormHelperText>{touched.level && errors.level}</FormHelperText>
+                                        </FormControl>
+                                    </Grid>
+                                    <Grid item xs={3}>
+                                        <FormControl error={!!touched.grade && errors.grade}>
+                                            <Input placeholder='Grade' name='grade' value={values.grade} onChange={handleChange} onBlur={handleBlur} fullWidth />
+                                            <FormHelperText>{touched.grade && errors.grade}</FormHelperText>
+                                        </FormControl>
+                                    </Grid>
+                                    <Grid item xs={3}>
+                                        <FormControl error={!!touched.rate && errors.rate}>
+                                            <Input placeholder='Hourly Rate' name='rate' value={values.rate} onChange={handleChange} fullWidth />
+                                            <FormHelperText>{touched.rate && errors.rate}</FormHelperText>
+                                        </FormControl>
+                                    </Grid>
+                                    <Grid item xs={1}>
+                                        <IconButton onClick={() => this.deleteRecord(index)} aria-label="Delete">
+                                            <DeleteIcon />
+                                        </IconButton>
+                                    </Grid>
+                                </Grid>
+                            )
+                        })
+                        }
+                        <Button type="button" onClick={() => this.addRecord()} style={{ backgroundColor: '#52C1C8', color: "#FFFFFF", paddingLeft: 60, paddingRight: 60 }}>Add Record</Button>
                     </Grid>
-                    <Button type="submit" style={{ backgroundColor: '#52C1C8', color: "#FFFFFF", paddingLeft: 60, paddingRight: 60 }}>Add Record</Button>
                 </Grid>
-            </Grid>
-        </Form>
-    )
+            </Form>
+        )
+    }
 }
 
 const FormikDefault = withFormik({
@@ -78,14 +130,14 @@ const FormikDefault = withFormik({
     },
     validationSchema: Yup.object().shape({
         subject: Yup.string()
-        .required('Subject is required'),
+            .required('Subject is required'),
         level: Yup.string()
-        .required('Level ís required'),
+            .required('Level ís required'),
         grade: Yup.string()
-        .required('Grade is required'),
+            .required('Grade is required'),
         rate: Yup.string(),
     }),
-    handleSubmit(values){
+    handleSubmit(values) {
         console.log(values)
     }
 })(TeachingSubject)
