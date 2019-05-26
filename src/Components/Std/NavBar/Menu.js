@@ -26,6 +26,7 @@ class LongMenu extends React.Component {
     this.setState({ anchorEl: null });
   };
   handleMenuItem = (index) => {
+    const { history } = this.props;
     if(index === 1){
       console.log("sign out");
       axios.get(`api/auth/logout?token=${localStorage.getItem('token')}`)
@@ -45,11 +46,12 @@ class LongMenu extends React.Component {
       console.log("edit")
     }
     if(index == 3){
-      console.log("my calendar")
+      history.push("/student/allclasses")
     }
   }
   render() {
     const { anchorEl } = this.state;
+    const { history } = this.props;
     const open = Boolean(anchorEl);
 
     return (

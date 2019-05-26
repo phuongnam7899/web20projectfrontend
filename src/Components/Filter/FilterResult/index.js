@@ -16,19 +16,22 @@ class FilterResult extends React.Component {
     
     render(){
         const { tutors } = this.props;
-        console.log(tutors)
+
         if (_.isEmpty(tutors)) {
             return null
         }
+        console.log(tutors)
         return(
             <div>
                 <Typography variant='h4' style = {{marginLeft : 80}}>FIND A TUTOR</Typography>
-                {this.props.tutors.map(tutor => {
-                    return ( <TeacherCard 
-                name = {tutor.userInfo.profile.first_name + tutor.userInfo.profile.last_name}
-                subject = {tutor.userInfo.teaching_subject}
-                phone = {tutor.userInfo.profile.phone_number}
-                id = {tutor.userInfo._id}
+                {tutors.map(tutor => {
+                    return (
+                <TeacherCard 
+                    key={tutor._id}
+                    name = {tutor.userInfo.profile.first_name + tutor.userInfo.profile.last_name}
+                    subject = {tutor.userInfo.teaching_subject}
+                    phone = {tutor.userInfo.profile.phone_number}
+                    id = {tutor._id}
                 />)
             })}
             </div>

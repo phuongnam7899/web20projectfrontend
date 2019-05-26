@@ -6,8 +6,9 @@ import Paper from '@material-ui/core/Paper'
 
 import BookingButton from './BookingButton'
 import LText from './LText'
+import { withStyles } from "@material-ui/core/styles";
 
-const styles = {
+const styles = () => ({
   paperContainer: {
     height: 1356,
     width : '100%',
@@ -17,17 +18,17 @@ const styles = {
     position : 'fixed',
     top: 0
   }
-}
+})
 
 
-const LandingPage = () => {
-
+const LandingPage = (props) => {
+  const { classes } = props;
   return (
     <div fullWidth>
-      <Paper style={styles.paperContainer}>
+      {/* <Paper style={styles.paperContainer}> */}
       <LText/>
       <BookingButton/>
-        </Paper>
+        {/* </Paper> */}
       
 
 
@@ -35,4 +36,4 @@ const LandingPage = () => {
   );
 }
 
-export default LandingPage;
+export default withStyles(styles)(LandingPage);

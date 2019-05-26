@@ -4,14 +4,11 @@ import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid'
-import Field from './Field';
-import TextField from './TextField'
+import Field from '../../Field';
 import Paper from '@material-ui/core/Paper'
-import Menu from '../../Menu'
-import Calendar from '../../Calendar'
+
 
 
 const styles = {
@@ -67,18 +64,8 @@ function TeacherDetail(props) {
               </Grid>
             </Grid>
           </Grid>
-          <Grid container xs={12} direction='column'>
-            <TextField />
-            <TextField tag='Teaches' content='Doctoral' />
-            <TextField tag='Teaching Experience' content='2018 - 2020 : Expert Programming' />
-            <TextField tag='Teaching Subject' content='XXX' />
-          </Grid>
         </Paper>
-      </Grid>
-      <Typography variant = 'h4' style = {{marginTop : 30}}>
-        Teacher's Calendar
-      </Typography>
-      <Calendar/>
+        </Grid>
     </div>
   );
 }
