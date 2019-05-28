@@ -8,7 +8,7 @@ class EditMyProfile extends React.Component {
         this.state = {
             subjects: []
         };
-        this.handleSubChange = this.handleSubChange.bind(this);
+        // this.handleSubChange = this.handleSubChange.bind(this);
     };
     render() {
         return (

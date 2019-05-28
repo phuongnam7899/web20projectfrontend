@@ -83,12 +83,13 @@ class App extends React.Component {
       )
     }
     if (this.state.role === "tutor") {
-      navbar = (
+      navbar = (  
         <NavTutor/>
       )
       display = (
         <Fragment>
           <Route path = '/teacher/tuitionpreference' render = {props => {
+            console.log('dfsf')
           return <TuitionPreference />
           }}/>
           <Route path='/teacher/editmyprofile' component = {Tutor_Editmyprofile}/>
