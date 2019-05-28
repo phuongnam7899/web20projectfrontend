@@ -166,7 +166,7 @@ class FormDialog extends React.Component {
               deleteHandle={deleteHandle}
               currentEvent={event}
             >
-              Choose Date Time
+              Date & Time
             </DialogTitle>
             <DialogContent>
               <Grid
@@ -183,7 +183,6 @@ class FormDialog extends React.Component {
                   >
                     Start
                   </FormLabel>
-                  {/* eslint-disable-next-line no-shadow */}
                   <form className={classes.container} noValidate>
                     <TextField
                       onChange={this.handleChange}

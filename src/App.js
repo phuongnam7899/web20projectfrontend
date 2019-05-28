@@ -9,7 +9,7 @@ import Signin from './Components/Signin';
 import TuitionDetail from './Components/Std/TuitionDetail';
 import Filter from './Components/Filter';
 import Editmyprofile from './Components/Std/EditMyProfile';
-import StdCalendar from './Components/Calendar/calendar_std';
+import StdCalendar from './Components/StdCalendar';
 import Calendar from './Components/Calendar';
 import TeacherDetail from './Components/Std/TeacherDetail';
 import TuitionPreference from './Components/Teacher/TuitionPreference';
@@ -72,12 +72,12 @@ class App extends React.Component {
           <Route path='/filter' component={Filter} />
           <Route path='/editmyprofile' component={Editmyprofile} />
           <Route path='/student/allclasses' component={StdCalendar} />
-          <Route path='/student/book_class' render={() => <Calendar role="student" tutor_id="5ce6cee1138b461508163e1c" />} />
+          <Route path='/student/book_class' render={() => <Calendar/>} />
           <Route path='/user' render={props => {
             return <TuitionDetail {...props}
             />
           }} />
-          <Route path='/tutor/detail' render={() => <TeacherDetail tutor_id = "5ce6001cd7133c301cf2f428" />} />
+          <Route path='/tutor/detail' render={() => <TeacherDetail/>} />
           <Route path = '/preference' component = {TuitionPreference} />
         </Fragment>
       )
@@ -92,7 +92,7 @@ class App extends React.Component {
           return <TuitionPreference />
           }}/>
           <Route path='/teacher/editmyprofile' component = {Tutor_Editmyprofile}/>
-          <Route path = '/tutor/update_freetime' render ={() => <Calendar role={this.state.role}/>} />
+          <Route path = '/tutor/update_freetime' render ={() => <Calendar tutor_id = {localStorage.id} />} />
           <Route path = '/tutor/my_profile' component = {MyDetail}/>
         </Fragment>
       )

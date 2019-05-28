@@ -1,0 +1,49 @@
+import BigCalendar from "../BigCalendar";
+import React from "react";
+import axios from "../../axios";
+import "../BigCalendar/react-big-calendar.css";
+import Grid from '@material-ui/core/Grid';
+import _ from "lodash";
+
+
+class StdCalendar extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      events: [],
+      colors: ["#321654","#123456","#654321","234654","#123456","#654321","#321654","234654"]
+    };
+  }
+  componentDidMount() {
+    const {colors} = this.state;
+    const showEvents = [];
+    axios.get(`api/class/student/${localStorage.id}?token=${localStorage.token}`)
+      .then(data => {
+        const classes = data.data;
+        classes.forEach((oneClass,index) => {
+          oneClass.sessions.forEach((session) => {
+            session.color = colors[index];
+            showEvents.push(session);
+          });
+        });
+        setTimeout(() => {this.setState({events : showEvents})},2000)
+      })
+      .catch(err => console.error(err));
+  }
+
+  render() {
+    const {events} = this.state;
+    if(_.isEmpty(events)){
+      return "loading"
+    }
+    return (
+      <Grid>
+        <BigCalendar
+          dataFromProps={events}
+          disabledEdit = {true}
+        />
+      </Grid>
+    );
+  }
+}
+export default StdCalendar;

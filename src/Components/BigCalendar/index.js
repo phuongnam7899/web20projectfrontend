@@ -5,7 +5,8 @@ import _ from "lodash";
 import FormDialog from "./dialog";
 import "./react-big-calendar.css";
 import moment from "moment";
-import Input from '@material-ui/core/Input'
+import Input from '@material-ui/core/Input';
+import { withRouter } from 'react-router-dom';
 
 const localizer = BigCalendar.momentLocalizer(moment);
 
@@ -60,30 +61,35 @@ class CalendarApp extends Component {
   }
   componentDidUpdate() {
     // console.log(this.state.events);
-   }
+  }
   onSelectSlot(e) {
-    const { events ,disabledEdit} = this.state;
-    if (!disabledEdit) {
-      const event = {
-        start: e.start,
-        end: e.end,
-        title: "",
-        status : localStorage.getItem("role") === "tutor" ? "free_time" : "student_book"
-      };
-      this.setState({
-        open: true,
-        event,
-        events: [...events, event]
-      });
-      
+    const { events, disabledEdit } = this.state;
+    const { updateOldEvents, getAddedEvents } = this.props;
+    if (updateOldEvents && getAddedEvents) {
+      if (!disabledEdit) {
+        const event = {
+          start: e.start,
+          end: e.end,
+          title: "",
+          status: localStorage.getItem("role") === "tutor" ? "free_time" : "student_book"
+        };
+        this.setState({
+          open: true,
+          event,
+          events: [...events, event]
+        });
+
+      }
     }
   }
 
   onClickSlot(event, e) {
+    console.log(this.state.disabledEdit)
+
     e.preventDefault();
     this.setState({
       open: true,
-      disabledEdit: ((localStorage.role === "tutor") || ((event.status !== "free_time") && (event.status !== "booked")) ) ? false : true,
+      disabledEdit: ((localStorage.role === "tutor") || ((event.status !== "free_time") && (event.status !== "booked"))) ? false : true,
       editState: true,
       event
     });
@@ -93,63 +99,61 @@ class CalendarApp extends Component {
   deleteHandle(event) {
     let { events } = this.state;
     const { getAddedEvents, updateOldEvents } = this.props;
-    const indexEventChoose = _.findIndex(events, el => _.isEqual(event, el));
-    events = _.filter(
-      events,
-      (el, index) => !_.isEqual(event, el) && index !== indexEventChoose
-    );
-    getAddedEvents(events);
-    updateOldEvents(events)
-    this.setState({
-      events,
-      open: false,
-      disabledEdit: false
-    });
+    if (updateOldEvents && getAddedEvents) {
+      const indexEventChoose = _.findIndex(events, el => _.isEqual(event, el));
+      events = _.filter(
+        events,
+        (el, index) => !_.isEqual(event, el) && index !== indexEventChoose
+      );
+      getAddedEvents(events);
+      updateOldEvents(events);
+      this.setState({
+        events,
+        open: false,
+        disabledEdit: false
+      });
+    }
   }
 
   closeDialogHandle() {
     const { events, editState } = this.state;
-    if (!editState) {
-      events.pop();
+    const { getAddedEvents, updateOldEvents } = this.props;
+    if (updateOldEvents && getAddedEvents) {
+      if (!editState) {
+        events.pop();
+        this.setState({
+          open: false,
+          events
+        });
+      }
+      // console.log(this.state)
       this.setState({
         open: false,
-        events
+        editState: false,
+        disabledEdit: false
+      });
+    } else {
+      this.setState({
+        open: false,
+        editState: false,
+        disabledEdit: false
       });
     }
-    // console.log(this.state)
-    this.setState({
-      open: false,
-      editState: false,
-      disabledEdit: false
-    });
-    
+
   }
 
   submitDialogHandle(pack) {
     const { event, events, editState, disabledEdit } = this.state;
-    const { getAddedEvents, updateOldEvents} = this.props;
-    if (!disabledEdit) {
-      if (!editState) {
-        events.pop();
-        const title = this.state.subject;
-        const status = localStorage.getItem("role") === "tutor" ? "free_time" : "student_book"
-        const start = this.convertToICT(pack.dateTimeStart);
-        const end = this.convertToICT(pack.dateTimeEnd);
-        const packaged = [
-          ...events,
-          {
-            ...event,
-            title,
-            start,
-            end,
-            status
-          }
-        ];
-        getAddedEvents(packaged);
-        updateOldEvents(packaged);
-        this.setState({
-          open: false,
-          events: [
+    const { getAddedEvents, updateOldEvents } = this.props;
+    if (updateOldEvents && getAddedEvents) {
+      if (!disabledEdit) {
+        if (!editState) {
+          events.pop();
+          const title = this.state.subject;
+          const status = localStorage.getItem("role") === "tutor" ? "free_time" : "student_book"
+          const start = this.convertToICT(pack.dateTimeStart);
+          const end = this.convertToICT(pack.dateTimeEnd);
+          const packaged = [
             ...events,
             {
               ...event,
@@ -158,33 +162,50 @@ class CalendarApp extends Component {
               end,
               status
             }
-          ]
-        });
-      } else {
-        const indexEventChoose = _.findIndex(events, el =>
-          _.isEqual(event, el)
-        );
-        const title = pack.notes;
-        const status = localStorage.getItem("role") === "tutor" ? "free_time" : "student_book"
-        const start = this.convertToICT(pack.dateTimeStart);
-        const end = this.convertToICT(pack.dateTimeEnd);
-        const eventAfterEdit = {
-          ...event,
-          title,
-          start,
-          end,
-          status
-        };
-        events[indexEventChoose] = eventAfterEdit;
-        const packaged = events;
-        // console.log(packaged);
-        getAddedEvents(packaged);
-        updateOldEvents(packaged)
-        this.setState({
-          events,
-          event: eventAfterEdit,
-          open: false
-        });
+          ];
+          getAddedEvents(packaged);
+          updateOldEvents(packaged);
+          this.setState({
+            open: false,
+            events: [
+              ...events,
+              {
+                ...event,
+                title,
+                start,
+                end,
+                status
+              }
+            ]
+          });
+        } else {
+          const indexEventChoose = _.findIndex(events, el =>
+            _.isEqual(event, el)
+          );
+          const title = pack.notes;
+          const status = localStorage.getItem("role") === "tutor" ? "free_time" : "student_book"
+          const start = this.convertToICT(pack.dateTimeStart);
+          const end = this.convertToICT(pack.dateTimeEnd);
+          const eventAfterEdit = {
+            ...event,
+            title,
+            start,
+            end,
+            status
+          };
+          events[indexEventChoose] = eventAfterEdit;
+          const packaged = events;
+          // console.log(packaged);
+          if (getAddedEvents && updateOldEvents) {
+            getAddedEvents(packaged);
+            updateOldEvents(packaged)
+            this.setState({
+              events,
+              event: eventAfterEdit,
+              open: false
+            });
+          }
+        }
       }
     }
   }
@@ -194,28 +215,41 @@ class CalendarApp extends Component {
     return moment(value).toDate();
   }
   handleSubChange = (e) => {
-    this.setState(
-      { subject: e.target.value },
-      () => {
-        // console.log(this.state.subject)
-      }
-    )
+    const { getAddedEvents, updateOldEvents } = this.props;
+    if (updateOldEvents && getAddedEvents) {
+      this.setState(
+        { subject: e.target.value },
+        () => {
+          // console.log(this.state.subject)
+        }
+      );
+    }
   }
 
   render() {
-    const { open, event, events, editState, disabledEdit} = this.state;
+    const { open, event, events, editState, disabledEdit } = this.state;
+    console.log(events)
     return (
-      <div style={{ height: "100vh",marginTop:20 }}>
-      <Input placeholder = 'Subject' type="text" onChange={this.handleSubChange} />
+      // <Router >
+      <div style={{ height: "100vh", marginTop: 20 }}>
+        <Input placeholder="Subject" onChange={this.handleSubChange}></Input>
         <BigCalendar
           length={120}
-          localizer={localizer} 
+          localizer={localizer}
           events={events}
           startAccessor="start"
           endAccessor="end"
           eventPropGetter={
             (event, start, end, isSelected) => {
-              if (event.status === "free_time") {
+              if (event.color) {
+                return {
+                  style: {
+                    backgroundColor: event.color,
+                    borderRadius: '10px'
+                  }
+                }
+              }
+              else if (event.status === "free_time") {
                 return {
                   style: {
                     backgroundColor: "#c88f52",
@@ -244,7 +278,7 @@ class CalendarApp extends Component {
           onSelectSlot={this.onSelectSlot}
           onSelectEvent={this.onClickSlot}
         />
-        
+
         {
           <FormDialog
             open={open}

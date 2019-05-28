@@ -78,7 +78,7 @@ class TeacherDetail extends React.Component {
               <TextField tag='Certificate' content={tutorInfo.reference.certificate} />
               <TextField tag='Speak/Language' content={tutorInfo.user_id.profile.language_name} />
               <TextField tag='Teaching Experience' content={tutorInfo.working_experience} />
-              <TextField tag='Teaching Subject'content={tutorInfo.teaching_subject} />
+              {/* <TextField tag='Teaching Subject'content={tutorInfo.teaching_subject} /> */}
             </Grid>
           </Paper>
         </Grid>

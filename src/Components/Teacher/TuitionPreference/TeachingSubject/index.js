@@ -16,21 +16,25 @@ class TeachingSubject extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            subjects: [{
-                subject:"",
-                academic_level:"",
-                grade: "",
-                hourly_rate:""
-            }]
-        };
+            subjects: []
+        };  
     }
-
+    componentDidMount(){
+        axios.get(`api/user/tutor/${localStorage.id}?token=${localStorage.token}`)  
+            .then(data => {
+                console.log(data)
+                console.log("teaching sub",data.data.teaching_subject)
+                this.setState({subjects: data.data.teaching_subject})
+            })
+            .catch(err => console.error(err))
+    }
     render() {
         const { values, handleChange,errors, handleBlur, touched } = this.props;
+        console.log('initial', values)
         const { subjects } = this.state;
         
         console.log("initial", values)
-        if( _.isEmpty(subjects)){
+        if( _.isEmpty(values)){
             return "loading"
         }
         return (    
@@ -54,8 +58,8 @@ class TeachingSubject extends React.Component {
                         <FieldArray 
                             name = "subjects"
                             render = {({push}) => (
-                                <div>
-                                    {values.subjects.map((sub, index) => (
+                                <Form>
+                                    {subjects.map((sub, index) => (
                                     <Grid container direction='row' xs={12} justify='flex-start' spacing={16} style={{ marginTop: 20 }} >
                                         <Grid item xs={3}>
                                             <FormControl error={!!touched.year && errors.year}>
@@ -74,7 +78,7 @@ class TeachingSubject extends React.Component {
                                         <Grid item xs={3}>
                                             <FormControl error={!!touched.year && errors.year}>
                                                 <Field
-                                                    name={`subjects[${index}].level`}
+                                                    name={`subjects[${index}].academic_level`}
                                                     render={({ field, form: { touched, errors } }) => (
                                                         <div>
                                                           <Input {...field} type="text" placeholder="Academic level" fullWidth/>
@@ -88,7 +92,7 @@ class TeachingSubject extends React.Component {
                                         <Grid item xs={3}>
                                             <FormControl error={!!touched.year && errors.year}>
                                                 <Field
-                                                    name={`subjects[${index}].grade`}
+                                                    name={`subjects[${index}].academic_grade`}
                                                     render={({ field, form: { touched, errors } }) => (
                                                         <div>
                                                           <Input {...field} type="text" placeholder="Grade" fullWidth />
@@ -102,7 +106,7 @@ class TeachingSubject extends React.Component {
                                         <Grid item xs={3}>
                                             <FormControl error={!!touched.year && errors.year}>
                                                 <Field
-                                                    name={`subjects[${index}].rate`}
+                                                    name={`subjects[${index}].hourly_rate`}
                                                     render={({ field, form: { touched, errors } }) => (
                                                         <div>
                                                           <Input {...field} type="text" placeholder="Hourly rate"  />
@@ -115,18 +119,34 @@ class TeachingSubject extends React.Component {
                                         </Grid>
                                     </Grid>))
                                     }
-                                    <FormControl>
-                                        <Button
-                                            style={{ backgroundColor: '#52C1C8', color: "#FFFFFF", paddingLeft: 60, paddingRight: 60, marginTop: 10 }}
-                                            variant='extendedFab'
-                                            type="button"
-                                            className="secondary"
-                                            onClick={() => push({subject: "", level:"", grade:"", rate:""})}
-                                        >
-                                            Add Record
-                                        </Button>
-                                    </FormControl>
-                                </div>
+                                    <Grid container direction='row' xs={12} justify='flex-start' spacing={16} style={{ marginTop: 20 }} >
+                                        <Grid item xs={5}>   
+                                            <FormControl>
+                                                <Button
+                                                    style={{ backgroundColor: '#52C1C8', color: "#FFFFFF", paddingLeft: 60, paddingRight: 60, marginTop: 10 }}
+                                                    variant='extendedFab'
+                                                    type="button"
+                                                    className="secondary"
+                                                    onClick={() => push({subject: "", academic_level:"", academic_grade:"", hourly_rate:""})}
+                                                >
+                                                    Add Record
+                                                </Button>
+                                            </FormControl>
+                                        </Grid>
+                                        <Grid item xs={6}>   
+                                            <FormControl>
+                                                <Button
+                                                    style={{ backgroundColor: '#52C1C8', color: "#FFFFFF", paddingLeft: 60, paddingRight: 60, marginTop: 10 }}
+                                                    variant='extendedFab'
+                                                    color='primary'
+                                                    type='submit'
+                                                >
+                                                    Update Subject
+                                                </Button>
+                                            </FormControl>
+                                        </Grid>
+                                    </Grid>
+                                </Form>
                             )}
                         />
 
@@ -138,13 +158,14 @@ class TeachingSubject extends React.Component {
 }
 
 const FormikDefault = withFormik({
-    mapPropsToValues({ }) {
+    mapPropsToValues(props) {
+        console.log(props.value)
         return ({
             subjects:[{
-                subject: '',
-                level: '',
-                grade: '',
-                rate: '',
+                subject: 'toan',
+                academic_level: '1',
+                academic_grade: '2',
+                hourly_rate: '5',
             }]
         })
     },
