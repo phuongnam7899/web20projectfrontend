@@ -7,46 +7,40 @@ import Menu from './Menu'
 import {NavLink} from 'react-router-dom'
 
 class NavBar extends React.Component {
-  state = {
-    color : 'secondary',
-    colors: 'black'
-  }
-  handleClick = (e) => {  
-    this.props.changeLogin(this.state);
-  }
   
   render () {
+    const { history } = this.props;
     return (
-      <div style = {{marginLeft : 80}}>
-        <AppBar position='static' style={{ background: 'transparent', boxShadow: 'none', paddingTop : 30}}>
+      <div>
+        <AppBar position='static' style={{ background: '#c88f52' }}>
           <ToolBar>
-          <Grid container xs={12} >
-              <Grid item xs={7}>
-                <Typography color={this.props.color} noWrap style = {{fontSize: 40, marginLeft : 80}}>
+          <Grid container style={{ alignContent: 'center' }}>
+              <Grid item xs={8}>
+                <Typography noWrap style = {{fontSize: 40, marginLeft : 80,color: 'white', fontWeight: 600}}>
                   X TUTOR
                 </Typography>
               </Grid>
 
               <Grid item xs={1}>
-              <Typography color = {this.props.color} style = {{fontSize: 18}}>
-                <NavLink to = '/tutor/update_freetime'  style={{ textDecoration: 'none', color: 'black'}}>MY CALENDAR</NavLink>
+              <Typography style = {{fontSize: 18, marginTop:15}}>
+                <NavLink to = 'tutor/update_freetime'  style={{ textDecoration: 'none', color: '#ffffff'}}>MY CALENDAR</NavLink>
               </Typography>
               </Grid>
 
               <Grid item xs={1}>
-              <Typography color = {this.props.color} style = {{fontSize: 18}}>
-                <NavLink to = 'tutor/my_profile' style ={{ textDecoration: 'none', color: 'black'}} >MY PROFILE</NavLink>
+              <Typography style = {{fontSize: 18, marginTop:15}}>
+                <NavLink to = 'tutor/my_profile' style ={{ textDecoration: 'none', color: '#ffffff'}} >MY PROFILE</NavLink>
               </Typography>
               </Grid>
 
               <Grid item xs={1}>
-              <Typography color = {this.props.color} style = {{fontSize: 18}} noWrap>
+              <Typography style = {{fontSize: 18, marginTop:15, color: '#ffffff'}} noWrap>
                 TEACHER'S NAME
               </Typography>
               </Grid>
 
               <Grid item xs={1} justify = 'center' alignContent = 'center' >
-                <Menu/>
+                <Menu history={history}/>
               </Grid>
               </Grid>
           </ToolBar>

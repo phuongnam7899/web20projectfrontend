@@ -7,7 +7,8 @@ import { NavLink } from 'react-router-dom'
 import { withRouter } from "react-router";
 
 class NavBar extends React.Component {
-
+  
+  
   render() {
     return (
       <div>
