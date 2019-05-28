@@ -1,6 +1,5 @@
 console.log(process.env);
 
-
 export default {
     rootPath: process.env.NODE_ENV === 'development'
     ?'http://localhost:6969':'https://x-tutor-api.herokuapp.com'
