@@ -52,7 +52,7 @@ class Filter extends React.Component {
     render(){
         return (
             <div>
-                <FilterBar filter_std_info={this.filter_std_info} />
+                <FilterBar filter_std_info={this.filter_std_info} changeTutors = {this.changeTutors} />
                 <Grid container xs={12} direction='row'>
                     <Grid item xs={3}>
                         <FilterColumn  filter_tutor_info = {this.filter_tutor_info}/>
