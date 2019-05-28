@@ -202,7 +202,7 @@ const FormikForm = withFormik({
         dob: Yup.date(),
         phonenumber: Yup.number()
             .required('Phone Number is required')
-            .min(10, 'Phone Number must have min 5 characters'),
+            .min(10, 'Phone Number must have min 10 characters'),
         postal: Yup.number()
             .min(9, 'Postal must have min 9 characters'),
         address: Yup.string()

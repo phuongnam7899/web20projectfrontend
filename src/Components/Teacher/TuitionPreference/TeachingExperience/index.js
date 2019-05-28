@@ -9,6 +9,7 @@ import FormHelperText from '@material-ui/core/FormHelperText'
 import { withFormik, Form } from 'formik';
 import * as Yup from 'yup';
 import _ from "lodash";
+import Circle from '../../../Circle'
 
 class TeachingExperience extends React.Component {
 
@@ -49,7 +50,7 @@ class TeachingExperience extends React.Component {
         const { experiences } = this.state;
         console.log(values)
         if (_.isEmpty(experiences)) {
-            return "loading"
+            return <Circle />
         }
         return (
             <Form>

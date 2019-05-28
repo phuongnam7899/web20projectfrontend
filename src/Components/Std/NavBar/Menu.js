@@ -4,7 +4,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import axios from '../../../axios';
-import LandingPage from '../../LandingPage'
+
 const options = [
   'Sign Out',
   'Edit Profile',
@@ -34,7 +34,7 @@ class LongMenu extends React.Component {
           localStorage.removeItem('role');
           localStorage.removeItem('token');
           localStorage.removeItem('id');
-          document.location.href = "/"
+          document.location.href = "/login"
       })
       .catch(err => {
         console.log(err)
@@ -50,7 +50,6 @@ class LongMenu extends React.Component {
   }
   render() {
     const { anchorEl } = this.state;
-    const { history } = this.props;
     const open = Boolean(anchorEl);
 
     return (

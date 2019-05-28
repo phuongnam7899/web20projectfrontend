@@ -7,33 +7,86 @@ import Input from '@material-ui/core/Input';
 import axios from '../axios';
 import TuitionPreference from './Teacher/TuitionPreference';
 import MyDetail from '../Components/Teacher/TeacherDetail';
-import Circle from './Circle'
+import { withFormik, Form } from 'formik';
+import * as Yup from 'yup';
+import FormHelperText from '@material-ui/core/FormHelperText'
+import FormControl from '@material-ui/core/FormControl'
 
-class CreateAccount extends React.Component {
-    state = {
-        email: "",
-        password: "",
-        role: "",
-    }
-    handleMailChange = (e) => {
-        this.setState({
-            email: e.target.value
-        })
-        console.log(e.target.value)
-    }
-    handlePassChange = (e) => {
-        this.setState({
-            password: e.target.value
-        })
-        console.log(e.target.value)
-    }
-    handleLogin = () => {
+const CreateAccount = ({ values, handleChange, errors, touched, handleBlur }) => {
+    let display = localStorage.getItem('token') ? (
+        localStorage.getItem('role') === "tutor" ? (
+            <TuitionPreference />
+        ) : (
+            <MyDetail />
+            )
+    ) : (
+        
+            <Form>
+                <Grid container direction='column' style={{ marginTop: 150 }} alignContent='center' spacing={5} >
+                    <Grid item xs={3}>
+                        <Typography style={{ fontSize: 20 }} align='center'>
+                            LOG INTO XTutor
+                            </Typography>
+                    </Grid>
+                    <Grid container xs={3} justify='center'>
+                        <Typography style={{ fontSize: 18, color: '#A7A7A7', fontWeight: 200 }} >
+                            or
+                            </Typography>
+                        <Typography style={{ fontSize: 18, }} >
+                            <Link to='/signup' style={{ color: '#A7A7A7', fontWeight: 200 }}>
+                                Create Account
+                                    </Link>
+                        </Typography>
+                    </Grid>
+    
+                    <Grid item xs={3} style={{ marginTop: 30 }}>
+                        <FormControl fullWidth error={!!touched.email && errors.email}>
+                            <Input placeholder='Email Address' name='email' value={values.email} onChange={handleChange} onBlur={handleBlur} />
+                            <FormHelperText>{touched.email && errors.email}</FormHelperText>
+                        </FormControl>
+                    </Grid>
+    
+                    <Grid item xs={3} style={{ marginTop: 30 }} error={!!touched.firstname && errors.firstname}>
+                        <FormControl fullWidth error={!!touched.password && errors.password}>
+                            <Input placeholder='Password' name='password' type='password' value={values.password} onChange={handleChange} onBlur={handleBlur} />
+                            <FormHelperText>{touched.password && errors.password}</FormHelperText>
+                        </FormControl>
+                    </Grid>
+                    <Button type='submit' style={{ backgroundColor: '#52c1c8', color: "#ffffff", marginTop: 30 }}>Log In</Button>
+                </Grid>
+            </Form>
+        
+    )
+    return (
+        <div>
+            {display}
+        </div>
+    )
+}
+
+const FormikForm = withFormik({
+    mapPropsToValues({ }) {
+        return {
+            email: '',
+            password: '',
+            role : ''
+        };
+    },
+    validationSchema: Yup.object().shape({
+        email: Yup.string()
+            .required('Email is required')
+            .email('Email is invalid'),
+        password: Yup.string()
+            .required('Password is required')
+            .min(8, 'Password must have min 8 characters')
+    }),
+    handleSubmit(values, { props }) { //chua test
         axios({
             url: '/api/auth/login',
             method: 'post',
             data: {
-                email: this.state.email,
-                password: this.state.password
+                email: values.email,
+                password: values.password,
             }
         })
             .then((sent_data) => {
@@ -42,59 +95,17 @@ class CreateAccount extends React.Component {
                 localStorage.setItem('role', sent_data.data.userInfo.user_id.role);
                 localStorage.setItem("id", sent_data.data.userInfo._id);
                 localStorage.setItem("user_id", sent_data.data.userInfo.user_id._id)
-                this.props.updateRole(localStorage.getItem('role'))
+                props.updateRole(localStorage.getItem('role'))
                 if (localStorage.getItem('role') === "student") {
-                    this.props.history.push('/user')
+                    props.history.push('/user')
                 }
                 if (localStorage.getItem('role') === "tutor") {
-                    this.props.history.push('/teacher/tuitionpreference');
+                    props.history.push('/teacher/tuitionpreference');
                 }
             })
             .catch(err => console.error(err))
     }
-    render() {
-        let display = localStorage.getItem('token') ? (
-            localStorage.getItem('role') === "tutor" ? (
-                <TuitionPreference />
-            ) : (
-                <MyDetail />
-                )
-        ) : (   
-                <Grid container direction='column' style={{ marginTop: 150}} alignContent='center' spacing={5} >
-                    <Grid item xs={3}>
-                        <Typography style={{ fontSize: 20 }} align='center'>
-                            LOG INTO XTutor
-                        </Typography>
-                    </Grid>
-                    <Grid container xs={3} justify='center'>
-                        <Typography style={{ fontSize: 18, color: '#A7A7A7', fontWeight: 200 }} >
-                            or
-                        </Typography>
-                        <Typography style={{ fontSize: 18, }} >
-                            <Link to='/signup' style={{ color: '#A7A7A7', fontWeight: 200 }}>
-                                Create Account
-                                </Link>
-                        </Typography>
-                    </Grid>
-
-                    <Grid item xs={3} style={{ marginTop: 30 }}>
-                        <Input placeholder='Email Address' fullWidth onChange={this.handleMailChange} />
-                    </Grid>
-
-                    <Grid item xs={3} style={{ marginTop: 30 }}>
-                        <Input placeholder='Password' type='password' fullWidth onChange={this.handlePassChange} />
-                    </Grid>
-
-                    <Button style={{ backgroundColor: '#52c1c8', color: "#ffffff", marginTop: 30 }} onClick={this.handleLogin}>Log In</Button>
-                </Grid>
-            )
-        return (
-            <div>
-                {display}   
-            </div>
-        );
-    }
-}
+})(CreateAccount)
 
 
-export default CreateAccount;
+export default FormikForm;

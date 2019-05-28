@@ -4,7 +4,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import axios from '../../../axios';
-import LandingPage from '../../LandingPage'
+
 const options = [
   'Sign Out',
   'Edit Profile',
@@ -26,28 +26,29 @@ class LongMenu extends React.Component {
     this.setState({ anchorEl: null });
   };
   handleMenuItem = (index) => {
-    if(index == 0){
+    const {history} = this.props;
+    if(index === 0){
       console.log("sign out");
       axios.get(`api/auth/logout?token=${localStorage.getItem('token')}`)
       .then(() => {
           localStorage.removeItem('role');
           localStorage.removeItem('token');
           localStorage.removeItem('id');
-          document.location.href = "/"
+          document.location.href = "/login"
       })
       .catch(err => {
         console.log(err)
       })
 
     }
-    if(index == 2){
-      console.log("edit profile")
+    if(index === 1){
+      history.push ("/teacher/editmyprofile")
     }
-    if(index == 3){
-      console.log("edit preference")
+    if(index === 2){
+      history.push("/teacher/tuitionpreference")
     }
-    if(index == 4){
-      console.log("calendar")
+    if(index === 3){
+      history.push ("/tutor/update_freetime")
     }
     
   }
@@ -58,6 +59,7 @@ class LongMenu extends React.Component {
     return (
       <div>
         <IconButton
+          style ={{color : 'white',marginTop : 5}}
           aria-label="More"
           aria-owns={open ? 'long-menu' : undefined}
           aria-haspopup="true"
