@@ -220,7 +220,7 @@ class CalendarApp extends Component {
       this.setState(
         { subject: e.target.value },
         () => {
-          // console.log(this.state.subject)
+          this.props.handleSubChange_Calendar(this.state.subject)
         }
       );
     }

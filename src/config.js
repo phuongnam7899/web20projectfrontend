@@ -1,4 +1,4 @@
-export default{
+export default {
     // rootPath: process.env.REACT_APP_STATE === 'localhost'
     // ?'http://localhost:6969':'https://atntoys-database41099.herokuapp.com'
     //https://x-tutor-api.herokuapp.com

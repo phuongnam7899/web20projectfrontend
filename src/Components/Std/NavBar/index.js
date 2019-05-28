@@ -6,15 +6,10 @@ import Grid from '@material-ui/core/Grid';
 import Menu from './Menu'
 import {NavLink} from 'react-router-dom'
 import { withRouter } from "react-router";
+import axios from '../../../axios'
 
 class NavBar extends React.Component {
-  state = {
-    color : 'secondary',
-    colors: 'black'
-  }
-  handleClick = (e) => {  
-    this.props.changeLogin(this.state);
-  }
+
   
   render () {
     const { history } = this.props;

@@ -98,7 +98,7 @@ const FilterBar = ({ values, handleChange }) => {
                             type='submit'
                             style={{backgroundColor: '#52C1C8', color: "#FFFFFF"}}
                         >
-                            Update your 
+                            GO 
                         </Button>
                     </FormControl>
                 </Form>
