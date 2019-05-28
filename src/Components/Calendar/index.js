@@ -1,5 +1,5 @@
 import React from "react";
-import BigCalendar from "./BigCalendar";
+import BigCalendar from "../BigCalendar";
 import axios from "../../axios";
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
@@ -23,7 +23,7 @@ class Calendar extends React.Component {
             .then(data => {
                 const events = data.data;
                 // console.log(events);
-                if (this.props.role === "student") {
+                if (localStorage.role === "student") {
                     events.forEach(element => {
                         if (element.status !== "free_time") {
                             element.status = "booked";
@@ -65,7 +65,7 @@ class Calendar extends React.Component {
                 url:"/api/class",
                 method:"post",
                 data:{
-                    tutor_id : "5ce6cee1138b461508163e1c",
+                    tutor_id : localStorage.tutor_id,
                     student_id : localStorage.id,
                     hourly_rate: 323,
                     sessions : this.state.addEvents,
@@ -101,7 +101,7 @@ class Calendar extends React.Component {
     
     render() {
         const { oldEvents} = this.state;
-
+        console.log(oldEvents)
         // console.log(this.state.addEvents);
         return (
             <Grid>
