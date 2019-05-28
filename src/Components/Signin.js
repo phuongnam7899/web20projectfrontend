@@ -78,7 +78,7 @@ const FormikForm = withFormik({
             .email('Email is invalid'),
         password: Yup.string()
             .required('Password is required')
-            .min(6, 'Password must have min 8 characters')
+            .min(6, 'Password must have min 6 characters')
     }),
     handleSubmit(values, { props }) { //chua test
         axios({

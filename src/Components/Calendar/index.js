@@ -11,10 +11,11 @@ class Calendar extends React.Component {
             firstEvents: [],
             oldEvents: [],
             addEvents: [],
-            // subject: "Math",
+            subject: "",
         };
         this.handleSubmit = this.handleSubmit.bind(this);
         this.updateOldEvents = this.updateOldEvents.bind(this);
+        this.handleSubChange_Calendar = this.handleSubChange_Calendar.bind(this);
     }
     componentDidMount() {
         axios.get(`/api/class/tutor/${localStorage.getItem('tutor_id')}`, {
@@ -57,6 +58,13 @@ class Calendar extends React.Component {
             currentEvents : currentEvents,
         });
         // console.log(this.state.addEvents)
+    }
+    handleSubChange_Calendar(sub){
+        this.setState({
+            subject: sub
+        },() => {
+            console.log('calendar is updated sub')
+        })
     }
     handleSubmit(){
         if(localStorage.role === "student"){
@@ -107,6 +115,7 @@ class Calendar extends React.Component {
             <Grid>
                 <Button style={{backgroundColor: '#52C1C8', color: "#FFFFFF",marginTop:20}} onClick={this.handleSubmit}>Book your class</Button>
                 <BigCalendar
+                    handleSubChange_Calendar= {this.handleSubChange_Calendar}
                     updateOldEvents={this.updateOldEvents}
                     dataFromProps={oldEvents}
                     getAddedEvents={currentEvents => this.getAddedEvents(currentEvents)}

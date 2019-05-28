@@ -38,14 +38,17 @@ class LongMenu extends React.Component {
       })
       .catch(err => {
         console.log(err)
+        this.setState({ anchorEl: null });
       })
 
     }
     if(index === 1){
-      history.push("/editmyprofile")
+      history.push("/editmyprofile");
+      this.setState({ anchorEl: null });
     }
     if(index === 2){
       history.push("/student/allclasses")
+      this.setState({ anchorEl: null });
     }
   }
   render() {

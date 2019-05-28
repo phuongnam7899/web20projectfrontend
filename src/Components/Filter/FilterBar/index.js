@@ -18,11 +18,11 @@ const FilterBar = ({ values, handleChange }) => {
                     <FormControl style = {{width: 150, marginLeft: 80}} margin='normal'>
                         <InputLabel>Academic Level</InputLabel>
                         <Select
-                            displayEmpty
                             name='academic_level'
                             value={values.academic_level}
                             onChange={handleChange}
                         >
+                            <MenuItem value={''}>Academic Level</MenuItem>
                             <MenuItem value={'highschool'}>High School</MenuItem>
                             <MenuItem value={'university'}>University</MenuItem>
                         </Select>
@@ -35,11 +35,11 @@ const FilterBar = ({ values, handleChange }) => {
                     <FormControl style = {{width: 150}} margin='normal'>
                         <InputLabel>Grade</InputLabel>
                         <Select
-                            displayEmpty
                             name='academic_grade'
                             value={values.academic_grade}
                             onChange={handleChange}
                         >
+                            <MenuItem value={''}>Grade</MenuItem>
                             <MenuItem value={'grade1'}>Grade 1</MenuItem>
                             <MenuItem value={'grade2'}>Grade 2</MenuItem>
                             <MenuItem value={'grade3'}>Grade 3</MenuItem>
@@ -55,11 +55,11 @@ const FilterBar = ({ values, handleChange }) => {
                     <FormControl style = {{width: 150}} margin='normal'>
                         <InputLabel>Subject</InputLabel>
                         <Select
-                            displayEmpty
                             name='subject'
                             value={values.subject}
                             onChange={handleChange}
                         >
+                            <MenuItem value={''}>Subject</MenuItem>
                             <MenuItem value={'math'}>Math</MenuItem>
                             <MenuItem value={'physic'}>Physic</MenuItem>
                             <MenuItem value={'chemistry'}>Chemistry</MenuItem>
@@ -98,7 +98,7 @@ const FilterBar = ({ values, handleChange }) => {
                             type='submit'
                             style={{backgroundColor: '#52C1C8', color: "#FFFFFF"}}
                         >
-                            Update your 
+                            GO 
                         </Button>
                     </FormControl>
                 </Form>
@@ -118,20 +118,17 @@ const FormikForm = withFormik({
     },
     handleSubmit(values, { props }) {
         console.log(props)
-        const { filter_std_info } = props;
+        const { filter_std_info, changeTutors } = props;
         
-        // axios({
-        //     method : 'post',
-        //     url: '/api/user/tutor/filter',
-        //     data: {
-        //         academic_level: values.level,
-        //         subject: values.subject,
-        //         academic_grade: values.grade
-        //     },
-        //     headers: { 'X-Auth-Token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRoYW9ucDA0MTA5OUBnbWFpbC5jb20iLCJwYXNzd29yZCI6IjEyMzQ1NiIsImlhdCI6MTU1ODMyOTI1NX0.lkqx-o-14-saMoKmbEJQKWqIUSyTgyMZtdv5QLjQ-1c' } 
-        // }).then((data) => {
-        //     changeTutors(data.data)})
-        filter_std_info(values)
+        axios({
+            method : 'post',
+            url: `/api/user/tutor/filter?token=${localStorage.getItem('token')}`,
+            data: values 
+        }).then((data) => {
+                changeTutors(data.data)
+                filter_std_info(values)
+            }
+        )
     }
 })(FilterBar)
 
