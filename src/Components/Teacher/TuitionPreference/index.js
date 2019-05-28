@@ -10,18 +10,6 @@ class EditMyProfile extends React.Component {
         };
         this.handleSubChange = this.handleSubChange.bind(this);
     };
-    componentDidMount(){
-        axios.get(`api/user/tutor/${localStorage.id}?token=${localStorage.token}`)  
-            .then(data => {
-                console.log(data)
-                console.log(data.data.teaching_subject)
-            })
-            .catch(err => console.error(err))
-    }
-    handleSubChange(e){
-        console.log('adfds')
-        console.log(e.target.name)
-    }
     render() {
         return (
             <div>

@@ -17,8 +17,8 @@ const FilterColumn = ({values, handleChange}) => {
                         <InputLabel>Language</InputLabel>
                         <Select
                             displayEmpty
-                            name='language'
-                            value={values.language}
+                            name='language_name'
+                            value={values.language_name}
                             onChange={handleChange}
                         >
                             <MenuItem value={'english'}>English</MenuItem>
@@ -36,13 +36,14 @@ const FilterColumn = ({values, handleChange}) => {
                         <InputLabel>Education</InputLabel>
                         <Select
                             displayEmpty
-                            name='education'
-                            value={values.education}
+                            name='academic_level_name'
+                            value={values.academic_level_name}
                             onChange={handleChange}
                         >
+                            <MenuItem value={'primaryschool'}>Primary School</MenuItem>
+                            <MenuItem value={'secondaryschool'}>Secondary School</MenuItem>
                             <MenuItem value={'highschool'}>High School</MenuItem>
-                            <MenuItem value={'kindergarten'}>Kindergarten</MenuItem>
-                            <MenuItem value={'University'}>University</MenuItem>
+                            <MenuItem value={'university'}>University</MenuItem>
                         </Select>
                     </FormControl>
                 </Form>
@@ -53,8 +54,8 @@ const FilterColumn = ({values, handleChange}) => {
                         <InputLabel>Gender</InputLabel>
                         <Select
                             displayEmpty
-                            name='gender'
-                            value={values.gender}
+                            name='gender_name'
+                            value={values.gender_name}
                             onChange={handleChange}
                         >
                             <MenuItem value={'male'}>Male</MenuItem>
@@ -82,24 +83,25 @@ const FilterColumn = ({values, handleChange}) => {
 const FormikForm = withFormik({
     mapPropsToValues({ }) {
         return {
-            language: '',
-            education: '',
-            gender: ''
+            language_name: '',
+            academic_level_name: '',
+            gender_name: ''
         }
     },
     handleSubmit(values, {props}) {
-        const {changeTutors} = props;
-        axios({ 
-            method : 'post',
-            url: '/api/user/tutor/filter',
-            data: {
-                language_name: values.language,
-                academic_level_name: values.education,
-                gender_name: values.gender,
-            },
-            headers: { 'X-Auth-Token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRoYW9ucDA0MTA5OUBnbWFpbC5jb20iLCJwYXNzd29yZCI6IjEyMzQ1NiIsImlhdCI6MTU1ODMyOTI1NX0.lkqx-o-14-saMoKmbEJQKWqIUSyTgyMZtdv5QLjQ-1c' } 
-        }).then(data =>
-           changeTutors(data.data))
+        const {filter_tutor_info} = props;
+        // axios({ 
+        //     method : 'post',
+        //     url: '/api/user/tutor/filter',
+        //     data: {
+        //         language_name: values.language,
+        //         academic_level_name: values.education,
+        //         gender_name: values.gender,
+        //     },
+        //     headers: { 'X-Auth-Token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRoYW9ucDA0MTA5OUBnbWFpbC5jb20iLCJwYXNzd29yZCI6IjEyMzQ1NiIsImlhdCI6MTU1ODMyOTI1NX0.lkqx-o-14-saMoKmbEJQKWqIUSyTgyMZtdv5QLjQ-1c' } 
+        // }).then(data =>
+        //    changeTutors(data.data))
+        filter_tutor_info(values)
     }
 })(FilterColumn)
 

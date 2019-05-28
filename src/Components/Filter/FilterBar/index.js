@@ -10,6 +10,7 @@ import axios from '../../../axios'
 import Circle from '../../Circle'
 
 const FilterBar = ({ values, handleChange }) => {
+    console.log(values)
     return (
         <Grid container justify='space-around' direction="row">
             <Grid item xs={2}>
@@ -18,12 +19,12 @@ const FilterBar = ({ values, handleChange }) => {
                         <InputLabel>Academic Level</InputLabel>
                         <Select
                             displayEmpty
-                            name='level'
-                            value={values.level}
+                            name='academic_level'
+                            value={values.academic_level}
                             onChange={handleChange}
                         >
                             <MenuItem value={'highschool'}>High School</MenuItem>
-                            <MenuItem value={'uni'}>University</MenuItem>
+                            <MenuItem value={'university'}>University</MenuItem>
                         </Select>
                     </FormControl>
                 </Form>
@@ -35,14 +36,15 @@ const FilterBar = ({ values, handleChange }) => {
                         <InputLabel>Grade</InputLabel>
                         <Select
                             displayEmpty
-                            name='grade'
-                            value={values.grade}
+                            name='academic_grade'
+                            value={values.academic_grade}
                             onChange={handleChange}
                         >
                             <MenuItem value={'grade1'}>Grade 1</MenuItem>
                             <MenuItem value={'grade2'}>Grade 2</MenuItem>
                             <MenuItem value={'grade3'}>Grade 3</MenuItem>
-
+                            <MenuItem value={'grade4'}>Grade 4</MenuItem>
+                            <MenuItem value={'grade5'}>Grade 5</MenuItem>
                         </Select>
                     </FormControl>
                 </Form>
@@ -51,17 +53,22 @@ const FilterBar = ({ values, handleChange }) => {
             <Grid item xs={2}>
                 <Form>
                     <FormControl style = {{width: 150}} margin='normal'>
-                        <InputLabel>Course</InputLabel>
+                        <InputLabel>Subject</InputLabel>
                         <Select
                             displayEmpty
-                            name='course'
-                            value={values.course}
+                            name='subject'
+                            value={values.subject}
                             onChange={handleChange}
                         >
-                            <MenuItem value={'beginner'}>Beginner</MenuItem>
-                            <MenuItem value={'intermediate'}>Intermadiate</MenuItem>
-                            <MenuItem value={'advance'}>Advance</MenuItem>
-
+                            <MenuItem value={'math'}>Math</MenuItem>
+                            <MenuItem value={'physic'}>Physic</MenuItem>
+                            <MenuItem value={'chemistry'}>Chemistry</MenuItem>
+                            <MenuItem value={'biology'}>Biology</MenuItem>
+                            <MenuItem value={'literature'}>Literature</MenuItem>
+                            <MenuItem value={'history'}>History</MenuItem>
+                            <MenuItem value={'geography'}>Geography</MenuItem>
+                            <MenuItem value={'english'}>English</MenuItem>
+                            <MenuItem value={'computer'}>Computer</MenuItem>
                         </Select>
                     </FormControl>
                 </Form>
@@ -69,7 +76,7 @@ const FilterBar = ({ values, handleChange }) => {
 
             <Grid item xs={4}>
                 <Form>
-                    <FormControl style = {{width: 150}} margin='normal'>
+                    {/* <FormControl style = {{width: 150}} margin='normal'>
                         <InputLabel>Select Country</InputLabel>
                         <Select
                             displayEmpty
@@ -78,11 +85,11 @@ const FilterBar = ({ values, handleChange }) => {
                             onChange={handleChange}
                         >
                             <MenuItem value={'usa'}>USA</MenuItem>
-                            <MenuItem value={'aus'}>Australia</MenuItem>
-                            <MenuItem value={'eng'}>England</MenuItem>
-                            <MenuItem value={'vn'}>Vietnam</MenuItem>
+                            <MenuItem value={'australia'}>Australia</MenuItem>
+                            <MenuItem value={'english'}>England</MenuItem>
+                            <MenuItem value={'vietnam'}>Vietnam</MenuItem>
                         </Select>
-                    </FormControl>
+                    </FormControl> */}
 
                     <FormControl style = {{width: 150, marginLeft: 120}} margin='normal'>
                         <Button
@@ -91,7 +98,7 @@ const FilterBar = ({ values, handleChange }) => {
                             type='submit'
                             style={{backgroundColor: '#52C1C8', color: "#FFFFFF"}}
                         >
-                            Go
+                            Update your 
                         </Button>
                     </FormControl>
                 </Form>
@@ -104,24 +111,27 @@ const FilterBar = ({ values, handleChange }) => {
 const FormikForm = withFormik({
     mapPropsToValues({ }) {
         return {
-            level: '',
-            country: '',
-            grade: '',
-            course: ''
+            academic_level: '',
+            academic_grade: '',
+            subject: ''
         }
     },
     handleSubmit(values, { props }) {
-        const { changeTutors } = props;
-        axios({
-            method : 'post',
-            url: '/api/user/tutor/filter',
-            data: {
-                country_name: values.country,
-                academic_level: values.level,
-            },
-            headers: { 'X-Auth-Token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRoYW9ucDA0MTA5OUBnbWFpbC5jb20iLCJwYXNzd29yZCI6IjEyMzQ1NiIsImlhdCI6MTU1ODMyOTI1NX0.lkqx-o-14-saMoKmbEJQKWqIUSyTgyMZtdv5QLjQ-1c' } 
-        }).then((data) => {
-            changeTutors(data.data)})
+        console.log(props)
+        const { filter_std_info } = props;
+        
+        // axios({
+        //     method : 'post',
+        //     url: '/api/user/tutor/filter',
+        //     data: {
+        //         academic_level: values.level,
+        //         subject: values.subject,
+        //         academic_grade: values.grade
+        //     },
+        //     headers: { 'X-Auth-Token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRoYW9ucDA0MTA5OUBnbWFpbC5jb20iLCJwYXNzd29yZCI6IjEyMzQ1NiIsImlhdCI6MTU1ODMyOTI1NX0.lkqx-o-14-saMoKmbEJQKWqIUSyTgyMZtdv5QLjQ-1c' } 
+        // }).then((data) => {
+        //     changeTutors(data.data)})
+        filter_std_info(values)
     }
 })(FilterBar)
 

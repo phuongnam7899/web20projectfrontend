@@ -17,7 +17,7 @@ class Calendar extends React.Component {
         this.updateOldEvents = this.updateOldEvents.bind(this);
     }
     componentDidMount() {
-        axios.get(`/api/class/tutor/${this.props.tutor_id}`, {
+        axios.get(`/api/class/tutor/${localStorage.getItem('tutor_id')}`, {
                 headers: {'X-Auth-Token': `${localStorage.token}`},
             })
             .then(data => {
