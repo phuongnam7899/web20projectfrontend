@@ -11,7 +11,7 @@ class Calendar extends React.Component {
             firstEvents: [],
             oldEvents: [],
             addEvents: [],
-            subject: "Math",
+            // subject: "Math",
         };
         this.handleSubmit = this.handleSubmit.bind(this);
         this.updateOldEvents = this.updateOldEvents.bind(this);
@@ -69,7 +69,7 @@ class Calendar extends React.Component {
                     student_id : localStorage.id,
                     hourly_rate: 323,
                     sessions : this.state.addEvents,
-                    subject: this.state.subject
+                    // subject: this.state.subject
                 },
                 headers: { "X-Auth-Token": `${localStorage.token}` }
             }

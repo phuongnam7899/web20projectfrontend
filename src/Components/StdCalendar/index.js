@@ -11,7 +11,7 @@ class StdCalendar extends React.Component {
     super(props);
     this.state = {
       events: [],
-      colors: ["#321654","#123456","#654321","234654","#123456","#654321","#321654","234654"]
+      colors: ["#52c1c8","#c88f52","#c85452","#6baaaf","#7cacaf","#bb0369","#bb6a69"]
     };
   }
   componentDidMount() {

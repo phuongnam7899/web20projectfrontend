@@ -40,6 +40,7 @@ class User extends React.Component {
     this.state = {
       classes: []
     }
+    this.handleCancelTuition = this.handleCancelTuition.bind(this);
   }
   componentDidMount() {
     // console.log(localStorage.id)
@@ -47,6 +48,11 @@ class User extends React.Component {
       headers: { 'X-Auth-Token': `${localStorage.token}` },
     }).then((data) => this.setState({classes : data.data}))
   };
+  handleCancelTuition(index){
+    let classes = this.state.classes;
+    classes.splice(index,1);
+    this.setState({classes : classes});
+  }
 
   render() {
     const { classes } = this.props;
@@ -56,7 +62,7 @@ class User extends React.Component {
     }
     return (
       <div>
-        {this.state.classes.map((one_class) => {
+        {this.state.classes.map((one_class,index) => {
           console.log(this.state.classes)
           return(
             <div>
@@ -64,7 +70,7 @@ class User extends React.Component {
                 <Typography style={{ marginTop: 50, fontSize: 24, marginLeft: 400 }}>
                 {one_class.subject}
                 </Typography>
-                <CancelTuition />
+                <CancelTuition class_id = {one_class._id} index={index} onCancelTuition={() => this.handleCancelTuition()} />
               </Grid>
               <Grid item xs={11} style ={{marginTop:20}}>
               <Paper className={classes.root}>
