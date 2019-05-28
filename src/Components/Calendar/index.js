@@ -18,7 +18,8 @@ class Calendar extends React.Component {
         this.handleSubChange_Calendar = this.handleSubChange_Calendar.bind(this);
     }
     componentDidMount() {
-        axios.get(`/api/class/tutor/${localStorage.getItem('tutor_id')}`, {
+        const chosen_id = localStorage.role === "tutor" ? "id" : "tutor_id"
+        axios.get(`/api/class/tutor/${localStorage.getItem(chosen_id)}`, {
                 headers: {'X-Auth-Token': `${localStorage.token}`},
             })
             .then(data => {
@@ -46,8 +47,13 @@ class Calendar extends React.Component {
                 this.setState({
                     firstEvents: events,
                     oldEvents : events
-                })
-            })
+                }, () => {
+                    console.log(this.state.firstEvents);
+                    console.log(this.state.oldEvents);
+                });
+            }
+            
+            )
             .catch(err => console.error(err));
     }
     getAddedEvents(currentEvents) {
@@ -77,7 +83,7 @@ class Calendar extends React.Component {
                     student_id : localStorage.id,
                     hourly_rate: 323,
                     sessions : this.state.addEvents,
-                    // subject: this.state.subject
+                    subject: this.state.subject
                 },
                 headers: { "X-Auth-Token": `${localStorage.token}` }
             }
@@ -110,7 +116,6 @@ class Calendar extends React.Component {
     render() {
         const { oldEvents} = this.state;
         console.log(oldEvents)
-        // console.log(this.state.addEvents);
         return (
             <Grid>
                 <Button style={{backgroundColor: '#52C1C8', color: "#FFFFFF",marginTop:20}} onClick={this.handleSubmit}>Book your class</Button>

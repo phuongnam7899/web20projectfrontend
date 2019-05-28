@@ -34,6 +34,8 @@ class LongMenu extends React.Component {
           localStorage.removeItem('role');
           localStorage.removeItem('token');
           localStorage.removeItem('id');
+          localStorage.removeItem("tutor_id");
+          localStorage.removeItem("user_id")
           document.location.href = "/login"
       })
       .catch(err => {
