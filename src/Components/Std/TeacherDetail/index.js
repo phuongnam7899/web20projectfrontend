@@ -28,7 +28,8 @@ class TeacherDetail extends React.Component {
     }
   }
   componentDidMount() {
-    axios.get(`/api/user/tutor/${localStorage.getItem("tutor_id")}`, {
+    const id = localStorage.role === "student" ? "tutor_id" : "id"
+    axios.get(`/api/user/tutor/${localStorage.getItem(id)}`, {
       headers: { 'X-Auth-Token': `${localStorage.token}` },
     }).then((data) => { this.setState({ tutorInfo: data.data }); console.log(this.state.tutorInfo) })
   }

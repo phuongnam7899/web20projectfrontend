@@ -6,7 +6,8 @@ import { Link } from 'react-router-dom'
 import Input from '@material-ui/core/Input';
 import axios from '../axios';
 import TuitionPreference from './Teacher/TuitionPreference';
-import MyDetail from '../Components/Teacher/TeacherDetail';
+// import MyDetail from '../Components/Teacher/TeacherDetail';
+import TeacherDetail from "../Components/Std/TeacherDetail"
 import { withFormik, Form } from 'formik';
 import * as Yup from 'yup';
 import FormHelperText from '@material-ui/core/FormHelperText'
@@ -17,7 +18,7 @@ const CreateAccount = ({ values, handleChange, errors, touched, handleBlur }) =>
         localStorage.getItem('role') === "tutor" ? (
             <TuitionPreference />
         ) : (
-            <MyDetail />
+            <TeacherDetail />
             )
     ) : (
         
