@@ -13,7 +13,28 @@ import { withFormik, Form } from 'formik';
 import * as Yup from 'yup';
 import axios from '../../../../axios'
 
-
+const Wrapper = (Component) => {
+    return class extends React.Component {
+        state = {
+            user_info: null
+        }
+        componentDidMount() {
+            axios.get(`api/user/tutor/${localStorage.id}?token=${localStorage.token}`)
+                .then(data => {
+                    console.log(data)
+                    console.log("user_info", data.data.user_id.profile)
+                    this.setState({ user_info: data.data.user_id.profile })
+                })
+                .catch(err => console.error(err))
+        }
+    
+        render() {
+            const { user_info } = this.state; 
+            if (!user_info) return null;
+            return <Component {...this.props} user_info={user_info} /> 
+        }
+    }
+}
 const FormDefault = ({ values, handleChange, errors, touched, handleBlur }) => {
     return (
         <Form>
@@ -27,7 +48,7 @@ const FormDefault = ({ values, handleChange, errors, touched, handleBlur }) => {
                             <Grid item xs={6} margin='normal'>
                                 <FormControl fullWidth error={!!touched.firstname && errors.firstname}>
                                     <InputLabel>First Name</InputLabel>
-                                    <Input name='firstname' value={values.firstname} onChange={handleChange} onBlur={handleBlur} fullWidth />
+                                    <Input name='first_name' value={values.first_name} onChange={handleChange} onBlur={handleBlur} fullWidth />
                                     <FormHelperText>{touched.firstname && errors.firstname}</FormHelperText>
                                 </FormControl>
                             </Grid>
@@ -35,7 +56,7 @@ const FormDefault = ({ values, handleChange, errors, touched, handleBlur }) => {
                             <Grid item xs={6} margin='normal'>
                                 <FormControl fullWidth error={touched.lastname && errors.lastname}>
                                     <InputLabel>Last Name</InputLabel>
-                                    <Input name='lastname' value={values.lastname} onChange={handleChange} fullWidth />
+                                    <Input name='last_name' value={values.last_name} onChange={handleChange} fullWidth />
                                     <FormHelperText>{touched.lastname && errors.lastname}</FormHelperText>
                                 </FormControl>
                             </Grid>
@@ -45,14 +66,14 @@ const FormDefault = ({ values, handleChange, errors, touched, handleBlur }) => {
                             <Grid item xs={6} margin='normal'>
                                 <FormControl fullWidth error={touched.dob && errors.dob}>
                                     <InputLabel>Date Of Birth</InputLabel>
-                                    <Input name='dob' value={values.dob} onChange={handleChange} fullWidth />
+                                    <Input name='date_of_birth' value={values.date_of_birth} onChange={handleChange} fullWidth />
                                     <FormHelperText>{touched.dob && errors.dob}</FormHelperText>
                                 </FormControl>
                             </Grid>
                             <Grid item xs={6} margin='normal'>
                                 <FormControl fullWidth error={touched.phonenumber && errors.phonenumber}>
                                     <InputLabel>Phone Number</InputLabel>
-                                    <Input name='phonenumber' value={values.phonenumber} onChange={handleChange} fullWidth />
+                                    <Input name='phone_number' value={values.phone_number} onChange={handleChange} fullWidth />
                                     <FormHelperText>{touched.phonenumber && errors.phonenumber}</FormHelperText>
                                 </FormControl>
                             </Grid>
@@ -62,14 +83,14 @@ const FormDefault = ({ values, handleChange, errors, touched, handleBlur }) => {
                             <Grid item xs={6} margin='normal'>
                                 <FormControl fullWidth error={touched.payment && errors.payment}>
                                     <InputLabel>Payment Method</InputLabel>
-                                    <Input name='payment' value={values.payment} onChange={handleChange} fullWidth />
+                                    <Input name='payment_method' value={values.payment_method} onChange={handleChange} fullWidth />
                                     <FormHelperText>{touched.payment && errors.payment}</FormHelperText>
                                 </FormControl>
                             </Grid>
                             <Grid item xs={6} margin='normal'>
                                 <FormControl fullWidth error={touched.paypal && errors.paypal}>
                                     <InputLabel>PayPal Email</InputLabel>
-                                    <Input name='paypal' value={values.paypal} onChange={handleChange} fullWidth />
+                                    <Input name='paypal_email' value={values.paypal_email} onChange={handleChange} fullWidth />
                                     <FormHelperText>{touched.paypal && errors.paypal}</FormHelperText>
                                 </FormControl>
                             </Grid>
@@ -86,22 +107,10 @@ const FormDefault = ({ values, handleChange, errors, touched, handleBlur }) => {
                             <Grid item xs={6} margin='normal'>
                                 <FormControl fullWidth error={touched.postal && errors.postal}>
                                     <InputLabel>Postal Code</InputLabel>
-                                    <Input name='postal' value={values.postal} onChange={handleChange} fullWidth />
+                                    <Input name='postal_code' value={values.postal_code} onChange={handleChange} fullWidth />
                                     <FormHelperText>{touched.postal && errors.postal}</FormHelperText>
                                 </FormControl>
                             </Grid>
-                        </Grid>
-                        <Grid>
-                            <FormControl fullWidth margin='normal' error={touched.email && errors.email}>
-                                <InputLabel>Email</InputLabel>
-                                <Input name='email' value={values.email} onChange={handleChange} fullWidth />
-                                <FormHelperText>{touched.email && errors.email}</FormHelperText>
-                            </FormControl>
-                            <FormControl fullWidth margin='normal' error={touched.password && errors.password}>
-                                <InputLabel>Password</InputLabel>
-                                <Input fullWidth name='password' type='password' value={values.password} onChange={handleChange} />
-                                <FormHelperText>{touched.password && errors.password}</FormHelperText>
-                            </FormControl>
                         </Grid>
 
                         <Grid container direction='row' xs={24} justify='center' spacing={16} margin='normal'>
@@ -111,8 +120,8 @@ const FormDefault = ({ values, handleChange, errors, touched, handleBlur }) => {
                                     <InputLabel>Gender</InputLabel>
                                     <Select
                                         displayEmpty
-                                        name='gender'
-                                        value={values.gender}
+                                        name='gender_name'
+                                        value={values.gender_name}
                                         onChange={handleChange}
                                     >
                                         <MenuItem value='male'>Male</MenuItem>
@@ -126,8 +135,8 @@ const FormDefault = ({ values, handleChange, errors, touched, handleBlur }) => {
                                     <InputLabel>Nationality</InputLabel>
                                     <Select
                                         displayEmpty
-                                        name='nation'
-                                        value={values.nation}
+                                        name='nationality_name'
+                                        value={values.nationality_name}
                                         onChange={handleChange}
                                     >
                                         <MenuItem value='usa'>USA</MenuItem>
@@ -144,8 +153,8 @@ const FormDefault = ({ values, handleChange, errors, touched, handleBlur }) => {
                                     <InputLabel>Education Level</InputLabel>
                                     <Select
                                         displayEmpty
-                                        name='education'
-                                        value={values.education}
+                                        name='academic_level_name'
+                                        value={values.academic_level_name}
                                         onChange={handleChange}
                                     >
                                         <MenuItem value='highschool'>High School</MenuItem>
@@ -174,23 +183,67 @@ const FormDefault = ({ values, handleChange, errors, touched, handleBlur }) => {
 
 
 const FormikForm = withFormik({
-    mapPropsToValues({ }) {
-        return {
-            firstname: '',
-            lastname: '',
-            dob: '',
-            phonenumber: '',
-            payment: '',
-            paypal: '',
-            postal: '',
-            address: '',
-            email: '',
-            password: '',
-            plan: '',
-            gender: '',
-            nation: '',
-            education: ''
-        };
+    mapPropsToValues(props) {
+        const { user_info } = props;
+        let initial_info = {}
+        if(user_info.first_name){
+            initial_info.first_name = user_info.first_name
+        }else{
+            initial_info.first_name = ''
+        }
+        if(user_info.last_name){
+            initial_info.last_name = user_info.last_name
+        }else{
+            initial_info.last_name = ''
+        }
+        if(user_info.date_of_birth){
+            initial_info.date_of_birth = user_info.date_of_birth
+        }else{
+            initial_info.date_of_birth = ''
+        }
+        if(user_info.phone_number){
+            initial_info.phone_number = user_info.phone_number
+        }else{
+            initial_info.phone_number = ''
+        }
+        if(user_info.payment_method){
+            initial_info.payment_method = user_info.payment_method
+        }else{
+            initial_info.payment_method = ''
+        }
+        if(user_info.paypal_email){
+            initial_info.paypal_email = user_info.paypal_email
+        }else{
+            initial_info.paypal_email = ''
+        }
+        if(user_info.address){
+            initial_info.address = user_info.address
+        }else{
+            initial_info.address = ''
+        }
+        if(user_info.postal_code){
+            initial_info.postal_code = user_info.postal_code
+        }else{
+            initial_info.postal_code = ''
+        }
+        if(user_info.gender_name){
+            initial_info.gender_name = user_info.gender_name
+        }else{
+            initial_info.gender_name = ''
+        }
+        if(user_info.nationality_name){
+            initial_info.nationality_name = user_info.nationality_name
+        }else{
+            initial_info.nationality_name = ''
+        }
+        if(user_info.academic_level_name){
+            initial_info.academic_level_name = user_info.academic_level_name
+        }else{
+            initial_info.academic_level_name = ''
+        }
+        console.log('profile',props);
+        console.log('initial info', initial_info)
+        return (initial_info);
     },
     validationSchema: Yup.object().shape({
         firstname: Yup.string()
@@ -242,4 +295,4 @@ const FormikForm = withFormik({
 
 })(FormDefault)
 
-export default FormikForm
+export default Wrapper(FormikForm)
