@@ -13,6 +13,7 @@ import CancelTuition from './CancelTuition';
 import axios from '../../axios';
 import _ from "lodash";
 import Circle from '../Circle'
+import Empty from '../Empty'
 
 const styles = theme => ({
   root: {
@@ -38,27 +39,36 @@ class User extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      classes: []
+      classes: [],
+      fetching: false,
     }
     this.handleCancelTuition = this.handleCancelTuition.bind(this);
   }
   componentDidMount() {
     // console.log(localStorage.id)
+    this.setState({
+      fetching: true
+    })
     axios.get(`/api/class/student/${localStorage.id}`, {
       headers: { 'X-Auth-Token': `${localStorage.token}` },
-    }).then((data) => this.setState({classes : data.data}))
+    }).then((data) => this.setState({classes : data.data, fetching: false}))
   };
   handleCancelTuition(index){
     let classes = this.state.classes;
     classes.splice(index,1);
-    this.setState({classes : classes});
+    this.setState({classes : classes,});
   }
 
   render() {
     const { classes } = this.props;
+    const { fetching } = this.state;
     console.log(this.state.classes)
+    if (fetching) {
+      return <Circle />
+    }else{
+      console.log(fetching)
     if (_.isEmpty(this.state.classes)) {
-      return <Circle/>
+      return <Empty />
     }
     return (
       <div>
@@ -107,6 +117,8 @@ class User extends React.Component {
         })} 
       </div>
     );
+    }
+    
 
   }
 }

@@ -4,6 +4,8 @@ import FilterBar from './FilterBar';
 import FilterColumn from './FilterColumn';
 import FilterResult from './FilterResult';
 import axios from '../../axios';
+import Circle from '../Circle'
+import _ from "lodash";
 
 class Filter extends React.Component {
     constructor(props){
@@ -11,7 +13,8 @@ class Filter extends React.Component {
         this.state= {
             tutors: [],
             tutor_info: {},
-            std_info: {}
+            std_info: {},
+            fetching: '',
         }
         this.changeTutors = this.changeTutors.bind(this);
         this.filter_std_info = this.filter_std_info.bind(this);
@@ -31,6 +34,9 @@ class Filter extends React.Component {
         }, () => {
             const all_info = Object.assign(this.state.std_info, this.state.tutor_info)
             console.log('all info', all_info)
+            this.setState({
+                fetching: true
+            })
             axios({
                 method : 'post',
                 url: `/api/user/tutor/filter?token=${localStorage.getItem('token')}`,
@@ -38,7 +44,8 @@ class Filter extends React.Component {
             }).then((data) => {
                 console.log(data.data)
                 this.setState({
-                    tutors: data.data
+                    tutors: data.data,
+                    fetching:false
                 })
             })
         })
@@ -50,19 +57,25 @@ class Filter extends React.Component {
         })
     }
     render(){
-        return (
-            <div>
-                <FilterBar filter_std_info={this.filter_std_info} changeTutors = {this.changeTutors} />
-                <Grid container xs={12} direction='row'>
-                    <Grid item xs={3}>
-                        <FilterColumn  filter_tutor_info = {this.filter_tutor_info}/>
+        const { fetching } = this.state;
+        if(fetching) {
+            return <Circle />
+        }else{
+            return (
+                <div>
+                    <FilterBar filter_std_info={this.filter_std_info} changeTutors = {this.changeTutors} />
+                    <Grid container xs={12} direction='row'>
+                        <Grid item xs={3}>
+                            <FilterColumn  filter_tutor_info = {this.filter_tutor_info}/>
+                        </Grid>
+                        <Grid xs={6} style ={{marginTop : 60}}>
+                            <FilterResult tutors = {this.state.tutors}/>
+                        </Grid>
                     </Grid>
-                    <Grid xs={6} style ={{marginTop : 60}}>
-                        <FilterResult tutors = {this.state.tutors}/>
-                    </Grid>
-                </Grid>
-            </div>
-        );
+                </div>
+            );
+        }
+        
     } 
 }
 export default Filter;

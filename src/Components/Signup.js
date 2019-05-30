@@ -14,103 +14,11 @@ import MenuItem from '@material-ui/core/MenuItem'
 import InputLabel from '@material-ui/core/InputLabel'
 
 
-// class Login extends React.Component {
-//     state = {
-//         first_name: "",
-//         last_name: "",
-//         email: "",
-//         password: "",
-//         phone_num: "",
-//         gender_name:"",
-//         role: ""
-//     }
-//     handleStNameChange = (e) => {
-//         this.setState(
-//             {
-//                 first_name: e.target.value
-//             },() => {
-//                 console.log(this.state.first_name)
-//             }
-//         )
-//     }
-//     handleLastNameChange = (e) => {
-//         this.setState(
-//             {
-//                 last_name: e.target.value
-//             }
-//         )
-//     }
-//     handleEmailChange = (e) => {
-//         this.setState(
-//             {
-//                 email: e.target.value
-//             }
-//         )
-//     }
-//     handlePassChange = (e) => {
-//         this.setState(
-//             {
-//                 password: e.target.value
-//             }
-//         )
-//     }
-//     handleRoleChange = (e) => {
-//         this.setState(
-//             {
-//                 role: e.target.value
-//             }
-//         )
-//     }
-//     handlePhoneChange = (e) => {
-//         this.setState(
-//             {
-//                 phone_num: e.target.value
-//             }
-//         )
-//     }
-//     handleGenderChange = (e) => {
-//         this.setState(
-//             {
-//                 gender_name: e.target.value
-//             }
-//         )
-//     }
-//     handleSignup = () => {
-//         axios({
-//             url: '/api/auth/register',
-//             method: 'post',
-//             data: {
-//                 first_name: this.state.first_name,
-//                 last_name: this.state.last_name,
-//                 email: this.state.email,
-//                 password: this.state.password,
-//                 gender_name: this.state.gender_name,
-//                 phone_num: this.state.phone_num,
-//                 role: this.state.role
-//             }
-//         })
-//         .then((sent_data) => {
-//             let status = sent_data.data.success;
-//             console.log(sent_data.data.success)
-//             if(status === 1){
-//                 this.props.history.push("/login")
-//             }
-//         })
-//         .catch(err => console.error(err))
-//     }
-//     render() {
-//         return (
-//             <div>
-
-//             </div>
-//         );
-//     }
-// }
 
 const Login = ({ values, handleChange, errors, touched, handleBlur }) => {
     return (
         <Form>
-            <Grid container direction='column' xs={12} style={{ marginTop: 200 }} alignContent = 'center'>
+            <Grid container direction='column' xs={12} style={{ marginTop: 80 }} alignContent = 'center'>
                     <Grid item xs={4}>
                         <Typography style={{ fontSize: 18 }} align = 'center'>
                             Create Accout

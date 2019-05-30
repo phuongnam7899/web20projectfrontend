@@ -4,6 +4,7 @@ import axios from "../../axios";
 import "../BigCalendar/react-big-calendar.css";
 import Grid from '@material-ui/core/Grid';
 import _ from "lodash";
+import Circle from '../Circle'
 
 
 class StdCalendar extends React.Component {
@@ -34,7 +35,7 @@ class StdCalendar extends React.Component {
   render() {
     const {events} = this.state;
     if(_.isEmpty(events)){
-      return "loading"
+      return <Circle/>
     }
     return (
       <Grid>
