@@ -228,11 +228,13 @@ class CalendarApp extends Component {
 
   render() {
     const { open, event, events, editState, disabledEdit } = this.state;
-    console.log(events)
+    const href = document.location.href.split("/");
+    const path = href[href.length - 1];
+    const display = (path === "detail") ? (<Input placeholder="Subject" onChange={this.handleSubChange}></Input>) : false
     return (
       // <Router >
       <div style={{ height: "100vh", marginTop: 20 }}>
-        <Input placeholder="Subject" onChange={this.handleSubChange}></Input>
+        {display}
         <BigCalendar
           length={120}
           localizer={localizer}
