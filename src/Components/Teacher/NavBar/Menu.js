@@ -27,6 +27,7 @@ class LongMenu extends React.Component {
   };
   handleMenuItem = (index) => {
     const {history} = this.props;
+    console.log(history)
     if(index === 0){
       console.log("sign out");
       axios.get(`api/auth/logout?token=${localStorage.getItem('token')}`)
@@ -42,13 +43,16 @@ class LongMenu extends React.Component {
 
     }
     if(index === 1){
-      history.push ("/teacher/editmyprofile")
+      document.location.href = "/tutor/editmyprofile";
+      this.setState({ anchorEl: null });
     }
     if(index === 2){
-      history.push("/teacher/tuitionpreference")
+      document.location.href ="/tutor/tuitionpreference"
+      this.setState({ anchorEl: null });
     }
     if(index === 3){
-      history.push ("/tutor/update_freetime")
+      document.location.href = "/tutor/update_freetime";
+      this.setState({ anchorEl: null });
     }
     
   }
