@@ -12,6 +12,7 @@ import * as Yup from 'yup';
 import _ from "lodash";
 import axios from '../../../../axios'
 import Circle from '../../../Circle'
+import AddIcon from '@material-ui/icons/Add';
 
 const Wrapper = (Component) => {
     return class extends React.Component {
@@ -49,27 +50,27 @@ class TeachingSubject extends React.Component {
         return (
             <Form>
                 <Grid container xs={12} direction="column" style={{ marginTop: 50, marginLeft: 80 }} alignItems='flex-start' >
-                    <Typography variant='h5'>Teaching Subject</Typography>
+                    <Typography variant='h3'>Teaching Subject</Typography>
                     <Menu name='Based In' />
                     <Grid container direction='row' xs={8} justify='flex-start' spacing={16} style={{ marginTop: 20 }} >
                         <Grid item xs={2}>
-                            <Typography style={{ fontSize: 20 }}>Subject</Typography>
+                            <Typography  variant='h5'>Subject</Typography>
                         </Grid>
                         <Grid item xs={2}>
-                            <Typography style={{ fontSize: 20 }}>Academic Level</Typography>
+                            <Typography variant='h5'>Academic Level</Typography>
                         </Grid>
                         <Grid item xs={2}>
-                            <Typography style={{ fontSize: 20 }}>Grade</Typography>
+                            <Typography  variant='h5'>Grade</Typography>
                         </Grid>
                         <Grid item xs={2}>
-                            <Typography style={{ fontSize: 20 }}>Hourly Rate</Typography>
+                            <Typography noWrap variant='h5'>Hourly Rate</Typography>
                         </Grid>
                         <FieldArray
                             name="subjects"
                             render={({ push, remove }) => (
                                 <Form>
                                     {values.subjects.map((sub, index) => (
-                                        <Grid container direction='row' xs={12} justify='flex-start' spacing={16} style={{ marginTop: 20 }} >
+                                        <Grid container direction='row' xs={12} justify='flex-start' spacing={16} style={{ marginTop: 20, width: 1300 }} >
                                             <Grid item xs={2}>
                                                 <FormControl error={!!touched.year && errors.year}>
                                                     <Field
@@ -126,39 +127,39 @@ class TeachingSubject extends React.Component {
                                                     />
                                                 </FormControl>
                                             </Grid>
-                                            <Grid item xs={3}>
+                                            <Grid item xs={2}>
                                                 <FormControl>
                                                     <Button
-                                                        style={{ backgroundColor: '#52C1C8', color: "#FFFFFF", paddingLeft: 60, paddingRight: 60, marginTop: 10 }}
+                                                        style={{ backgroundColor: '#c85452', color: "#FFFFFF"}}
                                                         variant='extendedFab'
                                                         type="button"
                                                         className="secondary"
                                                         onClick={() => remove(index)}
                                                     >
-                                                        Delete record
+                                                        <DeleteIcon/>
                                                     </Button>
                                                 </FormControl>
                                             </Grid>
                                         </Grid>))
                                     }
                                     <Grid container direction='row' xs={12} justify='flex-start' spacing={16} style={{ marginTop: 20 }} >
-                                        <Grid item xs={4}>
+                                        <Grid item xs={1}>
                                             <FormControl>
                                                 <Button
-                                                    style={{ backgroundColor: '#52C1C8', color: "#FFFFFF", paddingLeft: 60, paddingRight: 60, marginTop: 10 }}
+                                                    style={{ backgroundColor: '#52C1C8', color: "#FFFFFF"}}
                                                     variant='extendedFab'
                                                     type="button"
                                                     className="secondary"
                                                     onClick={() => push({ subject: "", academic_level: "", academic_grade: "", hourly_rate: "" })}
                                                 >
-                                                    Add Record
+                                                    <AddIcon/>
                                                 </Button>
                                             </FormControl>
                                         </Grid>
                                         <Grid item xs={4}>
                                             <FormControl>
                                                 <Button
-                                                    style={{ backgroundColor: '#52C1C8', color: "#FFFFFF", paddingLeft: 60, paddingRight: 60, marginTop: 10 }}
+                                                    style={{ backgroundColor: '#52C1C8', color: "#FFFFFF", paddingLeft: 60, paddingRight: 60, marginLeft: 40}}
                                                     variant='extendedFab'
                                                     color='primary'
                                                     type='submit'

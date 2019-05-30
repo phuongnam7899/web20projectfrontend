@@ -11,6 +11,9 @@ import * as Yup from 'yup';
 import _ from "lodash";
 import Circle from '../../../Circle'
 import axios from '../../../../axios'
+import AddIcon from '@material-ui/icons/Add';
+
+
 
 const Wrapper = (Component) => {
     return class extends React.Component {
@@ -42,28 +45,31 @@ class TeachingExperience extends React.Component {
         }
         return (
             <Form>
-                <Grid container xs={12} direction="column" style={{ marginTop: 150, marginLeft: 80 }} alignItems='flex-start' >
-                    <Typography variant='h5'>Teaching Experience</Typography>
-                    <Grid container direction='row' xs={8} justify='flex-start' spacing={16} style={{ marginTop: 20 }} >
+                <Grid container direction="column" xs = {12} style={{ marginTop: 80, marginLeft: 80 }} alignItems='flex-start' >
+                    <Typography variant='h3'>Teaching Experience</Typography>
+                    <Grid container direction='row' xs = {6} justify='flex-start' spacing={16} style={{ marginTop: 20 }} >
                         <Grid item xs={2}>
-                            <Typography style={{ fontSize: 20 }}>Year</Typography>
+                            <Typography variant='h5'>Year</Typography>
                         </Grid>
-                        <Grid item xs={6}>
-                            <Typography style={{ fontSize: 20 }}>Experience</Typography>
+                        <Grid item xs={4}>
+                            <Typography variant='h5'>Experience</Typography>
                         </Grid>
-                        <FieldArray 
+                    </Grid>
+                    <Grid container xs = {12}>
+                        <FieldArray
+                            style = {{width:'100%'}}
                             name="working_experience"
                             render={({ push, remove }) => (
                                 <Form>
                                     {values.working_experience.map((sub, index) => (
-                                        <Grid container direction='row' xs={12} justify='flex-start' spacing={16} style={{ marginTop: 20 }} >
-                                            <Grid item xs={4}>
+                                        <Grid container direction='row' xs={12} justify='flex-start' spacing={16} style={{ marginTop: 20, width:'100%' }} >
+                                            <Grid item xs={3}>
                                                 <FormControl error={!!touched.year && errors.year}>
                                                     <Field
                                                         name={`working_experience[${index}].year`}
                                                         render={({ field, form: { touched, errors } }) => (
                                                             <div>
-                                                                <Input {...field} type="number" placeholder="Year" fullWidth />
+                                                                <Input {...field} type="number" placeholder="Year" style = {{width:100}}/>
                                                                 {touched[field.name] &&
                                                                     errors[field.name] && <div className="error">{errors[field.name]}</div>}
                                                             </div>
@@ -71,13 +77,13 @@ class TeachingExperience extends React.Component {
                                                     />
                                                 </FormControl>
                                             </Grid>
-                                            <Grid item xs={4}>
+                                            <Grid item xs={8}>
                                                 <FormControl error={!!touched.year && errors.year}>
                                                     <Field
                                                         name={`working_experience[${index}].experience`}
                                                         render={({ field, form: { touched, errors } }) => (
                                                             <div>
-                                                                <Input {...field} type="text" placeholder="Experience" fullWidth />
+                                                                <Input {...field} type="text" placeholder="Experience" style = {{width:300, marginLeft: 20}}/>
                                                                 {touched[field.name] &&
                                                                     errors[field.name] && <div className="error">{errors[field.name]}</div>}
                                                             </div>
@@ -85,39 +91,37 @@ class TeachingExperience extends React.Component {
                                                     />
                                                 </FormControl>
                                             </Grid>
-                                            <Grid item xs={2}>
+                                            <Grid item xs={1}>
                                                 <FormControl>
                                                     <Button
-                                                        style={{ backgroundColor: '#52C1C8', color: "#FFFFFF", paddingLeft: 60, paddingRight: 60, marginTop: 10 }}
+                                                        style={{ backgroundColor: '#c85452', color: "#FFFFFF",}}
                                                         variant='extendedFab'
                                                         type="button"
-                                                        className="secondary"
                                                         onClick={() => remove(index)}
                                                     >
-                                                        Delete record
+                                                        <DeleteIcon/>
                                                     </Button>
                                                 </FormControl>
                                             </Grid>
                                         </Grid>))
                                     }
-                                    <Grid container direction='row' xs={12} justify='flex-start' spacing={16} style={{ marginTop: 20 }} >
-                                        <Grid item xs={4}>
+                                    <Grid container direction='row' xs={12} justify='flex-start' alignItem = "center" spacing={16} style={{ marginTop: 20 }} >
+                                        <Grid item xs={3}>
                                             <FormControl>
                                                 <Button
-                                                    style={{ backgroundColor: '#52C1C8', color: "#FFFFFF", paddingLeft: 60, paddingRight: 60, marginTop: 10 }}
+                                                    style={{ backgroundColor: '#52C1C8', color: "#FFFFFF"}}
                                                     variant='extendedFab'
                                                     type="button"
-                                                    className="secondary"
                                                     onClick={() => push({ year: "", experience: "" })}
                                                 >
-                                                    Add Record
+                                                    <AddIcon/>
                                                 </Button>
                                             </FormControl>
                                         </Grid>
-                                        <Grid item xs={4}>
+                                        <Grid item xs={8}>
                                             <FormControl>
                                                 <Button
-                                                    style={{ backgroundColor: '#52C1C8', color: "#FFFFFF", paddingLeft: 60, paddingRight: 60, marginTop: 10 }}
+                                                    style={{ backgroundColor: '#52C1C8', color: "#FFFFFF", paddingLeft: 60, paddingRight: 60}}
                                                     variant='extendedFab'
                                                     color='primary'
                                                     type='submit'
@@ -138,7 +142,7 @@ class TeachingExperience extends React.Component {
                                                             .catch(err => console.error(err))
                                                     }}
                                                 >
-                                                    Update Subject
+                                                    Update Exp.
                                                 </Button>
                                             </FormControl>
                                         </Grid>
