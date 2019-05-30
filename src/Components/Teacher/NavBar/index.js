@@ -17,7 +17,7 @@ class NavBar extends React.Component {
           <Grid container style={{ alignContent: 'center' }}>
               <Grid item xs={8}>
                 <Typography noWrap style = {{fontSize: 40, marginLeft : 80,color: 'white', fontWeight: 600}}>
-                  <NavLink to='tutor/my_profile' style={{ textDecoration: 'none', color: 'white' }}>
+                  <NavLink to='/tutor/my_profile' style={{ textDecoration: 'none', color: 'white' }}>
                     X TUTOR
                   </NavLink>
                 </Typography>
@@ -25,13 +25,13 @@ class NavBar extends React.Component {
 
               <Grid item xs={1}>
               <Typography style = {{fontSize: 18, marginTop:15}}>
-                <NavLink to = 'tutor/update_freetime'  style={{ textDecoration: 'none', color: '#ffffff'}}>MY CALENDAR</NavLink>
+                <NavLink to = '/tutor/update_freetime'  style={{ textDecoration: 'none', color: '#ffffff'}}>MY CALENDAR</NavLink>
               </Typography>
               </Grid>
 
               <Grid item xs={1}>
               <Typography style = {{fontSize: 18, marginTop:15}}>
-                <NavLink to = 'tutor/my_profile' style ={{ textDecoration: 'none', color: '#ffffff'}} >MY PROFILE</NavLink>
+                <NavLink to = '/tutor/my_profile' style ={{ textDecoration: 'none', color: '#ffffff'}} >MY PROFILE</NavLink>
               </Typography>
               </Grid>
 
