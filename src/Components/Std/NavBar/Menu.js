@@ -56,6 +56,7 @@ class LongMenu extends React.Component {
   render() {
     const { anchorEl } = this.state;
     const open = Boolean(anchorEl);
+    console.log('history', this.props.history)
 
     return (
       <div>

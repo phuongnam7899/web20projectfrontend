@@ -88,11 +88,11 @@ class App extends React.Component {
       )
       display = (
         <Fragment>
-          <Route path = '/teacher/tuitionpreference' render = {props => {
+          <Route path = '/tutor/tuitionpreference' render = {props => {
             console.log('dfsf')
-          return <TuitionPreference />
+            return <TuitionPreference />
           }}/>
-          <Route path='/teacher/editmyprofile' component = {Tutor_Editmyprofile}/>
+          <Route path='/tutor/editmyprofile' component = {Tutor_Editmyprofile}/>
           <Route path = '/tutor/update_freetime' render ={() => <Calendar tutor_id = {localStorage.id} />} />
           <Route path = '/tutor/my_profile' component = {MyDetail}/>
         </Fragment>

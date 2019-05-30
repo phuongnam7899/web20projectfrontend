@@ -100,7 +100,7 @@ const FormikForm = withFormik({
                     props.history.push('/user')
                 }
                 if (localStorage.getItem('role') === "tutor") {
-                    props.history.push('/teacher/tuitionpreference');
+                    props.history.push('/tutor/my_profile');
                 }
             })
             .catch(err => console.error(err))
