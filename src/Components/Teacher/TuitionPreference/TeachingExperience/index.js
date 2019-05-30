@@ -6,50 +6,38 @@ import Typography from '@material-ui/core/Typography'
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FormHelperText from '@material-ui/core/FormHelperText'
-import { withFormik, Form } from 'formik';
+import { withFormik, Form, Field, FieldArray } from 'formik';
 import * as Yup from 'yup';
 import _ from "lodash";
 import Circle from '../../../Circle'
+import axios from '../../../../axios'
 
+const Wrapper = (Component) => {
+    return class extends React.Component {
+        state = {
+            working_experience: null
+        }
+        componentDidMount() {
+            axios.get(`api/user/tutor/${localStorage.id}?token=${localStorage.token}`)
+                .then(data => {
+                    console.log(data)
+                    console.log("experience", data.data.working_experience)
+                    this.setState({ working_experience: data.data.working_experience })
+                })
+                .catch(err => console.error(err))
+        }
+        render() {
+            const { working_experience } = this.state; 
+            if (!working_experience) return null;
+            return <Component {...this.props} working_experience = {working_experience} /> 
+        }
+    }
+}
 class TeachingExperience extends React.Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            experiences: [{
-                // year: "1999 - 2000",
-                // experience: "Giáo viên trường maamd non Bách Khoa"
-            },
-            {
-                // year: "1999 - 2000",
-                // experience: "Giáo viên trường maamd non Bách Khoa"
-            }]
-        };
-        this.addRecord = this.addRecord.bind(this);
-        this.deleteRecord = this.deleteRecord.bind(this);
-    }
-    addRecord() {
-        this.setState({
-            experiences: this.state.experiences.concat([{
-                // year: "1999 - 2000",
-                // experience: "Giáo viên trường maamd non Bách Khoa"
-            }])
-        });
-        // console.log(this.state.experiences)
-    }
-    deleteRecord(index){
-        console.log("deleted");
-        let experiences = this.state.experiences;
-        experiences.splice(index,1);
-        this.setState({
-            experiences : experiences
-        })
-    }
     render() {
         const { values, handleChange, errors, handleBlur, touched } = this.props;
-        const { experiences } = this.state;
-        console.log(values)
-        if (_.isEmpty(experiences)) {
+        console.log('experience values', values)
+        if (_.isEmpty(values)) {
             return <Circle />
         }
         return (
@@ -63,35 +51,101 @@ class TeachingExperience extends React.Component {
                         <Grid item xs={6}>
                             <Typography style={{ fontSize: 20 }}>Experience</Typography>
                         </Grid>
-                        {
-                            experiences.map((experience,index) => {
-                                return (
+                        <FieldArray 
+                            name="working_experience"
+                            render={({ push, remove }) => (
+                                <Form>
+                                    {values.working_experience.map((sub, index) => (
+                                        <Grid container direction='row' xs={12} justify='flex-start' spacing={16} style={{ marginTop: 20 }} >
+                                            <Grid item xs={4}>
+                                                <FormControl error={!!touched.year && errors.year}>
+                                                    <Field
+                                                        name={`working_experience[${index}].year`}
+                                                        render={({ field, form: { touched, errors } }) => (
+                                                            <div>
+                                                                <Input {...field} type="number" placeholder="Year" fullWidth />
+                                                                {touched[field.name] &&
+                                                                    errors[field.name] && <div className="error">{errors[field.name]}</div>}
+                                                            </div>
+                                                        )}
+                                                    />
+                                                </FormControl>
+                                            </Grid>
+                                            <Grid item xs={4}>
+                                                <FormControl error={!!touched.year && errors.year}>
+                                                    <Field
+                                                        name={`working_experience[${index}].experience`}
+                                                        render={({ field, form: { touched, errors } }) => (
+                                                            <div>
+                                                                <Input {...field} type="text" placeholder="Experience" fullWidth />
+                                                                {touched[field.name] &&
+                                                                    errors[field.name] && <div className="error">{errors[field.name]}</div>}
+                                                            </div>
+                                                        )}
+                                                    />
+                                                </FormControl>
+                                            </Grid>
+                                            <Grid item xs={2}>
+                                                <FormControl>
+                                                    <Button
+                                                        style={{ backgroundColor: '#52C1C8', color: "#FFFFFF", paddingLeft: 60, paddingRight: 60, marginTop: 10 }}
+                                                        variant='extendedFab'
+                                                        type="button"
+                                                        className="secondary"
+                                                        onClick={() => remove(index)}
+                                                    >
+                                                        Delete record
+                                                    </Button>
+                                                </FormControl>
+                                            </Grid>
+                                        </Grid>))
+                                    }
                                     <Grid container direction='row' xs={12} justify='flex-start' spacing={16} style={{ marginTop: 20 }} >
-                                        <Grid item xs={2}>
-                                            <FormControl error={!!touched.year && errors.year}>
-                                                <Input placeholder='Year' name='year' value={values.year} onChange={handleChange} onBlur={handleBlur} fullWidth />
-                                                <FormHelperText>{touched.year && errors.year}</FormHelperText>
+                                        <Grid item xs={4}>
+                                            <FormControl>
+                                                <Button
+                                                    style={{ backgroundColor: '#52C1C8', color: "#FFFFFF", paddingLeft: 60, paddingRight: 60, marginTop: 10 }}
+                                                    variant='extendedFab'
+                                                    type="button"
+                                                    className="secondary"
+                                                    onClick={() => push({ year: "", experience: "" })}
+                                                >
+                                                    Add Record
+                                                </Button>
                                             </FormControl>
                                         </Grid>
-                                        <Grid item xs={8}>
-                                            <FormControl error={!!touched.experience && errors.experience}>
-                                                <Input placeholder='Experience' name='experience' value={values.experience} onChange={handleChange} onBlur={handleBlur} fullWidth />
-                                                <FormHelperText>{touched.experience && errors.experience}</FormHelperText>
+                                        <Grid item xs={4}>
+                                            <FormControl>
+                                                <Button
+                                                    style={{ backgroundColor: '#52C1C8', color: "#FFFFFF", paddingLeft: 60, paddingRight: 60, marginTop: 10 }}
+                                                    variant='extendedFab'
+                                                    color='primary'
+                                                    type='submit'
+                                                    onClick={() =>{
+                                                        console.log('gui ne')
+                                                        axios({
+                                                            url: `/api/user/tutor/update_experience?token=${localStorage.getItem('token')}`,
+                                                            method: 'put',
+                                                            data: {
+                                                                id: localStorage.getItem('id'),
+                                                                experiences: values.working_experience
+                                                            }
+                                                        })
+                                                            .then((updated) => {
+                                                                console.log(updated);
+                                                                document.location.href = '/';
+                                                            })
+                                                            .catch(err => console.error(err))
+                                                    }}
+                                                >
+                                                    Update Subject
+                                                </Button>
                                             </FormControl>
-                                        </Grid>
-                                        <Grid item xs={2}>
-                                            <IconButton onClick={() => this.deleteRecord(index)}  aria-label="Delete">
-                                                <DeleteIcon/>
-                                            </IconButton>
                                         </Grid>
                                     </Grid>
-                                )
-                            })
-
-                        }
-                        <FormControl>
-                            <Button onClick={this.addRecord} type='submit' variant='extendedFab' style={{ backgroundColor: '#52C1C8', color: "#FFFFFF", paddingLeft: 60, paddingRight: 60 }}>Add Record</Button>
-                        </FormControl>
+                                </Form>
+                            )}
+                        />
                     </Grid>
                 </Grid>
             </Form>
@@ -101,11 +155,9 @@ class TeachingExperience extends React.Component {
 }
 
 const FormikForm = withFormik({
-    mapPropsToValues({ }) {
-        return {
-            year: '',
-            experience: ''
-        }
+    mapPropsToValues(props) {
+        console.log('initial ex',props)
+        return (props)
     },
     validationSchema: Yup.object().shape({
         year: Yup.string()
@@ -119,4 +171,4 @@ const FormikForm = withFormik({
 
 })(TeachingExperience)
 
-export default FormikForm
+export default Wrapper(FormikForm);
