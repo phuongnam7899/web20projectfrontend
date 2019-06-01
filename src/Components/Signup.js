@@ -12,10 +12,41 @@ import FormControl from '@material-ui/core/FormControl'
 import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
 import InputLabel from '@material-ui/core/InputLabel'
+import Dialog from './Dialog'
 
 
+const WrapperComponent = (Component) => {
+    return class extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+                open: false
+            }
+            this.openDialog = this.openDialog.bind(this);
+            this.closeDialog = this.closeDialog.bind(this);
+        }
 
-const Login = ({ values, handleChange, errors, touched, handleBlur }) => {
+        openDialog() {
+            this.setState({
+                open: true
+            })
+        }
+
+        closeDialog() {
+            this.setState({
+                open: false
+            })
+        }
+
+        render() {
+            const { open } = this.state;
+            return <Component {...this.props} open={open} openDialog={this.openDialog} closeDialog={this.closeDialog} />
+        }
+    }
+}
+
+
+const Login = ({ values, handleChange, errors, touched, handleBlur, open, closeDialog }) => {
     return (
         <Form>
             <Grid container direction='column' xs={12} style={{ marginTop: 80 }} alignContent = 'center'>
@@ -106,7 +137,13 @@ const Login = ({ values, handleChange, errors, touched, handleBlur }) => {
                         </Typography>
 
                     </Grid>
-                    <Button type='submit' style={{ backgroundColor: '#E9E9E9', color: "#A7A7A7", marginTop : 20}}>Create Account</Button>
+                    <Button type='submit' style={{ backgroundColor: '#E9E9E9', color: "#A7A7A7", marginTop : 20, marginBottom : 150}}>Create Account</Button>
+                    <Dialog
+                        open={open}
+                        handleClose={() => closeDialog()}
+                        textContent="You have successfully create an account"
+                        title = 'SUCCESSFUL'
+                    />
                 </Grid>
         </Form>
     )
@@ -160,9 +197,10 @@ const FormikForm = withFormik({
                 let status = sent_data.data.success;
                 console.log(sent_data.data.success)
                 if(status === 1){
-                    props.history.push("/login")
+                    props.openDialog();
+                    // props.history.push("/login");
                 }}).catch(err => console.error(err))
         }
 })(Login)
 
-export default FormikForm;
+export default WrapperComponent(FormikForm);

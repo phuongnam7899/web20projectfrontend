@@ -12,13 +12,31 @@ import _ from "lodash";
 import Circle from '../../../Circle'
 import axios from '../../../../axios'
 import AddIcon from '@material-ui/icons/Add';
+import Dialog from '../../../Dialog'
 
 
 
 const Wrapper = (Component) => {
     return class extends React.Component {
-        state = {
-            working_experience: null
+        constructor (props){
+            super(props)
+            this.state = {
+                working_experience: null,
+                open:false
+            }
+            this.openDialog = this.openDialog.bind(this);
+            this.closeDialog = this.closeDialog.bind(this);
+        }
+        openDialog() {
+            this.setState({
+                open: true
+            })
+        }
+
+        closeDialog() {
+            this.setState({
+                open: false
+            })
         }
         componentDidMount() {
             axios.get(`api/user/tutor/${localStorage.id}?token=${localStorage.token}`)
@@ -30,15 +48,16 @@ const Wrapper = (Component) => {
                 .catch(err => console.error(err))
         }
         render() {
+            const { open } = this.state;
             const { working_experience } = this.state; 
             if (!working_experience) return null;
-            return <Component {...this.props} working_experience = {working_experience} /> 
+            return <Component {...this.props} working_experience = {working_experience} open={open} openDialog={this.openDialog} closeDialog={this.closeDialog}/> 
         }
     }
 }
 class TeachingExperience extends React.Component {
     render() {
-        const { values, handleChange, errors, handleBlur, touched } = this.props;
+        const { values, handleChange, errors, handleBlur, touched, open, closeDialog, openDialog} = this.props;
         console.log('experience values', values)
         if (_.isEmpty(values)) {
             return <Circle />
@@ -123,7 +142,6 @@ class TeachingExperience extends React.Component {
                                                 <Button
                                                     style={{ backgroundColor: '#52C1C8', color: "#FFFFFF", paddingLeft: 60, paddingRight: 60}}
                                                     variant='extendedFab'
-                                                    color='primary'
                                                     type='submit'
                                                     onClick={() =>{
                                                         console.log('gui ne')
@@ -137,13 +155,21 @@ class TeachingExperience extends React.Component {
                                                         })
                                                             .then((updated) => {
                                                                 console.log(updated);
-                                                                document.location.href = '/tutor/tuitionpreference';
+                                                                openDialog()
+                                                                {/* document.location.href = '/tutor/tuitionpreference'; */}
                                                             })
                                                             .catch(err => console.error(err))
                                                     }}
                                                 >
                                                     Update Exp.
                                                 </Button>
+                                                <Dialog
+                                                    open={open}
+                                                    handleClose={() => closeDialog()}
+                                                    textContent="You have successfully update your teaching experience"
+                                                    title = 'SUCCESSFUL'
+                                                    link = '/tutor/tuitionpreference'
+                                                />
                                             </FormControl>
                                         </Grid>
                                     </Grid>
@@ -169,8 +195,8 @@ const FormikForm = withFormik({
         experience: Yup.string()
             .required("Experience is required")
     }),
-    handleSubmit(values) {
-        console.log(values)
+    handleSubmit(values,{props}) {
+        console.log(props)
     }
 
 })(TeachingExperience)
