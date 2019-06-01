@@ -13,7 +13,7 @@ import { withFormik, Form } from 'formik';
 import * as Yup from 'yup';
 import axios from '../../../../axios'
 import Dialog from '../../../Dialog'
-import DateTimePicker from './DateTimePicker';
+import TextField from '@material-ui/core/TextField';
 
 
 const Wrapper = (Component) => {
@@ -57,7 +57,7 @@ const Wrapper = (Component) => {
 }
 const FormDefault = ({ values, handleChange, errors, touched, handleBlur,open, closeDialog }) => {
     return (
-        <Form>
+        <Form style = {{marginBottom: 60}}>
             <Grid container justify='center' alignContent='center'>
                 <Grid item xs={6} md={4}>
                     <Paper elevation={4} style={{ padding: '20px 15px', marginTop: '50px' }}>
@@ -85,11 +85,19 @@ const FormDefault = ({ values, handleChange, errors, touched, handleBlur,open, c
                         <Grid container direction='row' xs={24} justify='center' spacing={16} style={{ marginTop: 30 }}>
                             <Grid item xs={6} margin='normal'>
                                 <FormControl fullWidth error={touched.dob && errors.dob}>
-                                    <Typography>Date Of Birth</Typography>
                                     {/* <Input name='date_of_birth' value={values.date_of_birth} onChange={handleChange} fullWidth />
                                     <FormHelperText>{touched.dob && errors.dob}</FormHelperText> */}
-                                    <DateTimePicker style = {{width : 200}}/>
-
+                                    <TextField
+                                        name = "date_of_birth"
+                                        onChange={handleChange}
+                                        id="date"
+                                        label="Date Of Birth"
+                                        type="date"
+                                        defaultValue={values.date_of_birth}
+                                        InputLabelProps={{
+                                        shrink: true,
+                                        }}
+                                    />
                                 </FormControl>
                             </Grid>
                             <Grid item xs={6} margin='normal'>
@@ -189,7 +197,7 @@ const FormDefault = ({ values, handleChange, errors, touched, handleBlur,open, c
                         <FormControl fullWidth margin='normal'>
                             <Button
                                 variant='extendedFab'
-                                color='primary'
+                                style={{ backgroundColor: '#52C1C8', color: "#FFFFFF" }}
                                 type='submit'
                             >
                                 Update Profile
@@ -290,7 +298,7 @@ const FormikForm = withFormik({
         address: Yup.string()
             .required('Address is required'),
     }),
-    handleSubmit(values) {
+    handleSubmit(values,{props}) {
         
         const id = localStorage.getItem('user_id');
         axios({
@@ -310,8 +318,8 @@ const FormikForm = withFormik({
                 nationality_name: values.nationality_name,
             }
         })
-        .then((updated, {props}) => {
-           console.log(updated);
+        .then((updated) => {
+           console.log(props);
         //    document.location.href = '/tutor/my_profile';
            props.openDialog();
         })

@@ -68,7 +68,7 @@ class TeacherDetail extends React.Component {
                 <Grid container xs={12} spacing={50} style={{ marginTop: 10 }}>
                   <Field tag='Date of birth' content={tutorInfo.user_id.profile.date_of_birth} />
                   <Field tag='Gender' content={tutorInfo.user_id.profile.gender_name} />
-                  <Field tag='Resides In' content={tutorInfo.user_id.profile.city_name} />
+                  <Field tag='Resides In' content={tutorInfo.user_id.profile.address} />
                   <Field tag='Phone number' content={tutorInfo.user_id.profile.phone_number} />
                 </Grid>
               </Grid>
