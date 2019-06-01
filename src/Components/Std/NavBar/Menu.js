@@ -52,6 +52,10 @@ class LongMenu extends React.Component {
       history.push("/student/allclasses")
       this.setState({ anchorEl: null });
     }
+    if(index == 3){
+      history.push("/student/myprofile");
+      this.setState({ anchorEl: null});
+    }
   }
   render() {
     const { anchorEl } = this.state;

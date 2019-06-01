@@ -77,7 +77,7 @@ const Login = ({ values, handleChange, errors, touched, handleBlur }) => {
                     </Grid>
                     <Grid item xs={4} style = {{marginTop : 20}}>
                         <FormControl fullWidth error={!!touched.phonenumber && errors.phonenumber}>
-                        <Input placeholder='Phone number'  name='phonenumber' value={values.phonenumber} onChange = {handleChange} fullWidth onBlur={handleBlur}/>
+                        <Input placeholder='Phone number' type='number' name='phonenumber' value={values.phonenumber}  onChange = {handleChange} fullWidth onBlur={handleBlur}/>
                         <FormHelperText>{touched.phonenumber && errors.phonenumber}</FormHelperText>                            
                         </FormControl>
                     </Grid>
@@ -139,7 +139,8 @@ const FormikForm = withFormik({
             .min(8, 'Password must have min 8 characters'),
         phonenumber: Yup.number()
             .required('Phone Number is required')
-            .min(10, 'Phone Number must have min 10 characters'),
+            .min(10, 'Phone Number must have min 10 characters')
+            .integer('Please provide integer'),
         role: Yup.string()
             .required('Role is required')
 
