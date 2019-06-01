@@ -77,7 +77,7 @@ class User extends React.Component {
           return(
             <div>
               <Grid container xs={11} justify='space-between'>
-                <Typography style={{ marginTop: 50, fontSize: 24, marginLeft: 400 }}>
+                <Typography style={{ marginTop: 50, fontSize: 24, marginLeft: 80 }}>
                 {one_class.subject}
                 </Typography>
                 <CancelTuition class_id = {one_class._id} index={index} onCancelTuition={() => this.handleCancelTuition()} />
@@ -95,7 +95,7 @@ class User extends React.Component {
               </Paper>
               </Grid> 
               <Grid container justify='flexstart' xs={11} style={{ marginBottom: 20 }}>
-                <Typography style={{ fontSize: 18, marginLeft: 400, marginTop: 10 }}>
+                <Typography style={{ fontSize: 18, marginLeft: 80, marginTop: 10 }}>
                   Session 1 / {one_class.sessions.length}
                 </Typography>
               </Grid>

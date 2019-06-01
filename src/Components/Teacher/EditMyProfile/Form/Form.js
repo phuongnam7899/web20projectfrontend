@@ -40,7 +40,7 @@ const FormDefault = ({ values, handleChange, errors, touched, handleBlur }) => {
         <Form>
             <Grid container justify='center' alignContent='center'>
                 <Grid item xs={6} md={4}>
-                    <Paper elevation={4} style={{ padding: '20px 15px', marginTop: '150px' }}>
+                    <Paper elevation={4} style={{ padding: '20px 15px', marginTop: '50px' }}>
                         <Typography variant="h5" gutterBottom>
                             Edit My Profile
                         </Typography>
