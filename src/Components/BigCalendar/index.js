@@ -6,6 +6,7 @@ import FormDialog from "./dialog";
 import "./react-big-calendar.css";
 import moment from "moment";
 import Input from '@material-ui/core/Input';
+import Dialog from '../Dialog'
 import { withRouter } from 'react-router-dom';
 
 const localizer = BigCalendar.momentLocalizer(moment);
@@ -19,14 +20,30 @@ class CalendarApp extends Component {
       open: false,
       events: [],
       event: {},
-      subject: ""
+      subject: "",
+      openDialog : false,
+      textContent: "",
+      title : ""
     };
+
     this.onSelectSlot = this.onSelectSlot.bind(this);
     this.closeDialogHandle = this.closeDialogHandle.bind(this);
     this.submitDialogHandle = this.submitDialogHandle.bind(this);
     this.onClickSlot = this.onClickSlot.bind(this);
     this.deleteHandle = this.deleteHandle.bind(this);
     this.convertToICT = this.convertToICT.bind(this);
+    this.openDialog = this.openDialog.bind(this);
+    this.closeDialog = this.closeDialog.bind(this)
+  }
+  openDialog(){
+    this.setState({
+      openDialog: true,
+    })
+  }
+  closeDialog(){
+    this.setState({
+      openDialog: false,
+    })
   }
 
   componentDidMount() {
@@ -72,6 +89,11 @@ class CalendarApp extends Component {
       if((localStorage.role === "tutor") && ((moment(element.end).isSameOrAfter(moment(e.start))) && (moment(e.end).isSameOrAfter(moment(element.start))))){
         selectable = false;
         console.log("you have set this time free or have another class")
+        this.setState({
+          textContent : "You have set this time free or have another class",
+          title : "Opps!!!"
+        })
+        this.openDialog()
       }
       if(localStorage.role === "student" && element.title === ""){
         free_time.push(element)
@@ -86,6 +108,11 @@ class CalendarApp extends Component {
       if (count === 0) {
         selectable = false;
         console.log("You can only book class in tutor's free time")
+        this.setState({
+          textContent : "You can only book class in tutor's free time",
+          title : "Opps!!!"
+        })
+        this.openDialog()  
       }
     }
     // console.log(selectable);
@@ -249,7 +276,7 @@ class CalendarApp extends Component {
   }
 
   render() {
-    const { open, event, events, editState, disabledEdit } = this.state;
+    const { open, event, events, editState, disabledEdit, openDialog, closeDialog } = this.state;
     const href = document.location.href.split("/");
     const path = href[href.length - 1];
     const display = (path === "detail") ? (<Input placeholder="Subject" onChange={this.handleSubChange}></Input>) : false
@@ -314,6 +341,12 @@ class CalendarApp extends Component {
             disabledEdit={disabledEdit}
           />
         }
+        <Dialog
+        open = {openDialog}
+        handleClose = {()=>this.closeDialog()}
+        textContent = {this.state.textContent}
+        title = {this.state.title}
+        />
       </div>
     );
   }
