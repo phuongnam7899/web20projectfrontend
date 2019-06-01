@@ -15,6 +15,7 @@ import AddIcon from '@material-ui/icons/Add';
 
 
 
+
 const Wrapper = (Component) => {
     return class extends React.Component {
         state = {
@@ -83,10 +84,10 @@ class TeachingExperience extends React.Component {
                                                         name={`working_experience[${index}].experience`}
                                                         render={({ field, form: { touched, errors } }) => (
                                                             <div>
-                                                                <Input {...field} type="text" placeholder="Experience" style = {{width:300, marginLeft: 20}}/>
-                                                                {touched[field.name] &&
-                                                                    errors[field.name] && <div className="error">{errors[field.name]}</div>}
+                                                                <Input {...field} type="text" placeholder="Experience" style = {{width:300, marginLeft: 20}} onChange={handleChange} />
+                                                                {/* <FormHelperText>{touched && errors} </FormHelperText> */}
                                                             </div>
+                                                            
                                                         )}
                                                     />
                                                 </FormControl>
