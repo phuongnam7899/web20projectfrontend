@@ -65,6 +65,7 @@ class CalendarApp extends Component {
   onSelectSlot(e) {
     const { events, disabledEdit } = this.state;
     const { updateOldEvents, getAddedEvents } = this.props;
+    console.log(e);
     if (updateOldEvents && getAddedEvents) {
       if (!disabledEdit) {
         const event = {
@@ -85,7 +86,7 @@ class CalendarApp extends Component {
 
   onClickSlot(event, e) {
     console.log(this.state.disabledEdit)
-
+    console.log(e)
     e.preventDefault();
     this.setState({
       open: true,

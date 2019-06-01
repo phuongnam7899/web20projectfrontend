@@ -19,6 +19,7 @@ class Filter extends React.Component {
         this.changeTutors = this.changeTutors.bind(this);
         this.filter_std_info = this.filter_std_info.bind(this);
         this.filter_tutor_info = this.filter_tutor_info.bind(this);
+        this.fetching = this.fetching.bind(this)
     }
 
     changeTutors(tutors) {
@@ -56,26 +57,31 @@ class Filter extends React.Component {
             std_info: info
         })
     }
+    fetching(status){
+        console.log(status)
+        this.setState({
+            fetching : status
+        })
+    }
     render(){
         const { fetching } = this.state;
-        if(fetching) {
-            return <Circle />
-        }else{
+        let result;
+        if(fetching){
+            result = (<Circle/>)
+        }else (result = <FilterResult tutors = {this.state.tutors}/>)
             return (
                 <div>
-                    <FilterBar filter_std_info={this.filter_std_info} changeTutors = {this.changeTutors} />
+                    <FilterBar filter_std_info={this.filter_std_info} changeTutors = {this.changeTutors} fetching = {this.fetching} />
                     <Grid container xs={12} direction='row'>
                         <Grid item xs={3}>
                             <FilterColumn  filter_tutor_info = {this.filter_tutor_info}/>
                         </Grid>
                         <Grid xs={6} style ={{marginTop : 60}}>
-                            <FilterResult tutors = {this.state.tutors}/>
+                            {result}
                         </Grid>
                     </Grid>
                 </div>
-            );
-        }
-        
+            );        
     } 
 }
 export default Filter;

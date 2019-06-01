@@ -138,7 +138,7 @@ class TeachingExperience extends React.Component {
                                                         })
                                                             .then((updated) => {
                                                                 console.log(updated);
-                                                                document.location.href = '/';
+                                                                document.location.href = '/tutor/tuitionpreference';
                                                             })
                                                             .catch(err => console.error(err))
                                                     }}
