@@ -13,6 +13,8 @@ import { withFormik, Form } from 'formik';
 import * as Yup from 'yup';
 import axios from '../../../../axios'
 import Dialog from '../../../Dialog'
+import DateTimePicker from './DateTimePicker';
+
 
 const Wrapper = (Component) => {
     return class extends React.Component {
@@ -44,7 +46,7 @@ const Wrapper = (Component) => {
                 })
                 .catch(err => console.error(err))
         }
-    
+
         render() {
             const { user_info } = this.state;
             const { open } = this.state;
@@ -82,10 +84,12 @@ const FormDefault = ({ values, handleChange, errors, touched, handleBlur,open, c
 
                         <Grid container direction='row' xs={24} justify='center' spacing={16} style={{ marginTop: 30 }}>
                             <Grid item xs={6} margin='normal'>
-                                <FormControl fullWidth error={touched.date_of_birth && errors.date_of_birth}>
-                                    <InputLabel>Date Of Birth</InputLabel>
-                                    <Input name='date_of_birth' value={values.date_of_birth} onChange={handleChange} fullWidth />
-                                    <FormHelperText>{touched.date_of_birth && errors.date_of_birth}</FormHelperText>
+                                <FormControl fullWidth error={touched.dob && errors.dob}>
+                                    <Typography>Date Of Birth</Typography>
+                                    {/* <Input name='date_of_birth' value={values.date_of_birth} onChange={handleChange} fullWidth />
+                                    <FormHelperText>{touched.dob && errors.dob}</FormHelperText> */}
+                                    <DateTimePicker style = {{width : 200}}/>
+
                                 </FormControl>
                             </Grid>
                             <Grid item xs={6} margin='normal'>
@@ -211,62 +215,62 @@ const FormikForm = withFormik({
     mapPropsToValues(props) {
         const { user_info } = props;
         let initial_info = {}
-        if(user_info.first_name){
+        if (user_info.first_name) {
             initial_info.first_name = user_info.first_name
-        }else{
+        } else {
             initial_info.first_name = ''
         }
-        if(user_info.last_name){
+        if (user_info.last_name) {
             initial_info.last_name = user_info.last_name
-        }else{
+        } else {
             initial_info.last_name = ''
         }
-        if(user_info.date_of_birth){
+        if (user_info.date_of_birth) {
             initial_info.date_of_birth = user_info.date_of_birth
-        }else{
+        } else {
             initial_info.date_of_birth = ''
         }
-        if(user_info.phone_number){
+        if (user_info.phone_number) {
             initial_info.phone_number = user_info.phone_number
-        }else{
+        } else {
             initial_info.phone_number = ''
         }
-        if(user_info.payment_method){
+        if (user_info.payment_method) {
             initial_info.payment_method = user_info.payment_method
-        }else{
+        } else {
             initial_info.payment_method = ''
         }
-        if(user_info.paypal_email){
+        if (user_info.paypal_email) {
             initial_info.paypal_email = user_info.paypal_email
-        }else{
+        } else {
             initial_info.paypal_email = ''
         }
-        if(user_info.address){
+        if (user_info.address) {
             initial_info.address = user_info.address
-        }else{
+        } else {
             initial_info.address = ''
         }
-        if(user_info.postal_code){
+        if (user_info.postal_code) {
             initial_info.postal_code = user_info.postal_code
-        }else{
+        } else {
             initial_info.postal_code = ''
         }
-        if(user_info.gender_name){
+        if (user_info.gender_name) {
             initial_info.gender_name = user_info.gender_name
-        }else{
+        } else {
             initial_info.gender_name = ''
         }
-        if(user_info.nationality_name){
+        if (user_info.nationality_name) {
             initial_info.nationality_name = user_info.nationality_name
-        }else{
+        } else {
             initial_info.nationality_name = ''
         }
-        if(user_info.academic_level_name){
+        if (user_info.academic_level_name) {
             initial_info.academic_level_name = user_info.academic_level_name
-        }else{
+        } else {
             initial_info.academic_level_name = ''
         }
-        console.log('profile',props);
+        console.log('profile', props);
         console.log('initial info', initial_info)
         return (initial_info);
     },
@@ -286,8 +290,8 @@ const FormikForm = withFormik({
         address: Yup.string()
             .required('Address is required'),
     }),
-    handleSubmit(values, {props}) {
-        console.log(values)
+    handleSubmit(values) {
+        
         const id = localStorage.getItem('user_id');
         axios({
             url: `/api/user?token=${localStorage.getItem('token')}`,
@@ -306,7 +310,7 @@ const FormikForm = withFormik({
                 nationality_name: values.nationality_name,
             }
         })
-        .then((updated) => {
+        .then((updated, {props}) => {
            console.log(updated);
         //    document.location.href = '/tutor/my_profile';
            props.openDialog();
