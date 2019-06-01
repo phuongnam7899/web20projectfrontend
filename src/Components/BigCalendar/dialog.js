@@ -57,17 +57,18 @@ const DialogTitle = withStyles(theme => ({
     deleteHandle,
     currentEvent
   } = props;
+  const href = document.location.href.split("/");
+  const path = href[href.length - 1];
+  const displayDeleteButton = (path === "detail" && editState) ? (<IconButton
+    aria-label="Close"
+    className={classes.deleteButton}
+    onClick={() => deleteHandle(currentEvent)}
+  >
+    <Delete color="error" />
+  </IconButton>) : false
   return (
     <MuiDialogTitle disableTypography className={classes.root}>
-      {editState ? (
-        <IconButton
-          aria-label="Close"
-          className={classes.deleteButton}
-          onClick={() => deleteHandle(currentEvent)}
-        >
-          <Delete color="error" />
-        </IconButton>
-      ) : null}
+      {displayDeleteButton}
       <FormLabel style={{ fontSize: 30 }} variant="h6">
         {children}
       </FormLabel>
@@ -128,7 +129,7 @@ class FormDialog extends React.Component {
     });
   }
   // notes với title là 1
-
+  
   render() {
     const {
       closeDialogHandle,
@@ -138,7 +139,9 @@ class FormDialog extends React.Component {
       disabledEdit
     } = this.props;
     const { event, notes, editState, open } = this.state;
-
+    const href = document.location.href.split("/");
+    const path = href[href.length - 1];
+    
     let { dateTimeStart, dateTimeEnd } = this.state;
     const { FormLabelCss } = style;
 
@@ -148,6 +151,17 @@ class FormDialog extends React.Component {
         dateTimeEnd,
         notes
       };
+      const display = (path === "detail" && !disabledEdit) ? (<Button
+        onClick={() => {
+          submitDialogHandle(pack);
+          this.setState({
+            notes: ""
+          });
+        }}
+        color="#52c1c8"
+      >
+        Submit
+      </Button>) : false
       dateTimeStart = moment(dateTimeStart).format("YYYY-MM-DDTHH:mm");
       dateTimeEnd = moment(dateTimeEnd).format("YYYY-MM-DDTHH:mm"); // 2019-09-12T20:30
       return (
@@ -225,19 +239,7 @@ class FormDialog extends React.Component {
               </Grid>
             </DialogContent>
             <DialogActions>
-              {!disabledEdit && (
-                <Button
-                  onClick={() => {
-                    submitDialogHandle(pack);
-                    this.setState({
-                      notes: ""
-                    });
-                  }}
-                  color="#52c1c8"
-                >
-                  Submit
-                </Button>
-              )}
+              {display}
             </DialogActions>
           </Dialog>
         </div>
