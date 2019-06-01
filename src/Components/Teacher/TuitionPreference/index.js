@@ -2,6 +2,7 @@ import React from 'react';
 import TeachingExperience from './TeachingExperience'
 import TeachingSubject from './TeachingSubject'
 import axios from '../../../axios'
+import TeachingReference from './TeachingReference';
 class EditMyProfile extends React.Component {
     constructor(props) {
         super(props);
@@ -13,6 +14,7 @@ class EditMyProfile extends React.Component {
     render() {
         return (
             <div>
+                <TeachingReference />
                 <TeachingExperience />
                 <TeachingSubject/>
             </div>
