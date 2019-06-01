@@ -2,6 +2,8 @@ import React from 'react';
 import TeachingExperience from './TeachingExperience'
 import TeachingSubject from './TeachingSubject'
 import axios from '../../../axios'
+import Grid from '@material-ui/core/Grid'
+import TeachingReference from './TeachingReference';
 class EditMyProfile extends React.Component {
     constructor(props) {
         super(props);
@@ -13,7 +15,14 @@ class EditMyProfile extends React.Component {
     render() {
         return (
             <div>
-                <TeachingExperience />
+                <Grid container>
+                    <Grid item xs = {6}>
+                    <TeachingReference />
+                    </Grid>
+                    <Grid item xs = {6}>
+                    <TeachingExperience />
+                    </Grid>
+                </Grid>
                 <TeachingSubject/>
             </div>
         );

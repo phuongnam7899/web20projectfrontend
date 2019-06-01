@@ -20,7 +20,7 @@ class NavBar extends React.Component {
           <Grid container style={{ alignContent: 'center' }}>
               <Grid item xs={8}>
                 <Typography noWrap style = {{fontSize: 40, marginLeft : 80, color: 'white', fontWeight: 600}}>
-                  <NavLink to='/user' style={{ textDecoration: 'none', color: 'white' }}>
+                  <NavLink to='/' style={{ textDecoration: 'none', color: 'white' }}>
                     X TUTOR
                   </NavLink>
                 </Typography>

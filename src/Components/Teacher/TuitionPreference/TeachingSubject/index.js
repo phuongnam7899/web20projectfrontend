@@ -143,7 +143,7 @@ class TeachingSubject extends React.Component {
                                         </Grid>))
                                     }
                                     <Grid container direction='row' xs={12} justify='flex-start' spacing={16} style={{ marginTop: 20 }} >
-                                        <Grid item xs={1}>
+                                        <Grid item xs={2}>
                                             <FormControl>
                                                 <Button
                                                     style={{ backgroundColor: '#52C1C8', color: "#FFFFFF"}}
@@ -175,7 +175,7 @@ class TeachingSubject extends React.Component {
                                                         })
                                                             .then((updated) => {
                                                                 console.log(updated);
-                                                                document.location.href = '/';
+                                                                document.location.href = '/tutor/tuitionpreference';
                                                             })
                                                             .catch(err => console.error(err))
                                                     }}

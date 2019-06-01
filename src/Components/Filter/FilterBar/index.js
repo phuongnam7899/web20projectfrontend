@@ -7,7 +7,6 @@ import MenuItem from '@material-ui/core/MenuItem'
 import { withFormik, Form } from 'formik'
 import Button from '@material-ui/core/Button'
 import axios from '../../../axios'
-import Circle from '../../Circle'
 
 const FilterBar = ({ values, handleChange }) => {
     console.log(values)
@@ -76,21 +75,6 @@ const FilterBar = ({ values, handleChange }) => {
 
             <Grid item xs={4}>
                 <Form>
-                    {/* <FormControl style = {{width: 150}} margin='normal'>
-                        <InputLabel>Select Country</InputLabel>
-                        <Select
-                            displayEmpty
-                            name='country'
-                            value={values.country}
-                            onChange={handleChange}
-                        >
-                            <MenuItem value={'usa'}>USA</MenuItem>
-                            <MenuItem value={'australia'}>Australia</MenuItem>
-                            <MenuItem value={'english'}>England</MenuItem>
-                            <MenuItem value={'vietnam'}>Vietnam</MenuItem>
-                        </Select>
-                    </FormControl> */}
-
                     <FormControl style = {{width: 150, marginLeft: 120}} margin='normal'>
                         <Button
                             variant='extendedFab'
@@ -118,15 +102,17 @@ const FormikForm = withFormik({
     },
     handleSubmit(values, { props }) {
         console.log(props)
-        const { filter_std_info, changeTutors } = props;
-        
+        const { filter_std_info, changeTutors, fetching } = props;
+        fetching(true)
         axios({
             method : 'post',
             url: `/api/user/tutor/filter?token=${localStorage.getItem('token')}`,
             data: values 
-        }).then((data) => {
+        }
+        ).then((data) => {
                 changeTutors(data.data)
                 filter_std_info(values)
+                fetching(false)
             }
         )
     }
