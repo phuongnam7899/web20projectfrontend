@@ -15,7 +15,7 @@ import TeacherDetail from './Components/Std/TeacherDetail';
 import TuitionPreference from './Components/Teacher/TuitionPreference';
 import NavStd from './Components/Std/NavBar'
 import NavTutor from './Components/Teacher/NavBar'
-import MyDetail from './Components/Teacher/TeacherDetail'
+// import MyDetail from './Components/Teacher/TeacherDetail'
 import Tutor_Editmyprofile from './Components/Teacher/EditMyProfile'
 
 const THEME = createMuiTheme({
@@ -94,7 +94,7 @@ class App extends React.Component {
           }}/>
           <Route path='/tutor/editmyprofile' component = {Tutor_Editmyprofile}/>
           <Route path = '/tutor/update_freetime' render ={() => <Calendar tutor_id = {localStorage.id} />} />
-          <Route path = '/tutor/my_profile' component = {MyDetail}/>
+          <Route path = '/tutor/my_profile' component = {TeacherDetail}/>
         </Fragment>
       )
     }

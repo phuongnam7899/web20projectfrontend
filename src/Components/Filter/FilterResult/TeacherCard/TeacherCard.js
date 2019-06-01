@@ -35,7 +35,7 @@ const styles = {
   }
 };
 
-function TeacherDetail(props) {
+function TeacherCard(props) {
   const { classes } = props;
   return (
     <div className={classes.root}>
@@ -70,8 +70,8 @@ function TeacherDetail(props) {
   );
 }
 
-TeacherDetail.propTypes = {
+TeacherCard.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(TeacherDetail);
+export default withStyles(styles)(TeacherCard);
