@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import BigCalendar from "react-big-calendar";
-import PropTypes from "prop-types";
+import PropTypes, { element } from "prop-types";
 import _ from "lodash";
 import FormDialog from "./dialog";
 import "./react-big-calendar.css";
@@ -65,8 +65,31 @@ class CalendarApp extends Component {
   onSelectSlot(e) {
     const { events, disabledEdit } = this.state;
     const { updateOldEvents, getAddedEvents } = this.props;
-    console.log(e);
-    if (updateOldEvents && getAddedEvents) {
+    let selectable = true;
+    const free_time = [];
+    let count = 0;
+    events.forEach((element) => {
+      if((localStorage.role === "tutor") && ((moment(element.end).isSameOrAfter(moment(e.start))) && (moment(e.end).isSameOrAfter(moment(element.start))))){
+        selectable = false;
+        console.log("you have set this time free or have another class")
+      }
+      if(localStorage.role === "student" && element.title === ""){
+        free_time.push(element)
+      }
+    });
+    if(free_time.length !== 0){
+      free_time.forEach((element) => {
+        if(((moment(element.end).isSameOrAfter(moment(e.end))) && (moment(e.start).isSameOrAfter(moment(element.start))))){
+          count++;
+        }
+      });
+      if (count === 0) {
+        selectable = false;
+        console.log("You can only book class in tutor's free time")
+      }
+    }
+    // console.log(selectable);
+    if (updateOldEvents && getAddedEvents && selectable) {
       if (!disabledEdit) {
         const event = {
           start: e.start,
@@ -85,16 +108,15 @@ class CalendarApp extends Component {
   }
 
   onClickSlot(event, e) {
-    console.log(this.state.disabledEdit)
-    console.log(e)
-    e.preventDefault();
-    this.setState({
-      open: true,
-      disabledEdit: ((localStorage.role === "tutor") || ((event.status !== "free_time") && (event.status !== "booked"))) ? false : true,
-      editState: true,
-      event
-    });
-    // console.log(this.state);
+    // console.log(this.state.disabledEdit)
+      e.preventDefault();
+      this.setState({
+        open: true,
+        disabledEdit: (((localStorage.role === "tutor") && (event.title === "")) || ((event.status !== "free_time") && (event.status !== "booked"))) ? false : true,
+        editState: true,
+        event
+      });
+      // console.log(this.state);
   }
 
   deleteHandle(event) {
@@ -140,7 +162,6 @@ class CalendarApp extends Component {
         disabledEdit: false
       });
     }
-
   }
 
   submitDialogHandle(pack) {

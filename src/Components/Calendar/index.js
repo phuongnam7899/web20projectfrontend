@@ -3,6 +3,7 @@ import BigCalendar from "../BigCalendar";
 import axios from "../../axios";
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
+import _ from "lodash"
 // import {PayPalButton} from 'react-'
 
 class Calendar extends React.Component {
@@ -116,7 +117,9 @@ class Calendar extends React.Component {
 
     render() {
         const { oldEvents } = this.state;
-        console.log(oldEvents);
+        if(_.isEmpty(oldEvents)){
+            return "loading"
+        }
         const buttonContent = localStorage.role === "student" ? "Book your class" : "Update your free calendar"
         return (
             <Grid>

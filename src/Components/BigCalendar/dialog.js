@@ -59,7 +59,7 @@ const DialogTitle = withStyles(theme => ({
   } = props;
   const href = document.location.href.split("/");
   const path = href[href.length - 1];
-  const displayDeleteButton = (path === "detail" && editState) ? (<IconButton
+  const displayDeleteButton = (path != "allclasses" && editState) ? (<IconButton
     aria-label="Close"
     className={classes.deleteButton}
     onClick={() => deleteHandle(currentEvent)}
@@ -151,7 +151,7 @@ class FormDialog extends React.Component {
         dateTimeEnd,
         notes
       };
-      const display = (path === "detail" && !disabledEdit) ? (<Button
+      const display = (path !== "allclasses" && !disabledEdit) ? (<Button
         onClick={() => {
           submitDialogHandle(pack);
           this.setState({
