@@ -7,7 +7,6 @@ import MenuItem from '@material-ui/core/MenuItem'
 import { withFormik, Form } from 'formik'
 import Button from '@material-ui/core/Button'
 import axios from '../../../axios'
-import Circle from '../../Circle'
 
 const FilterBar = ({ values, handleChange }) => {
     console.log(values)
