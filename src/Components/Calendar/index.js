@@ -116,11 +116,17 @@ class Calendar extends React.Component {
 
     render() {
         const { oldEvents } = this.state;
+        const { setFunctionSave, history } = this.props;
+        console.log("running")
         console.log(oldEvents);
+        console.log(this.props);
         const buttonContent = localStorage.role === "student" ? "Book your class" : "Update your free calendar"
         return (
             <Grid>
-                <Button style={{ backgroundColor: '#52C1C8', color: "#FFFFFF", marginTop: 20 }} onClick={this.handleSubmit}>{buttonContent}</Button>
+                <Button style={{ backgroundColor: '#52C1C8', color: "#FFFFFF", marginTop: 20 }} onClick={() => {
+                    setFunctionSave("submitCalendar", this.handleSubmit);
+                    history.push("/paypal");
+            }}>{buttonContent}</Button>
                 <BigCalendar
                     handleSubChange_Calendar={this.handleSubChange_Calendar}
                     updateOldEvents={this.updateOldEvents}

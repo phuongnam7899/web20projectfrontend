@@ -15,6 +15,7 @@ import TeacherDetail from './Components/Std/TeacherDetail';
 import TuitionPreference from './Components/Teacher/TuitionPreference';
 import NavStd from './Components/Std/NavBar'
 import NavTutor from './Components/Teacher/NavBar'
+import Paypal from './Components/Paypal'
 // import MyDetail from './Components/Teacher/TeacherDetail'
 import Tutor_Editmyprofile from './Components/Teacher/EditMyProfile'
 
@@ -37,11 +38,27 @@ const ProtectedRoute = (props) => {
 
 
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.setFunctionSave = this.setFunctionSave.bind(this);
+  }
+
   state = {
     color: "primary",
     colors: 'white',
-    role: localStorage.getItem('role')
+    role: localStorage.getItem('role'),
+    functionSave: {}
   }
+
+  setFunctionSave(name, func) {
+    this.setState({
+      functionSave: {
+        ...this.state.functionSave,
+        [name]: func
+      }
+    })
+  }
+
 
   changeLogin = (status) => {
     const { color, colors } = status
@@ -72,12 +89,13 @@ class App extends React.Component {
           <Route path='/filter' component={Filter} />
           <Route path='/editmyprofile' component={Editmyprofile} />
           <Route path='/student/allclasses' component={StdCalendar} />
-          <Route path='/student/book_class' render={() => <Calendar/>} />
+          <Route path='/student/book_class' render={propsRoute => <Calendar {...propsRoute} setFunctionSave={this.setFunctionSave} />} />
           <Route path='/user' render={props => {
             return <TuitionDetail {...props}
             />
           }} />
-          <Route path='/tutor/detail' render={() => <TeacherDetail/>} />
+          <Route path = '/paypal' render = {() => <Paypal functionSave={this.state.functionSave} />} />
+          <Route path='/tutor/detail' render={propsRoute => <TeacherDetail {...propsRoute} setFunctionSave={this.setFunctionSave} />} />
           <Route path = '/preference' component = {TuitionPreference} />
         </Fragment>
       )
