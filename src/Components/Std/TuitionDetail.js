@@ -19,10 +19,13 @@ const styles = theme => ({
   root: {
     width: '66%',
     overflowX: 'auto',
-    marginLeft: 400
+    marginLeft: 80
   },
   table: {
-    minWidth: 700,
+    minWidth: '60%',
+    
+  },
+  body: {
     fontSize: 16
   },
   listSession: {
@@ -76,19 +79,23 @@ class User extends React.Component {
           console.log(this.state.classes)
           return(
             <div>
-              <Grid container xs={11} justify='space-between'>
-                <Typography style={{ marginTop: 50, fontSize: 24, marginLeft: 80 }}>
-                {one_class.subject}
-                </Typography>
-                <CancelTuition class_id = {one_class._id} index={index} onCancelTuition={() => this.handleCancelTuition()} />
+              <Grid container spacing = {2}>
+                <Grid item>
+                  <Typography variant = 'h4' style={{ marginTop: 50, marginLeft: 80, marginRight: 20 }}>
+                  {one_class.subject}
+                  </Typography>
+                </Grid>
+                <Grid item>
+                  <CancelTuition class_id = {one_class._id} index={index} onCancelTuition={() => this.handleCancelTuition()} style = {{marginLeft:30}}/>
+                </Grid>
               </Grid>
-              <Grid item xs={11} style ={{marginTop:20}}>
+              <Grid item style ={{marginTop:20}}>
               <Paper className={classes.root}>
                 <Table className={classes.table}>
                   <TableBody>
                     <TableRow>
-                      <TableCell align="left" scope="row" >Fee : {one_class.hourly_rate}$/hour </TableCell>
-                      <TableCell align="left" scope="row" > Number of lessons: {one_class.sessions.length} </TableCell>
+                      <TableCell align="left" scope="row" className = {classes.body}>Fee : {one_class.hourly_rate}$/hour </TableCell>
+                      <TableCell align="left" scope="row" className = {classes.body}> Number of lessons: {one_class.sessions.length} </TableCell>
                     </TableRow>
                   </TableBody>
                 </Table>
@@ -99,7 +106,7 @@ class User extends React.Component {
                   Session 1 / {one_class.sessions.length}
                 </Typography>
               </Grid>
-              <Grid container spacing={8} style={{ marginLeft: 400 }} xs={8}>
+              <Grid container spacing={8} style={{ marginLeft: 80 }} xs={8}>
                 <Grid container item xs={12} spacing={24} className={classes.listSession}>
                 {one_class.sessions.map((session,index) => {
                   return(

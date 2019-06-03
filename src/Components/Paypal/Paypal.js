@@ -5,11 +5,12 @@ export default class App extends Component {
     render(){
       const { functionSave } = this.props;
       const { submitCalendar } = functionSave;
+      const { total_payment }  = this.props
       return (
         <PayPalButton
             env='sandbox'
             sandboxID='AdYoouzmjCqV3zGJpHFJzOkDXieTh5RRpKApzRZ20smBQJL2jW3jmiDaCWTDwkpr6VKxd7tPKtlsw4DA'
-            amount={0.01}
+            amount={total_payment}
             currency='USD'
             onPaymentSuccess={(res) => {
               console.log('success',res);

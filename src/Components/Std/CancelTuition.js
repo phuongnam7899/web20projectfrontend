@@ -40,7 +40,7 @@ class CancelTuition extends React.Component {
   render() {
     return (
       <div>
-        <Button variant="outlined" color="primary" onClick={this.handleClickOpen} style={{ marginTop: 50, backgroundColor: "#c85452", marginRight: 75 }}>
+        <Button variant="outlined" color="primary" onClick={this.handleClickOpen} style={{ marginTop: 50, backgroundColor: "#c85452"}}>
           Cancel Tuition
         </Button>
         <Dialog
@@ -52,7 +52,7 @@ class CancelTuition extends React.Component {
           <DialogContent>
             <DialogContentText>
               You are about to cancel the whole tuition session, teacher XXX will be notified.
-  Please note that no refund will be given if you cancel the tuition.
+              Please note that no refund will be given if you cancel the tuition.
             </DialogContentText>
             <TextField
               autoFocus
@@ -67,7 +67,7 @@ class CancelTuition extends React.Component {
             <Button onClick={this.handleClose} color="secondary" >
               Cancel
             </Button>
-            <Button onClick={this.handleCancelTuition} color="primary" style={{ backgroundColor: "#B23B37" }}>
+            <Button onClick={this.handleCancelTuition} style={{ backgroundColor: "#B23B37" }}>
               I'd like to cancel this tuition
             </Button>
           </DialogActions>

@@ -9,6 +9,7 @@ class App extends React.Component {
 
     componentDidMount() {
         const { functionSave } = this.props;
+        const { fee } = this.props
         console.log('update date functionsave',functionSave)
     }
 

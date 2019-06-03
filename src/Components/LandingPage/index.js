@@ -8,7 +8,7 @@ export default function LandingPage() {
   return (
     <Grid container direction='column' justify='center'>
       <Paper square style={{
-        height: 690,
+        height: 905,
         width: '100%',
         backgroundImage: `url(${"https://images.unsplash.com/photo-1504275107627-0c2ba7a43dba?ixlib=rb-1.2.1&auto=format&fit=crop&w=967&q=80"})`,
         backgroundSize: "contain",

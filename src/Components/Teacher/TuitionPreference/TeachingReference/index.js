@@ -13,11 +13,30 @@ import _ from "lodash";
 import axios from '../../../../axios'
 import Circle from '../../../Circle'
 import AddIcon from '@material-ui/icons/Add';
+import Dialog from '../../../Dialog'
+
 
 const Wrapper = (Component) => {
     return class extends React.Component {
-        state = {
-            reference: null
+        constructor(props){
+            super(props);
+            this.state = {
+                reference: null,
+                open: false
+            }
+            this.openDialog = this.openDialog.bind(this);
+            this.closeDialog = this.closeDialog.bind(this);
+        }
+        openDialog() {
+            this.setState({
+                open: true
+            })
+        }
+
+        closeDialog() {
+            this.setState({
+                open: false
+            })
         }
         componentDidMount() {
             axios.get(`api/user/tutor/${localStorage.id}?token=${localStorage.token}`)
@@ -30,16 +49,17 @@ const Wrapper = (Component) => {
         }
     
         render() {
+            const { open } = this.state;
             const { reference } = this.state; 
             if (!reference) return null;
-            return <Component {...this.props} reference= { reference } /> 
+            return <Component {...this.props} reference= { reference } open={open} openDialog={this.openDialog} closeDialog={this.closeDialog}/> 
         }
     }
 }
 
 class TeachingReference extends React.Component {
     render() {
-        const { values, handleChange, errors, handleBlur, touched } = this.props;
+        const { values, handleChange, errors, handleBlur, touched,open, closeDialog  } = this.props;
         console.log('values reference', values)
         // const { ;subjects } = this.state
 
@@ -224,7 +244,6 @@ class TeachingReference extends React.Component {
                             <Button
                                 style={{ backgroundColor: '#52C1C8', color: "#FFFFFF", paddingLeft: 60, paddingRight: 60}}
                                 variant='extendedFab'
-                                color='primary'
                                 type='submit'
                                 onClick={() =>{
                                     console.log('axios',values)
@@ -241,7 +260,7 @@ class TeachingReference extends React.Component {
                                     })
                                         .then((updated) => {
                                             console.log(updated);
-                                            document.location.href = "/tutor/tuitionpreference"
+                                            {/* document.location.href = "/tutor/tuitionpreference" */}
         
                                         })
                                         .catch(err => console.error(err))
@@ -249,6 +268,13 @@ class TeachingReference extends React.Component {
                             >
                                 Update Exp.
                             </Button>
+                            <Dialog
+                                open={open}
+                                handleClose={() => closeDialog()}
+                                textContent="You have successfully update your preference"
+                                title = 'SUCCESSFUL'
+                                link = '/tutor/tuitionpreference'
+                            />
                         </FormControl>
                     </Grid>
                 </Grid>
@@ -280,9 +306,9 @@ const FormikDefault = withFormik({
                 })
             )
     }),
-    handleSubmit(values) {
-
-    
+    handleSubmit(values,{props}) {
+        console.log(props)
+        props.openDialog()
     }
 })(TeachingReference)
 

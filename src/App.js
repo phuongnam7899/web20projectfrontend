@@ -18,6 +18,8 @@ import NavTutor from './Components/Teacher/NavBar'
 import Paypal from './Components/Paypal'
 // import MyDetail from './Components/Teacher/TeacherDetail'
 import Tutor_Editmyprofile from './Components/Teacher/EditMyProfile'
+import StudentDetail from './Components/Std/StudentDetail';
+import Payment from './Components/Std/Payment'
 
 const THEME = createMuiTheme({
   typography: {
@@ -41,13 +43,18 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.setFunctionSave = this.setFunctionSave.bind(this);
+    this.setCalendarSave = this.setCalendarSave.bind(this);
   }
 
   state = {
     color: "primary",
     colors: 'white',
     role: localStorage.getItem('role'),
-    functionSave: {}
+    functionSave: {},
+    calendarSave:{
+      subject: "",
+      sessions: []
+    }
   }
 
   setFunctionSave(name, func) {
@@ -58,7 +65,14 @@ class App extends React.Component {
       }
     })
   }
-
+  setCalendarSave(subject, sessions) {
+    console.log('new sub', subject)
+    console.log('new sessions', sessions)
+    this.setState({calendarSave: {subject: subject, sessions: sessions}}, () => {
+      console.log('new sub', subject)
+      console.log('new sessions', sessions)     
+    })
+  }
 
   changeLogin = (status) => {
     const { color, colors } = status
@@ -95,8 +109,10 @@ class App extends React.Component {
             />
           }} />
           <Route path = '/paypal' render = {() => <Paypal functionSave={this.state.functionSave} />} />
-          <Route path='/tutor/detail' render={propsRoute => <TeacherDetail {...propsRoute} setFunctionSave={this.setFunctionSave} />} />
+          <Route path = '/payment' render = {() => <Payment functionSave={this.state.functionSave} calendarSave={this.state.calendarSave} />} />
+          <Route path='/tutor/detail' render={propsRoute => <TeacherDetail {...propsRoute} setFunctionSave={this.setFunctionSave} setCalendarSave = {this.setCalendarSave} />} />
           <Route path = '/preference' component = {TuitionPreference} />
+          <Route path = '/student/myprofile' component ={StudentDetail} />
         </Fragment>
       )
     }

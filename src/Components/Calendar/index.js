@@ -3,6 +3,8 @@ import BigCalendar from "../BigCalendar";
 import axios from "../../axios";
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
+import _ from "lodash"
+import Circle from '../Circle'
 // import {PayPalButton} from 'react-'
 
 class Calendar extends React.Component {
@@ -116,7 +118,10 @@ class Calendar extends React.Component {
 
     render() {
         const { oldEvents } = this.state;
-        const { setFunctionSave, history } = this.props;
+        const { setFunctionSave, setCalendarSave, history } = this.props;
+        if(_.isEmpty(oldEvents)){
+            return <Circle />
+        }
         console.log("running")
         console.log(oldEvents);
         console.log(this.props);
@@ -124,8 +129,9 @@ class Calendar extends React.Component {
         return (
             <Grid>
                 <Button style={{ backgroundColor: '#52C1C8', color: "#FFFFFF", marginTop: 20 }} onClick={() => {
+                    setCalendarSave(this.state.subject, this.state.addEvents);
                     setFunctionSave("submitCalendar", this.handleSubmit);
-                    history.push("/paypal");
+                    history.push("/payment");
             }}>{buttonContent}</Button>
                 <BigCalendar
                     handleSubChange_Calendar={this.handleSubChange_Calendar}

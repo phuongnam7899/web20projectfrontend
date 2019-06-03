@@ -12,10 +12,52 @@ import FormControl from '@material-ui/core/FormControl'
 import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
 import InputLabel from '@material-ui/core/InputLabel'
+import Dialog from './Dialog'
 
 
+const WrapperComponent = (Component) => {
+    return class extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+                open: false,
+                title: '',
+                content: '',
+            }
+            this.openDialog = this.openDialog.bind(this);
+            this.closeDialog = this.closeDialog.bind(this);
+        }
 
-const Login = ({ values, handleChange, errors, touched, handleBlur }) => {
+        openDialog() {
+            this.setState({
+                open: true
+            })
+        }
+
+        closeDialog() {
+            this.setState({
+                open: false
+            })
+        }
+
+        handleDialog = ({title, content}) => {
+            this.setState({
+                title:title,
+                content : content
+            })
+        }  
+
+        render() {
+            const { open } = this.state;
+            const {title} = this.state;
+            const {content} = this.state
+            return <Component {...this.props} open={open} openDialog={this.openDialog} closeDialog={this.closeDialog} handleDialog = {this.handleDialog} title = {title} content = {content}/>
+        }
+    }
+}
+
+
+const Login = ({ values, handleChange, errors, touched, handleBlur, open, closeDialog, title, content }) => {
     return (
         <Form>
             <Grid container direction='column' xs={12} style={{ marginTop: 80 }} alignContent = 'center'>
@@ -77,7 +119,7 @@ const Login = ({ values, handleChange, errors, touched, handleBlur }) => {
                     </Grid>
                     <Grid item xs={4} style = {{marginTop : 20}}>
                         <FormControl fullWidth error={!!touched.phonenumber && errors.phonenumber}>
-                        <Input placeholder='Phone number'  name='phonenumber' value={values.phonenumber} onChange = {handleChange} fullWidth onBlur={handleBlur}/>
+                        <Input placeholder='Phone number' type='number' name='phonenumber' value={values.phonenumber}  onChange = {handleChange} fullWidth onBlur={handleBlur}/>
                         <FormHelperText>{touched.phonenumber && errors.phonenumber}</FormHelperText>                            
                         </FormControl>
                     </Grid>
@@ -106,7 +148,13 @@ const Login = ({ values, handleChange, errors, touched, handleBlur }) => {
                         </Typography>
 
                     </Grid>
-                    <Button type='submit' style={{ backgroundColor: '#E9E9E9', color: "#A7A7A7", marginTop : 20}}>Create Account</Button>
+                    <Button type='submit' style={{ backgroundColor: '#E9E9E9', color: "#A7A7A7", marginTop : 20, marginBottom : 150}}>Create Account</Button>
+                    <Dialog
+                        open={open}
+                        handleClose={() => closeDialog()}
+                        textContent={content}
+                        title = {title}
+                        />
                 </Grid>
         </Form>
     )
@@ -139,7 +187,8 @@ const FormikForm = withFormik({
             .min(8, 'Password must have min 8 characters'),
         phonenumber: Yup.number()
             .required('Phone Number is required')
-            .min(10, 'Phone Number must have min 10 characters'),
+            .min(10, 'Phone Number must have min 10 characters')
+            .integer('Please provide integer'),
         role: Yup.string()
             .required('Role is required')
 
@@ -154,15 +203,21 @@ const FormikForm = withFormik({
                 email: values.email,
                 password: values.password,
                 gender_name: values.gender,
-                phone_num: values.phonenumber,
+                phone_num: values.phonenumber.toString(),
                 role: values.role
             }}).then((sent_data) => {
+                console.log(sent_data)
                 let status = sent_data.data.success;
                 console.log(sent_data.data.success)
                 if(status === 1){
-                    props.history.push("/login")
-                }}).catch(err => console.error(err))
+                    props.handleDialog({title:'SUCCESSFUL', content: 'You have successfully create an account'})
+                    props.openDialog();
+                    props.history.push("/login");
+                }else{
+                    props.handleDialog({title:'OOPSY!!!', content: 'Your account has been registered'})
+                    props.openDialog();
+            }}).catch(err => console.log(err.response.data))
         }
 })(Login)
 
-export default FormikForm;
+export default WrapperComponent(FormikForm);
