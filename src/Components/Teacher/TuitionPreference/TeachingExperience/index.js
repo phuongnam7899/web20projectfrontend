@@ -65,14 +65,14 @@ class TeachingExperience extends React.Component {
         }
         return (
             <Form>
-                <Grid container direction="column" xs = {12} style={{ marginTop: 80, marginLeft: 80 }} alignItems='flex-start' >
+                <Grid container direction="column" xs = {12} style={{ marginTop: 40, marginLeft: 80 }} alignItems='flex-start' >
                     <Typography variant='h3'>Teaching Experience</Typography>
                     <Grid container direction='row' xs = {6} justify='flex-start' spacing={16} style={{ marginTop: 20 }} >
-                        <Grid item xs={2}>
-                            <Typography variant='h5'>Year</Typography>
+                        <Grid item xs={3}>
+                            <Typography variant='h4'>Year</Typography>
                         </Grid>
-                        <Grid item xs={4}>
-                            <Typography variant='h5'>Experience</Typography>
+                        <Grid item xs={3}>
+                            <Typography variant='h4'>Experience</Typography>
                         </Grid>
                     </Grid>
                     <Grid container xs = {12}>
