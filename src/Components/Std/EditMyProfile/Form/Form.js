@@ -158,8 +158,8 @@ const FormDefault = ({ values, handleChange, errors, touched, handleBlur, open, 
                                     >
                                         <MenuItem value='usa'>USA</MenuItem>
                                         <MenuItem value='vietnam'>Vietnam</MenuItem>
-                                        <MenuItem value='aus'>Australia</MenuItem>
-                                        <MenuItem value='eng'>England</MenuItem>
+                                        <MenuItem value='australia'>Australia</MenuItem>
+                                        <MenuItem value='english'>England</MenuItem>
 
                                     </Select>
                                 </FormControl>
@@ -175,7 +175,7 @@ const FormDefault = ({ values, handleChange, errors, touched, handleBlur, open, 
                                         onChange={handleChange}
                                     >
                                         <MenuItem value='highschool'>High School</MenuItem>
-                                        <MenuItem value='uni'>University</MenuItem>
+                                        <MenuItem value='university'>University</MenuItem>
                                     </Select>
                                 </FormControl>
                             </Grid>
@@ -210,6 +210,7 @@ const FormikForm = withFormik({
         const { user_info } = props;
         let initial_info = {}
         if (user_info.first_name) {
+            console.log(user_info.first_name)
             initial_info.first_name = user_info.first_name
         } else {
             initial_info.first_name = ''
@@ -288,20 +289,23 @@ const FormikForm = withFormik({
     handleSubmit(values, { props }) {
         const id = localStorage.getItem('user_id')
         console.log(props)
+        console.log('later', values)
         axios({
             method: 'put',
             url: `/api/user?token=${localStorage.getItem('token')}`,
             data: {
                 id: id,
                 address: values.address,
-                date_of_birth: values.dob,
-                first_name: values.firstname,
-                gender_name: values.gender,
-                last_name: values.lastname,
-                nationality_name: values.nation,
-                postal_code: values.payment,
-                paypal_email: values.paypal,
-                phone_number: values.phonenumber,
+                date_of_birth: values.date_of_birth,
+                first_name: values.first_name,
+                gender_name: values.gender_name,
+                last_name: values.last_name,
+                nationality_name: values.nationality_name,
+                postal_code: values.postal_code,
+                payment_method: values.payment_method,
+                paypal_email: values.paypal_email,
+                phone_number: values.phone_number,
+                academic_level_name: values.academic_level_name
             },
             headers: { 'X-Auth-Token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRoYW9ucDA0MTA5OUBnbWFpbC5jb20iLCJwYXNzd29yZCI6IjEyMzQ1NiIsImlhdCI6MTU1ODMyOTI1NX0.lkqx-o-14-saMoKmbEJQKWqIUSyTgyMZtdv5QLjQ-1c' }
         }).then((updated) => {
