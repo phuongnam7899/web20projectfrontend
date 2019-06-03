@@ -12,8 +12,46 @@ import { withFormik, Form } from 'formik';
 import * as Yup from 'yup';
 import FormHelperText from '@material-ui/core/FormHelperText'
 import FormControl from '@material-ui/core/FormControl'
+import Dialog from './Dialog'
 
-const CreateAccount = ({ values, handleChange, errors, touched, handleBlur }) => {
+const WrapperComponent = (Component) => {
+    return class extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+                open: false,
+                content: '',
+            }
+            this.openDialog = this.openDialog.bind(this);
+            this.closeDialog = this.closeDialog.bind(this);
+        }
+
+        openDialog() {
+            this.setState({
+                open: true
+            })
+        }
+
+        closeDialog() {
+            this.setState({
+                open: false
+            })
+        }
+        handleError = (error) => {
+            console.log(error.message)
+            this.setState ({
+                content: error.message
+            })
+        }
+        render() {
+            const { open } = this.state;
+            const {content} = this.state
+            return <Component {...this.props} open={open} openDialog={this.openDialog} closeDialog={this.closeDialog} title = {this.state.title} handleError = {this.handleError} content = {content}/>
+        }
+    }
+}
+
+const CreateAccount = ({ values, handleChange, errors, touched, handleBlur, open, closeDialog, content }) => {
     let display = localStorage.getItem('token') ? (
         localStorage.getItem('role') === "tutor" ? (
             <TuitionPreference />
@@ -54,9 +92,15 @@ const CreateAccount = ({ values, handleChange, errors, touched, handleBlur }) =>
                         </FormControl>
                     </Grid>
                     <Button type='submit' style={{ backgroundColor: '#52c1c8', color: "#ffffff", marginTop: 30 }}>Log In</Button>
+                    <Dialog
+                        open={open}
+                        handleClose={() => closeDialog()}
+                        textContent={content}
+                        title = 'Oppsy!!!'
+                    />
                 </Grid>
             </Form>
-        
+
     )
     return (
         <div>
@@ -90,8 +134,9 @@ const FormikForm = withFormik({
                 password: values.password,
             }
         })
-            .then((sent_data) => {
-                console.log(sent_data);
+            .then((sent_data, res) => {
+                console.log('hihi',sent_data);
+                console.log(res)
                 localStorage.setItem('token', sent_data.data.token);
                 localStorage.setItem('role', sent_data.data.userInfo.user_id.role);
                 localStorage.setItem("id", sent_data.data.userInfo._id);
@@ -104,9 +149,17 @@ const FormikForm = withFormik({
                     props.history.push('/tutor/my_profile');
                 }
             })
-            .catch(err => console.error(err))
+            .catch(err => {
+                console.log(err.response.data)
+                console.log(props)
+                if(err.response.status === 404){
+                    props.handleError(err.response.data)
+                    // this.setState({title: 'ERROR', content : 'You can not sign in'})
+                    props.openDialog();
+                }
+            })
     }
 })(CreateAccount)
 
 
-export default FormikForm;
+export default WrapperComponent(FormikForm);

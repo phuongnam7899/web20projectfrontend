@@ -123,7 +123,7 @@ class Calendar extends React.Component {
         }
         const buttonContent = localStorage.role === "student" ? "Book your class" : "Update your free calendar"
         return (
-            <Grid style = {{marginLeft : 80, marginRight: 80}}>
+            <Grid style = {{marginLeft : 0}}>
                 <Button style={{ backgroundColor: '#52C1C8', color: "#FFFFFF", marginTop: 20 }} onClick={this.handleSubmit}>{buttonContent}</Button>
                 <BigCalendar
                     handleSubChange_Calendar={this.handleSubChange_Calendar}

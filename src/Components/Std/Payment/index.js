@@ -1,0 +1,105 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardMedia from '@material-ui/core/CardMedia';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid'
+import TextField from './TextField'
+import Paper from '@material-ui/core/Paper'
+import axios from '../../../axios';
+import _ from "lodash";
+import Circle from '../../Circle'
+import PaymentIcon from '@material-ui/icons/Payment'
+
+
+
+
+class Payment extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      tutorInfo: {}
+
+    }
+  }
+  componentDidMount() {
+    const id = localStorage.role === "student" ? "tutor_id" : "id"
+    axios.get(`/api/user/tutor/${localStorage.getItem(id)}`, {
+      headers: { 'X-Auth-Token': `${localStorage.token}` },
+    }).then((data) => { this.setState({ tutorInfo: data.data }); console.log(this.state.tutorInfo) })
+  }
+  render() {
+
+    const { classes } = this.props;
+    const { tutorInfo } = this.state;
+    // const { user_id } = tutorInfo;
+    if (_.isEmpty(tutorInfo)) {
+      return <Circle/>
+    }
+    console.log(tutorInfo);
+    return (
+      <div className={classes.root}>
+        <Typography variant='h4' style={{ marginBottom: 20,  marginTop: 20  }}>
+          Confirm your booking
+        </Typography>
+        <Grid container justify='space-between'>
+          <Paper className={classes.background}>
+            <Grid container>
+              <Grid item xs={2}>
+                <Card className={classes.card}>
+                  <CardActionArea>
+                    <CardMedia
+                      className={classes.media}
+                      image="https://images.unsplash.com/photo-1542304291-b9d13957968d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
+                      title="Teacher"
+                    />
+                  </CardActionArea>
+                </Card>
+              </Grid>
+              <Grid item direction='column'>
+              <TextField tag='Tuition Subject' content={tutorInfo.reference.about_me} />
+              <TextField tag='Tuition Period' content={tutorInfo.reference.major} />
+              <TextField tag='No. of Lessons' content={tutorInfo.reference.certificate} />
+              <TextField tag='Tuition Fee' content={tutorInfo.user_id.profile.language_name} />
+              {/* <TextField tag='Teaching Subject'content={tutorInfo.teaching_subject} /> */}
+            </Grid>
+            </Grid>
+          </Paper>
+        </Grid>
+        <Button style = {{backgroundColor:"#c88f52", backgroundImage: `url(${"https://image.flaticon.com/icons/svg/196/196566.svg"})`, backgroundRepeat: 'no-repeat', backgroundSize:'81px 81px',backgroundPosition: 'center', width: 297, height: 42, marginTop : 50}}
+        >  
+        </Button>
+      </div>
+    );
+  }
+}
+
+Payment.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles({
+  root: {
+    marginLeft: 80,
+    marginRight: 80,
+  },
+  card: {
+    maxWidth: 138,
+  },
+  media: {
+    height: 138,
+  },
+  background: {
+    backgroundColor: '#F1F1F1',
+    padding: 20,
+    width: 1000,
+  },
+  background1: {
+    backgroundColor: '#F1F1F1',
+    padding: 20,
+    maxWidth: 800,
+  }
+})(Payment);

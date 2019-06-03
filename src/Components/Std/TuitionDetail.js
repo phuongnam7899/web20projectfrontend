@@ -19,10 +19,13 @@ const styles = theme => ({
   root: {
     width: '66%',
     overflowX: 'auto',
-    marginLeft: 400
+    marginLeft: 80
   },
   table: {
-    minWidth: 700,
+    minWidth: '60%',
+    
+  },
+  body: {
     fontSize: 16
   },
   listSession: {
@@ -133,8 +136,6 @@ class User extends React.Component {
         </div>
       );
     }
-
-
   }
 }
 

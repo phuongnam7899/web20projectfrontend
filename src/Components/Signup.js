@@ -20,7 +20,9 @@ const WrapperComponent = (Component) => {
         constructor(props) {
             super(props);
             this.state = {
-                open: false
+                open: false,
+                title: '',
+                content: '',
             }
             this.openDialog = this.openDialog.bind(this);
             this.closeDialog = this.closeDialog.bind(this);
@@ -38,15 +40,24 @@ const WrapperComponent = (Component) => {
             })
         }
 
+        handleDialog = ({title, content}) => {
+            this.setState({
+                title:title,
+                content : content
+            })
+        }  
+
         render() {
             const { open } = this.state;
-            return <Component {...this.props} open={open} openDialog={this.openDialog} closeDialog={this.closeDialog} />
+            const {title} = this.state;
+            const {content} = this.state
+            return <Component {...this.props} open={open} openDialog={this.openDialog} closeDialog={this.closeDialog} handleDialog = {this.handleDialog} title = {title} content = {content}/>
         }
     }
 }
 
 
-const Login = ({ values, handleChange, errors, touched, handleBlur, open, closeDialog }) => {
+const Login = ({ values, handleChange, errors, touched, handleBlur, open, closeDialog, title, content }) => {
     return (
         <Form>
             <Grid container direction='column' xs={12} style={{ marginTop: 80 }} alignContent = 'center'>
@@ -141,9 +152,9 @@ const Login = ({ values, handleChange, errors, touched, handleBlur, open, closeD
                     <Dialog
                         open={open}
                         handleClose={() => closeDialog()}
-                        textContent="You have successfully create an account"
-                        title = 'SUCCESSFUL'
-                    />
+                        textContent={content}
+                        title = {title}
+                        />
                 </Grid>
         </Form>
     )
@@ -192,15 +203,20 @@ const FormikForm = withFormik({
                 email: values.email,
                 password: values.password,
                 gender_name: values.gender,
-                phone_num: values.phonenumber,
+                phone_num: values.phonenumber.toString(),
                 role: values.role
             }}).then((sent_data) => {
+                console.log(sent_data)
                 let status = sent_data.data.success;
                 console.log(sent_data.data.success)
                 if(status === 1){
+                    props.handleDialog({title:'SUCCESSFUL', content: 'You have successfully create an account'})
                     props.openDialog();
-                    // props.history.push("/login");
-                }}).catch(err => console.error(err))
+                    props.history.push("/login");
+                }else{
+                    props.handleDialog({title:'OOPSY!!!', content: 'Your account has been registered'})
+                    props.openDialog();
+            }}).catch(err => console.log(err.response.data))
         }
 })(Login)
 

@@ -18,6 +18,7 @@ import NavTutor from './Components/Teacher/NavBar';
 // import MyDetail from './Components/Teacher/TeacherDetail';
 import Tutor_Editmyprofile from './Components/Teacher/EditMyProfile';
 import StudentDetail from './Components/Std/StudentDetail';
+import Payment from './Components/Std/Payment'
 
 const THEME = createMuiTheme({
   typography: {
@@ -81,6 +82,7 @@ class App extends React.Component {
           <Route path='/tutor/detail' render={() => <TeacherDetail/>} />
           <Route path = '/preference' component = {TuitionPreference} />
           <Route path = '/student/myprofile' component ={StudentDetail} />
+          <Route path= '/payment' component = {Payment} />
         </Fragment>
       )
     }

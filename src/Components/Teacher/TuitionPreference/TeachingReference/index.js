@@ -68,29 +68,32 @@ class TeachingReference extends React.Component {
             return <Circle />
         }
         return (
-            <Form>
-                <Grid container direction='row' xs={12} justify='flex-start' spacing={16} style={{ marginTop: 20, width:'100%' }} >
+            <Form style = {{marginLeft:80, marginTop: 40}}>
+                <Typography variant='h3' >Reference</Typography>
+                <Grid container direction='row' xs={12} justify='flex-start' spacing={16} style={{ marginTop: 20, width:'100%'}} >
+                    
                     <Grid item xs={3}>
                         <FormControl>
                             <Input name = "about_me" value = {values.about_me} type="text" placeholder="About me" onChange = {handleChange} style = {{width:100}}/>
                         </FormControl>
                     </Grid>
                 </Grid>
-                <Grid container xs = {12}>
+                <Grid container xs = {12} direction = 'column' style = {{marginTop:20}}>
+                    <Typography variant='h4' >Major</Typography>
                     <FieldArray
                         style = {{width:'100%'}}
                         name="major"
                         render={({ push, remove }) => (
                             <Form>
                                 {values.major.map((sub, index) => (
-                                    <Grid container direction='row' xs={12} justify='flex-start' spacing={16} style={{ marginTop: 20, width:'100%' }} >
-                                        <Grid item xs={8}>
+                                    <Grid container direction='row' xs={12} justify='flex-start' style={{ marginTop: 20, width:'100%' }} >
+                                        <Grid item xs={5}>
                                             <FormControl>
                                                 <Field
                                                     name={`major[${index}]`}
                                                     render={({ field, form: { touched, errors } }) => (
                                                         <div>
-                                                            <Input {...field} type="text" placeholder="Major" style = {{width:300, marginLeft: 20}}/>
+                                                            <Input {...field} type="text" placeholder="Major" style = {{width:300}}/>
                                                             {touched[field.name] &&
                                                                 errors[field.name] && <div className="error">{errors[field.name]}</div>}
                                                         </div>
@@ -130,7 +133,8 @@ class TeachingReference extends React.Component {
                         )}
                     />
                 </Grid>
-                <Grid>
+                <Grid container xs = {12} direction = 'column' style = {{marginTop:20}}>
+                    <Typography variant='h4' >Institute</Typography>
                     <FieldArray
                         style = {{width:'100%'}}
                         name="institute"
@@ -138,13 +142,13 @@ class TeachingReference extends React.Component {
                             <Form>
                                 {values.institute.map((sub, index) => (
                                     <Grid container direction='row' xs={12} justify='flex-start' spacing={16} style={{ marginTop: 20, width:'100%' }} >
-                                        <Grid item xs={8}>
+                                        <Grid item xs={5}>
                                             <FormControl>
                                                 <Field
                                                     name={`institute[${index}]`}
                                                     render={({ field, form: { touched, errors } }) => (
                                                         <div>
-                                                            <Input {...field} type="text" placeholder="Institute" style = {{width:300, marginLeft: 20}}/>
+                                                            <Input {...field} type="text" placeholder="Institute" style = {{width:300}}/>
                                                             {/* {touched[field.name] &&
                                                                 errors[field.name] && <div className="error">{errors[field.name]}</div>} */}
                                                         </div>
@@ -184,7 +188,8 @@ class TeachingReference extends React.Component {
                         )}
                     />
                 </Grid>                
-                <Grid>
+                <Grid container xs = {12} direction = 'column' style = {{marginTop:20}}>
+                <Typography variant='h4' >Certificate</Typography>
                     <FieldArray
                         style = {{width:'100%'}}
                         name="certificate"
@@ -192,13 +197,13 @@ class TeachingReference extends React.Component {
                             <Form>
                                 {values.certificate.map((sub, index) => (
                                     <Grid container direction='row' xs={12} justify='flex-start' spacing={16} style={{ marginTop: 20, width:'100%' }} >
-                                        <Grid item xs={8}>
+                                        <Grid item xs={5}>
                                             <FormControl>
                                                 <Field
                                                     name={`certificate[${index}]`}
                                                     render={({ field, form: { touched, errors } }) => (
                                                         <div>
-                                                            <Input {...field} type="text" placeholder="Certificate" style = {{width:300, marginLeft: 20}}/>
+                                                            <Input {...field} type="text" placeholder="Certificate" style = {{width:300}}/>
                                                             {touched[field.name] &&
                                                                 errors[field.name] && <div className="error">{errors[field.name]}</div>}
                                                         </div>
@@ -239,7 +244,7 @@ class TeachingReference extends React.Component {
                     />
                 </Grid>
                 <Grid>
-                    <Grid item xs={8}>
+                    <Grid item xs={8} style = {{marginTop: 20}}>
                         <FormControl>
                             <Button
                                 style={{ backgroundColor: '#52C1C8', color: "#FFFFFF", paddingLeft: 60, paddingRight: 60}}

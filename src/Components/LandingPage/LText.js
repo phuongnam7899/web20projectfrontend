@@ -6,7 +6,7 @@ const LText = () => {
     return (
         <div>
             <Grid item xs={4}>
-                <Typography color='white' style={{ fontSize: 36 , marginLeft : 80, marginTop:150}}>
+                <Typography style={{ fontSize: 36 , marginLeft : 80, marginTop:150, color: '#FFFFFF'}}>
                     Education is the key to success in life, and teachers make a lasting impact in the lives of their students.
                 </Typography>
             </Grid>
