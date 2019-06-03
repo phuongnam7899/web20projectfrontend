@@ -143,6 +143,7 @@ const Login = ({ values, handleChange, errors, touched, handleBlur, open, closeD
                         handleClose={() => closeDialog()}
                         textContent="You have successfully create an account"
                         title = 'SUCCESSFUL'
+                        
                     />
                 </Grid>
         </Form>
@@ -192,15 +193,16 @@ const FormikForm = withFormik({
                 email: values.email,
                 password: values.password,
                 gender_name: values.gender,
-                phone_num: values.phonenumber,
+                phone_num: values.phonenumber.toString(),
                 role: values.role
             }}).then((sent_data) => {
+                console.log(sent_data)
                 let status = sent_data.data.success;
                 console.log(sent_data.data.success)
                 if(status === 1){
                     props.openDialog();
                     // props.history.push("/login");
-                }}).catch(err => console.error(err))
+                }}).catch(err => console.log(err.response.data))
         }
 })(Login)
 
