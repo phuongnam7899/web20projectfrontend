@@ -39,8 +39,7 @@ function SessionCard(props) {
         <Typography component="p">
         {props.time}          
         </Typography>
-      </CardContent>
-      
+      </CardContent> 
     </Card>
   );
 }

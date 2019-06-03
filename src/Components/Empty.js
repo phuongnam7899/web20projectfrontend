@@ -4,7 +4,7 @@ import { Typography } from '@material-ui/core';
 function Empty (){
     return(
         <div>
-            <Typography variant = 'h4' color = '#000000' style = {{position: 'absolute', top:'50%', left: '50%'}}>
+            <Typography variant = 'h4' color = '#000000' style = {{position: 'absolute', top:'50%', left: '40%'}}>
                 YOU HAVE NO CLASS!!!
             </Typography>
         </div>

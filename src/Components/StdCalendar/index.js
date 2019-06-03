@@ -38,7 +38,7 @@ class StdCalendar extends React.Component {
       return <Circle/>
     }
     return (
-      <Grid>
+      <Grid style = {{marginLeft: 80, marginRight: 80}}>
         <BigCalendar
           dataFromProps={events}
           disabledEdit = {true}
