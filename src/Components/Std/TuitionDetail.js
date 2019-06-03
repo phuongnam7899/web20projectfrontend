@@ -49,76 +49,91 @@ class User extends React.Component {
     this.setState({
       fetching: true
     })
-    axios.get(`/api/class/student/${localStorage.id}`, {
-      headers: { 'X-Auth-Token': `${localStorage.token}` },
-    }).then((data) => this.setState({classes : data.data, fetching: false}))
-  };
-  handleCancelTuition(index){
+    if(localStorage.role === "student"){
+      axios.get(`/api/class/student/${localStorage.id}`, {
+        headers: { 'X-Auth-Token': `${localStorage.token}` },
+      }).then((data) => this.setState({ classes: data.data, fetching: false }))
+    }
+    if(localStorage.role === "tutor"){
+      axios.get(`/api/class/tutor/all/${localStorage.id}`, {
+        headers: { 'X-Auth-Token': `${localStorage.token}` },
+      }).then((data) => {
+        // console.log(data.data)
+        // const tutor_classes = [];
+        // data.data.forEach(element => {
+        //   if (element.title !== "") tutor_classes.push(element);
+        // });
+        // console.log(tutor_classes);
+        this.setState({ classes : data.data, fetching: false});
+      })
+    }
+    }
+  handleCancelTuition(index) {
     let classes = this.state.classes;
-    classes.splice(index,1);
-    this.setState({classes : classes,});
+    classes.splice(index, 1);
+    this.setState({ classes: classes, });
   }
 
   render() {
     const { classes } = this.props;
     const { fetching } = this.state;
-    console.log(this.state.classes)
     if (fetching) {
       return <Circle />
-    }else{
-      console.log(fetching)
-    if (_.isEmpty(this.state.classes)) {
-      return <Empty />
+    } else {
+      if (_.isEmpty(this.state.classes)) {
+        return <Empty />
+      }
+      console.log(this.state.classes)
+      return (
+        <div>
+          {this.state.classes.map((one_class, index) => {
+            if(one_class.sessions){
+              return (
+                <div>
+                  <Grid container xs={11} justify='space-between'>
+                    <Typography style={{ marginTop: 50, fontSize: 24, marginLeft: 80 }}>
+                      {one_class.subject}
+                    </Typography>
+                    <CancelTuition class_id={one_class._id} index={index} onCancelTuition={() => this.handleCancelTuition()} />
+                  </Grid>
+                  <Grid item xs={11} style={{ marginTop: 20 }}>
+                    <Paper className={classes.root}>
+                      <Table className={classes.table}>
+                        <TableBody>
+                          <TableRow>
+                            <TableCell align="left" scope="row" >Fee : {one_class.hourly_rate}$/hour </TableCell>
+                            <TableCell align="left" scope="row" > Number of lessons: {one_class.sessions.length} </TableCell>
+                          </TableRow>
+                        </TableBody>
+                      </Table>
+                    </Paper>
+                  </Grid>
+                  <Grid container justify='flexstart' xs={11} style={{ marginBottom: 20 }}>
+                    {/* <Typography style={{ fontSize: 18, marginLeft: 80, marginTop: 10 }}>
+                      Session 1 / {one_class.sessions.length}
+                    </Typography> */}
+                  </Grid>
+                  <Grid container spacing={8} style={{ marginLeft: 400 }} xs={8}>
+                    <Grid container item xs={12} spacing={24} className={classes.listSession}>
+                      {one_class.sessions.map((session, index) => {
+                        return (
+                          <div>
+                            <Grid item>
+                              <SessionCard ss_name={`Session ${index + 1}`} date={session.start.slice(0, 10)} time={session.start.slice(11, 16)} />
+                            </Grid>
+                          </div>
+                        )
+                      })}
+                    </Grid>
+                  </Grid>
+                </div>
+              )
+            }
+          })}
+        </div>
+      );
     }
-    return (
-      <div>
-        {this.state.classes.map((one_class,index) => {
-          console.log(this.state.classes)
-          return(
-            <div>
-              <Grid container xs={11} justify='space-between'>
-                <Typography style={{ marginTop: 50, fontSize: 24, marginLeft: 80 }}>
-                {one_class.subject}
-                </Typography>
-                <CancelTuition class_id = {one_class._id} index={index} onCancelTuition={() => this.handleCancelTuition()} />
-              </Grid>
-              <Grid item xs={11} style ={{marginTop:20}}>
-              <Paper className={classes.root}>
-                <Table className={classes.table}>
-                  <TableBody>
-                    <TableRow>
-                      <TableCell align="left" scope="row" >Fee : {one_class.hourly_rate}$/hour </TableCell>
-                      <TableCell align="left" scope="row" > Number of lessons: {one_class.sessions.length} </TableCell>
-                    </TableRow>
-                  </TableBody>
-                </Table>
-              </Paper>
-              </Grid> 
-              <Grid container justify='flexstart' xs={11} style={{ marginBottom: 20 }}>
-                <Typography style={{ fontSize: 18, marginLeft: 80, marginTop: 10 }}>
-                  Session 1 / {one_class.sessions.length}
-                </Typography>
-              </Grid>
-              <Grid container spacing={8} style={{ marginLeft: 400 }} xs={8}>
-                <Grid container item xs={12} spacing={24} className={classes.listSession}>
-                {one_class.sessions.map((session,index) => {
-                  return(
-                    <div>
-                      <Grid item>
-                        <SessionCard ss_name={`Session ${index + 1}`} date={session.start.slice(0,10)} time={session.start.slice(10,16)} />
-                      </Grid>
-                    </div>
-                  )
-                })}
-                </Grid>
-              </Grid>
-            </div>
-          )
-        })} 
-      </div>
-    );
-    }
-    
+
 
   }
 }

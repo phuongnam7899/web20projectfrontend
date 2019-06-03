@@ -114,7 +114,7 @@ class CalendarApp extends Component {
         })
         this.openDialog()  
       }
-    }
+    } 
     // console.log(selectable);
     if (updateOldEvents && getAddedEvents && selectable) {
       if (!disabledEdit) {
