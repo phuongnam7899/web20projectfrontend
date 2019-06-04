@@ -91,6 +91,8 @@ class CalendarApp extends Component {
     const free_time = [];
     const booked = [];
     let count = 0;
+    const href = document.location.href.split("/");
+    const path = href[href.length - 1];
     events.forEach((element) => {
       if((localStorage.role === "tutor") && ((moment(element.end).isSameOrAfter(moment(e.start))) && (moment(e.end).isSameOrAfter(moment(element.start))))){
         selectable = false;
@@ -101,7 +103,7 @@ class CalendarApp extends Component {
         })
         this.openDialog()
       }
-      if(localStorage.role === "student" && element.title === ""){
+      if(localStorage.role === "student" && path !== "allclasses"  && element.title === ""){
         free_time.push(element)
       }else{
         booked.push(element);
@@ -138,7 +140,7 @@ class CalendarApp extends Component {
         }
       }
     }else{
-      if(localStorage.getItem('role') === 'student'){
+      if(localStorage.getItem('role') === 'student' && path !== "allclasses" ){
         selectable = false;
         this.setState({
           textContent : "You cannot book class because tutor's freetime is empty",
