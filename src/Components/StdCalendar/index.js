@@ -12,10 +12,12 @@ class StdCalendar extends React.Component {
     super(props);
     this.state = {
       events: [],
-      colors: ["#52c1c8","#c88f52","#c85452","#6baaaf","#7cacaf","#bb0369","#bb6a69"]
+      colors: ["#52c1c8","#c88f52","#c85452","#6baaaf","#7cacaf","#bb0369","#bb6a69"],
+      fetching: false
     };
   }
   componentDidMount() {
+    this.setState({fetching: true})
     const {colors} = this.state;
     const showEvents = [];
     axios.get(`api/class/student/${localStorage.id}?token=${localStorage.token}`)
@@ -27,14 +29,17 @@ class StdCalendar extends React.Component {
             showEvents.push(session);
           });
         });
-        setTimeout(() => {this.setState({events : showEvents})},2000)
+        setTimeout(() => {this.setState({events : showEvents, fetching: false})},2000)
       })
       .catch(err => console.error(err));
   }
 
   render() {
-    const {events} = this.state;
-    if(_.isEmpty(events)){
+    const {events, fetching } = this.state;
+    // if(_.isEmpty(events)){
+    //   return <Circle/>
+    // }
+    if(fetching){
       return <Circle/>
     }
     return (

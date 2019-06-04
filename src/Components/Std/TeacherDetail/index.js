@@ -47,7 +47,7 @@ class TeacherDetail extends React.Component {
         <Typography variant='h4' style={{ marginTop: 30 }}>
           Teacher's Calendar
         </Typography>
-        <Calendar />
+        <Calendar {...this.props} style = {{marginLeft: 0, marginRight: 0}} />
       </Grid>) : (
       <Grid item xs={24}>
         <Typography variant='h4' style={{ marginTop: 30 }}>
@@ -96,10 +96,6 @@ class TeacherDetail extends React.Component {
             </Grid>
           </Paper>
         </Grid>
-        <Typography variant='h4' style={{ marginTop: 30 }}>
-          Teacher's Calendar
-        </Typography>
-        <Calendar {...this.props} style = {{marginLeft: 0, marginRight: 0}} />
           {display}
       </div>
     );
