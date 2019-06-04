@@ -15,6 +15,7 @@ import Calendar from '../../Calendar'
 import axios from '../../../axios';
 import _ from "lodash";
 import Circle from '../../Circle'
+import TuitionDetail from "../TuitionDetail"
 
 
 
@@ -31,7 +32,7 @@ class TeacherDetail extends React.Component {
     const id = localStorage.role === "student" ? "tutor_id" : "id"
     axios.get(`/api/user/tutor/${localStorage.getItem(id)}`, {
       headers: { 'X-Auth-Token': `${localStorage.token}` },
-    }).then((data) => { this.setState({ tutorInfo: data.data }); console.log(this.state.tutorInfo) })
+    }).then((data) => { console.log('get api', data);  this.setState({ tutorInfo: data.data }); console.log(this.state.tutorInfo) })
   }
   render() {
 
@@ -39,13 +40,25 @@ class TeacherDetail extends React.Component {
     const { tutorInfo } = this.state;
     // const { user_id } = tutorInfo;
     if (_.isEmpty(tutorInfo)) {
-      return <Circle/>
+      return <Circle />
     }
-    console.log(tutorInfo);
+    const display = localStorage.role === "student" ? (
+      <Grid item xs={24}>
+        <Typography variant='h4' style={{ marginTop: 30 }}>
+          Teacher's Calendar
+        </Typography>
+        <Calendar {...this.props} style = {{marginLeft: 0, marginRight: 0}} subject = {this.state.tutorInfo.teaching_subject}/>
+      </Grid>) : (
+      <Grid item xs={24}>
+        <Typography variant='h4' style={{ marginTop: 30 }}>
+          Your classes
+        </Typography>
+        <TuitionDetail />
+      </Grid>)
     return (
       <div className={classes.root}>
-        <Typography variant='h4' style={{ marginBottom: 20,  marginTop: 20  }}>
-          Teacher's Info
+        <Typography variant='h4' style={{ marginBottom: 20, marginTop: 20 }}>
+          Tutor's Infomation
         </Typography>
         <Grid container xs={24} justify='space-between'>
           <Paper className={classes.background}>
@@ -83,10 +96,7 @@ class TeacherDetail extends React.Component {
             </Grid>
           </Paper>
         </Grid>
-        <Typography variant='h4' style={{ marginTop: 30 }}>
-          Teacher's Calendar
-        </Typography>
-        <Calendar style = {{marginLeft: 0, marginRight: 0}} subject = {this.state.tutorInfo.teaching_subject}/>
+          {display}
       </div>
     );
   }

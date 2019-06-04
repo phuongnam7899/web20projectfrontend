@@ -15,12 +15,16 @@ class Calendar extends React.Component {
             oldEvents: [],
             addEvents: [],
             subject: "",
+            fetching: false
         };
         this.handleSubmit = this.handleSubmit.bind(this);
         this.updateOldEvents = this.updateOldEvents.bind(this);
         this.handleSubChange_Calendar = this.handleSubChange_Calendar.bind(this);
     }
     componentDidMount() {
+        this.setState({
+            fetching: true
+        })
         const chosen_id = localStorage.role === "tutor" ? "id" : "tutor_id"
         axios.get(`/api/class/tutor/${localStorage.getItem(chosen_id)}`, {
             headers: { 'X-Auth-Token': `${localStorage.token}` },
@@ -49,7 +53,8 @@ class Calendar extends React.Component {
                 }
                 this.setState({
                     firstEvents: events,
-                    oldEvents: events
+                    oldEvents: events,
+                    fetching: false
                 }, () => {
                     console.log(this.state.firstEvents);
                     console.log(this.state.oldEvents);
@@ -92,6 +97,7 @@ class Calendar extends React.Component {
                 }
             )
         } else if (localStorage.role === "tutor") {
+            console.log('update free calendar by tutor')
             const free_time = []
             this.state.oldEvents.forEach((item) => {
                 if (item.status === "free_time") free_time.push(item)
@@ -117,14 +123,29 @@ class Calendar extends React.Component {
     }
 
     render() {
-        const { oldEvents } = this.state;
-        if(_.isEmpty(oldEvents)){
+        const { oldEvents, fetching } = this.state;
+        const { setFunctionSave, setCalendarSave, history } = this.props;
+        // if(_.isEmpty(oldEvents)){
+        //     return <Circle />
+        //}
+        if(fetching){
             return <Circle />
-        }
+        }       
+        console.log(oldEvents);
+        console.log(this.props);
         const buttonContent = localStorage.role === "student" ? "Book your class" : "Update your free calendar"
+        const displayed_button = localStorage.getItem('role') === 'student'?(
+            <Button style={{ backgroundColor: '#52C1C8', color: "#FFFFFF", marginTop: 20 }} onClick={() => {
+                setCalendarSave(this.state.subject, this.state.addEvents);
+                setFunctionSave("submitCalendar", this.handleSubmit);
+                history.push("/payment");
+            }}>{buttonContent}</Button>
+        ):(
+            <Button style={{ backgroundColor: '#52C1C8', color: "#FFFFFF", marginTop: 20 }} onClick={this.handleSubmit}>{buttonContent}</Button>
+        )
         return (
-            <Grid style = {{marginLeft : 0}}>
-                <Button style={{ backgroundColor: '#52C1C8', color: "#FFFFFF", marginTop: 20 }} onClick={this.handleSubmit}>{buttonContent}</Button>
+            <Grid>
+                {displayed_button}
                 <BigCalendar
                     handleSubChange_Calendar={this.handleSubChange_Calendar}
                     updateOldEvents={this.updateOldEvents}

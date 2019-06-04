@@ -13,6 +13,8 @@ import axios from '../../../axios';
 import _ from "lodash";
 import Circle from '../../Circle'
 import PaymentIcon from '@material-ui/icons/Payment'
+import PayPalButton from '../../Paypal/Paypal'
+import moment from 'moment'
 
 
 
@@ -26,20 +28,43 @@ class Payment extends React.Component {
     }
   }
   componentDidMount() {
+    const { functionSave } = this.props;
+    const { calendarSave } = this.props;
+    console.log('calenderSave in payment', calendarSave)
+    console.log('update date functionsave',functionSave)
     const id = localStorage.role === "student" ? "tutor_id" : "id"
     axios.get(`/api/user/tutor/${localStorage.getItem(id)}`, {
       headers: { 'X-Auth-Token': `${localStorage.token}` },
     }).then((data) => { this.setState({ tutorInfo: data.data }); console.log(this.state.tutorInfo) })
   }
   render() {
-
     const { classes } = this.props;
     const { tutorInfo } = this.state;
+    const { calendarSave } = this.props;
     // const { user_id } = tutorInfo;
     if (_.isEmpty(tutorInfo)) {
       return <Circle/>
     }
     console.log(tutorInfo);
+    let fee_per_hour;
+    for(let i = 0; i < tutorInfo.teaching_subject.length; i++){
+      if(tutorInfo.teaching_subject[i].subject === calendarSave.subject){
+        fee_per_hour = tutorInfo.teaching_subject[i].hourly_rate
+      }
+    }
+    let total_hours = 0;
+    let start;
+    let end;
+    let diff;
+    for(let i = 0; i < calendarSave.sessions.length; i++){
+      start = moment(calendarSave.sessions[i].start)
+      end = moment(calendarSave.sessions[i].end)
+      diff = end.diff(start, 'minutes')
+      total_hours= total_hours + diff;
+    }
+    total_hours = total_hours/60;
+    let total_payment = total_hours*fee_per_hour;
+    console.log(total_hours)
     return (
       <div className={classes.root}>
         <Typography variant='h4' style={{ marginBottom: 20,  marginTop: 20  }}>
@@ -60,18 +85,16 @@ class Payment extends React.Component {
                 </Card>
               </Grid>
               <Grid item direction='column'>
-              <TextField tag='Tuition Subject' content={tutorInfo.reference.about_me} />
-              <TextField tag='Tuition Period' content={tutorInfo.reference.major} />
-              <TextField tag='No. of Lessons' content={tutorInfo.reference.certificate} />
-              <TextField tag='Tuition Fee' content={tutorInfo.user_id.profile.language_name} />
+              <TextField tag="Teacher's name" content={`${tutorInfo.user_id.profile.first_name} ${tutorInfo.user_id.profile.last_name}`} />
+              <TextField tag='Fee per hour' content={fee_per_hour} />
+              <TextField tag='Total hours' content={total_hours} />
+              <TextField tag='TOTAL' content={total_payment} />
               {/* <TextField tag='Teaching Subject'content={tutorInfo.teaching_subject} /> */}
             </Grid>
             </Grid>
           </Paper>
         </Grid>
-        <Button style = {{backgroundColor:"#c88f52", backgroundImage: `url(${"https://image.flaticon.com/icons/svg/196/196566.svg"})`, backgroundRepeat: 'no-repeat', backgroundSize:'81px 81px',backgroundPosition: 'center', width: 297, height: 42, marginTop : 50}}
-        >  
-        </Button>
+        <PayPalButton style = {{marginTop: 30}} {...this.props } fee = {fee_per_hour} total_hours = {total_hours} total_payment = {total_payment} />
       </div>
     );
   }

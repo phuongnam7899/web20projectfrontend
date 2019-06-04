@@ -24,7 +24,7 @@ class CalendarApp extends Component {
       open: false,
       events: [],
       event: {},
-      subject: "Subject",
+      subject: "",
       openDialog : false,
       textContent: "",
       title : ""
@@ -119,7 +119,16 @@ class CalendarApp extends Component {
         })
         this.openDialog()  
       }
-    }
+    }else{
+      if(localStorage.getItem('role') === 'student'){
+        selectable = false;
+        this.setState({
+          textContent : "You cannot book class because tutor's freetime is empty",
+          title : "Opps!!!"
+        })
+        this.openDialog()
+      }
+    } 
     // console.log(selectable);
     if (updateOldEvents && getAddedEvents && selectable) {
       if (!disabledEdit) {

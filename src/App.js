@@ -13,10 +13,11 @@ import StdCalendar from './Components/StdCalendar';
 import Calendar from './Components/Calendar';
 import TeacherDetail from './Components/Std/TeacherDetail';
 import TuitionPreference from './Components/Teacher/TuitionPreference';
-import NavStd from './Components/Std/NavBar';
-import NavTutor from './Components/Teacher/NavBar';
-// import MyDetail from './Components/Teacher/TeacherDetail';
-import Tutor_Editmyprofile from './Components/Teacher/EditMyProfile';
+import NavStd from './Components/Std/NavBar'
+import NavTutor from './Components/Teacher/NavBar'
+import Paypal from './Components/Paypal'
+// import MyDetail from './Components/Teacher/TeacherDetail'
+import Tutor_Editmyprofile from './Components/Teacher/EditMyProfile'
 import StudentDetail from './Components/Std/StudentDetail';
 import Payment from './Components/Std/Payment'
 
@@ -39,10 +40,38 @@ const ProtectedRoute = (props) => {
 
 
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.setFunctionSave = this.setFunctionSave.bind(this);
+    this.setCalendarSave = this.setCalendarSave.bind(this);
+  }
+
   state = {
     color: "primary",
     colors: 'white',
-    role: localStorage.getItem('role')
+    role: localStorage.getItem('role'),
+    functionSave: {},
+    calendarSave:{
+      subject: "",
+      sessions: []
+    }
+  }
+
+  setFunctionSave(name, func) {
+    this.setState({
+      functionSave: {
+        ...this.state.functionSave,
+        [name]: func
+      }
+    })
+  }
+  setCalendarSave(subject, sessions) {
+    console.log('new sub', subject)
+    console.log('new sessions', sessions)
+    this.setState({calendarSave: {subject: subject, sessions: sessions}}, () => {
+      console.log('new sub', subject)
+      console.log('new sessions', sessions)     
+    })
   }
 
   changeLogin = (status) => {
@@ -74,15 +103,16 @@ class App extends React.Component {
           <Route path='/filter' component={Filter} />
           <Route path='/editmyprofile' component={Editmyprofile} />
           <Route path='/student/allclasses' component={StdCalendar} />
-          <Route path='/student/book_class' render={() => <Calendar/>} />
+          <Route path='/student/book_class' render={propsRoute => <Calendar {...propsRoute} setFunctionSave={this.setFunctionSave} />} />
           <Route path='/user' render={props => {
             return <TuitionDetail {...props}
             />
           }} />
-          <Route path='/tutor/detail' render={() => <TeacherDetail/>} />
+          <Route path = '/paypal' render = {() => <Paypal functionSave={this.state.functionSave} />} />
+          <Route path = '/payment' render = {() => <Payment functionSave={this.state.functionSave} calendarSave={this.state.calendarSave} />} />
+          <Route path='/tutor/detail' render={propsRoute => <TeacherDetail {...propsRoute} setFunctionSave={this.setFunctionSave} setCalendarSave = {this.setCalendarSave} />} />
           <Route path = '/preference' component = {TuitionPreference} />
           <Route path = '/student/myprofile' component ={StudentDetail} />
-          <Route path= '/payment' component = {Payment} />
         </Fragment>
       )
     }
