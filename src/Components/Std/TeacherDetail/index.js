@@ -86,7 +86,7 @@ class TeacherDetail extends React.Component {
         <Typography variant='h4' style={{ marginTop: 30 }}>
           Teacher's Calendar
         </Typography>
-        <Calendar style = {{marginLeft: 0, marginRight: 0}}/>
+        <Calendar style = {{marginLeft: 0, marginRight: 0}} subject = {this.state.tutorInfo.teaching_subject}/>
       </div>
     );
   }

@@ -130,6 +130,7 @@ class Calendar extends React.Component {
                     updateOldEvents={this.updateOldEvents}
                     dataFromProps={oldEvents}
                     getAddedEvents={currentEvents => this.getAddedEvents(currentEvents)}
+                    subject = {this.props.subject}
                 />
                 {/* <PayPalButton
                     amount="0."
