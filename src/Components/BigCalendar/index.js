@@ -84,6 +84,7 @@ class CalendarApp extends Component {
     const { updateOldEvents, getAddedEvents } = this.props;
     let selectable = true;
     const free_time = [];
+    const booked = [];
     let count = 0;
     events.forEach((element) => {
       if((localStorage.role === "tutor") && ((moment(element.end).isSameOrAfter(moment(e.start))) && (moment(e.end).isSameOrAfter(moment(element.start))))){
@@ -97,9 +98,12 @@ class CalendarApp extends Component {
       }
       if(localStorage.role === "student" && element.title === ""){
         free_time.push(element)
+      }else{
+        booked.push(element);
       }
     });
     if(free_time.length !== 0){
+      console.log(free_time);
       free_time.forEach((element) => {
         if(((moment(element.end).isSameOrAfter(moment(e.end))) && (moment(e.start).isSameOrAfter(moment(element.start))))){
           count++;
@@ -107,12 +111,26 @@ class CalendarApp extends Component {
       });
       if (count === 0) {
         selectable = false;
-        console.log("You can only book class in tutor's free time")
         this.setState({
           textContent : "You can only book class in tutor's free time",
           title : "Opps!!!"
         })
         this.openDialog()  
+      }else{
+        count = 0;
+        booked.forEach((element) => {
+          if(((moment(element.end).isSameOrAfter(moment(e.end))) && (moment(e.start).isSameOrAfter(moment(element.start))))){
+            count++;
+          }
+        });
+        if(count !== 0){
+          selectable = false;
+          this.setState({
+            textContent : "This time has been booked ",
+            title : "Opps!!!"
+          })
+          this.openDialog() 
+        }
       }
     } 
     // console.log(selectable);
