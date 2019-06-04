@@ -71,8 +71,8 @@ class TeachingSubject extends React.Component {
             <Form>
                 <Grid container xs={12} direction="column" style={{ marginTop: 50, marginLeft: 80 }} alignItems='flex-start' >
                     <Typography variant='h3'>Teaching Subject</Typography>
-                    <Menu name='Based In' />
-                    <Grid container direction='row' xs={8} justify='flex-start' spacing={16} style={{ marginTop: 20 }} >
+                    {/* <Menu name='Based In' /> */}
+                    <Grid container direction='row' xs={12} justify='flex-start' spacing={16} style={{ marginTop: 20 }} >
                         <Grid item xs={2}>
                             <Typography  variant='h5'>Subject</Typography>
                         </Grid>

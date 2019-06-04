@@ -7,7 +7,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 const AlertDialog = (props) => {
-  const { open, handleClose, textContent, title, link } = props;
+  const { open, handleClose, textContent, title} = props;
 
   return (
     <div>
@@ -22,7 +22,7 @@ const AlertDialog = (props) => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button href = {link} onClick={handleClose} style = {{backgroundColor: '#52C1C8', color: "#FFFFFF"}} autoFocus>
+          <Button onClick={handleClose} style = {{backgroundColor: '#52C1C8', color: "#FFFFFF"}} autoFocus>
             YAY!!!!
           </Button>
         </DialogActions>

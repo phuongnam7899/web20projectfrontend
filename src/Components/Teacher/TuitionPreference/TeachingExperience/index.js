@@ -169,7 +169,6 @@ class TeachingExperience extends React.Component {
                                                     handleClose={() => closeDialog()}
                                                     textContent="You have successfully update your teaching experience"
                                                     title = 'SUCCESSFUL'
-                                                    link = '/tutor/tuitionpreference'
                                                 />
                                             </FormControl>
                                         </Grid>
