@@ -8,6 +8,10 @@ import moment from "moment";
 import Input from '@material-ui/core/Input';
 import Dialog from '../Dialog'
 import { withRouter } from 'react-router-dom';
+import FormControl from '@material-ui/core/FormControl'
+import MenuItem from '@material-ui/core/MenuItem'
+import Select from '@material-ui/core/Select'
+import InputLabel from '@material-ui/core/InputLabel'
 
 const localizer = BigCalendar.momentLocalizer(moment);
 
@@ -48,6 +52,7 @@ class CalendarApp extends Component {
 
   componentDidMount() {
     const { dataFromProps } = this.props;
+    console.log(dataFromProps)
     const events = _.map(dataFromProps, el => ({
       ...el,
       start: this.convertToICT(el.start),
@@ -131,6 +136,15 @@ class CalendarApp extends Component {
           })
           this.openDialog() 
         }
+      }
+    }else{
+      if(localStorage.getItem('role') === 'student'){
+        selectable = false;
+        this.setState({
+          textContent : "You cannot book class because tutor's freetime is empty",
+          title : "Opps!!!"
+        })
+        this.openDialog()
       }
     } 
     // console.log(selectable);
@@ -297,12 +311,20 @@ class CalendarApp extends Component {
     const { open, event, events, editState, disabledEdit, openDialog, closeDialog } = this.state;
     const href = document.location.href.split("/");
     const path = href[href.length - 1];
-    const display = (path === "detail") ? (<Input placeholder="Subject" onChange={this.handleSubChange}></Input>) : false
+    const display = (path === "detail") ? (
+    <FormControl style = {{minWidth: 120}}>
+    <InputLabel>{this.state.subject}</InputLabel>
+    <Select displayEmpty onChange = {this.handleSubChange} required>
+      {this.props.subject.map((one_subject)=>{return (<MenuItem value={one_subject.subject}>{one_subject.subject}</MenuItem>)})}
+    </Select>
+    </FormControl>)
+    : false
     return (
       // <Router >
       <div style={{ height: "100vh", marginTop: 20 }}>
         {display}
         <BigCalendar
+        style = {{}}
           length={120}
           localizer={localizer}
           events={events}

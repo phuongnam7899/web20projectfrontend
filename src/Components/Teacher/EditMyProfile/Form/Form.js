@@ -171,8 +171,8 @@ const FormDefault = ({ values, handleChange, errors, touched, handleBlur,open, c
                                     >
                                         <MenuItem value='usa'>USA</MenuItem>
                                         <MenuItem value='vietnam'>Vietnam</MenuItem>
-                                        <MenuItem value='aus'>Australia</MenuItem>
-                                        <MenuItem value='eng'>England</MenuItem>
+                                        <MenuItem value='australia'>Australia</MenuItem>
+                                        <MenuItem value='english'>England</MenuItem>
 
                                     </Select>
                                 </FormControl>
@@ -188,7 +188,7 @@ const FormDefault = ({ values, handleChange, errors, touched, handleBlur,open, c
                                         onChange={handleChange}
                                     >
                                         <MenuItem value='highschool'>High School</MenuItem>
-                                        <MenuItem value='uni'>University</MenuItem>
+                                        <MenuItem value='university'>University</MenuItem>
                                     </Select>
                                 </FormControl>
                             </Grid>
@@ -309,13 +309,14 @@ const FormikForm = withFormik({
                 first_name: values.first_name,
                 last_name: values.last_name,
                 date_of_birth: values.date_of_birth,
-                phone_number: values.phone_number.toString(),
+                phone_number: values.phone_number,
                 postal_code: values.postal_code,
                 payment_method: values.payment_method,
                 paypal_email: values.paypal_email,
                 gender_name: values.gender_name,
                 address: values.address,
                 nationality_name: values.nationality_name,
+                academic_level_name: values.academic_level_name
             }
         })
         .then((updated) => {

@@ -32,7 +32,7 @@ class TeacherDetail extends React.Component {
     const id = localStorage.role === "student" ? "tutor_id" : "id"
     axios.get(`/api/user/tutor/${localStorage.getItem(id)}`, {
       headers: { 'X-Auth-Token': `${localStorage.token}` },
-    }).then((data) => { this.setState({ tutorInfo: data.data }); console.log(this.state.tutorInfo) })
+    }).then((data) => { console.log('get api', data);  this.setState({ tutorInfo: data.data }); console.log(this.state.tutorInfo) })
   }
   render() {
 
@@ -47,7 +47,7 @@ class TeacherDetail extends React.Component {
         <Typography variant='h4' style={{ marginTop: 30 }}>
           Teacher's Calendar
         </Typography>
-        <Calendar />
+        <Calendar {...this.props} style = {{marginLeft: 0, marginRight: 0}} subject = {this.state.tutorInfo.teaching_subject}/>
       </Grid>) : (
       <Grid item xs={24}>
         <Typography variant='h4' style={{ marginTop: 30 }}>
