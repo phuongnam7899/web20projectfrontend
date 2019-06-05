@@ -80,6 +80,7 @@ class User extends React.Component {
   render() {
     const { classes } = this.props;
     const { fetching } = this.state;
+    
     if (fetching) {
       return <Circle />
     } else {
@@ -90,6 +91,7 @@ class User extends React.Component {
       return (
         <div>
           {this.state.classes.map((one_class, index) => {
+            const display_cancel = localStorage.role === "student" ? (<CancelTuition class_id={one_class._id} index={index} onCancelTuition={() => this.handleCancelTuition()} />) : null
             if(one_class.sessions){
               return (
                 <div>
@@ -99,7 +101,7 @@ class User extends React.Component {
                       {one_class.subject}
                     </Typography>
                     </Grid>
-                    <CancelTuition class_id={one_class._id} index={index} onCancelTuition={() => this.handleCancelTuition()} />
+                    {display_cancel}
                   </Grid>
                   <Grid item style={{ marginTop: 20 }}>
                     <Paper className={classes.root}>
