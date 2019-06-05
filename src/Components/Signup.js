@@ -99,7 +99,12 @@ const Login = ({ values, handleChange, errors, touched, handleBlur, open, closeD
                         <Input placeholder='Password' type='password' name='password' value={values.password} onChange = {handleChange} fullWidth onBlur={handleBlur}/>
                         <FormHelperText>{touched.password && errors.password}</FormHelperText>
                         </FormControl>
-
+                    </Grid>
+                    <Grid item xs={4} style = {{marginTop : 20}}>
+                        <FormControl fullWidth error={!!touched.confirm_password && errors.confirm_password}>
+                        <Input placeholder='Confirm Password' type='password' name='confirm_password' value={values.confirm_password} onChange = {handleChange} fullWidth onBlur={handleBlur}/>
+                        <FormHelperText>{touched.confirm_password && errors.confirm_password}</FormHelperText>
+                        </FormControl>
                     </Grid>
                     <Grid item xs={4} style = {{marginTop : 20}}>
                         <InputLabel>Gender</InputLabel>
@@ -148,7 +153,7 @@ const Login = ({ values, handleChange, errors, touched, handleBlur, open, closeD
                         </Typography>
 
                     </Grid>
-                    <Button type='submit' style={{ backgroundColor: '#E9E9E9', color: "#A7A7A7", marginTop : 20, marginBottom : 150}}>Create Account</Button>
+                    <Button type='submit' style={{ backgroundColor: '#52c1c8', color: "#ffffff", marginTop: 30, marginBottom: 30 }}>Create Account</Button>
                     <Dialog
                         open={open}
                         handleClose={() => closeDialog()}
@@ -167,6 +172,7 @@ const FormikForm = withFormik({
             lastname: '',
             email: '',
             password: '',
+            confirm_password: '',
             gender: '',
             phonenumber: '',
             role: ''
@@ -185,6 +191,9 @@ const FormikForm = withFormik({
         password: Yup.string()
             .required('Password is required')
             .min(8, 'Password must have min 8 characters'),
+        confirm_password: Yup.string()
+            .required('Confirm password is required')
+            .oneOf([Yup.ref('password'), null], 'Confirm password must match'),
         phonenumber: Yup.number()
             .required('Phone Number is required')
             .min(10, 'Phone Number must have min 10 characters')
