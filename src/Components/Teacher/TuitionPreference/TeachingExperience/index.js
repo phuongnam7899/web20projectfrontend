@@ -67,12 +67,12 @@ class TeachingExperience extends React.Component {
             <Form>
                 <Grid container direction="column" xs = {12} style={{ marginTop: 40, marginLeft: 80 }} alignItems='flex-start' >
                     <Typography variant='h3'>Teaching Experience</Typography>
-                    <Grid container direction='row' xs = {6} justify='flex-start' spacing={16} style={{ marginTop: 20 }} >
+                    <Grid container direction='row' xs = {12} justify='flex-start' spacing={16} style={{ marginTop: 20 }} >
                         <Grid item xs={3}>
                             <Typography variant='h4'>Year</Typography>
                         </Grid>
                         <Grid item xs={3}>
-                            <Typography variant='h4'>Experience</Typography>
+                            <Typography variant='h4' style={{ marginLeft: -20 }}>Experience</Typography>
                         </Grid>
                     </Grid>
                     <Grid container xs = {12}>
@@ -162,7 +162,7 @@ class TeachingExperience extends React.Component {
                                                             .catch(err => console.error(err))
                                                     }}
                                                 >
-                                                    Update Exp.
+                                                    Update Experience
                                                 </Button>
                                                 <Dialog
                                                     open={open}

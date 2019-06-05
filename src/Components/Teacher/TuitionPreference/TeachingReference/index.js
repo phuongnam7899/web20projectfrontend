@@ -72,9 +72,10 @@ class TeachingReference extends React.Component {
                 <Typography variant='h3' >Reference</Typography>
                 <Grid container direction='row' xs={12} justify='flex-start' spacing={16} style={{ marginTop: 20, width:'100%'}} >
                     
-                    <Grid item xs={3}>
+                    <Grid item xs={5}>
+                        <Typography variant='h4' style={{ marginBottom: 20}} >About me</Typography>
                         <FormControl>
-                            <Input name = "about_me" value = {values.about_me} type="text" placeholder="About me" onChange = {handleChange} style = {{width:100}}/>
+                            <Input name = "about_me" value = {values.about_me} type="text" placeholder="About me" onChange = {handleChange} style = {{width:300, marginRight:20}}/>
                         </FormControl>
                     </Grid>
                 </Grid>
@@ -93,7 +94,7 @@ class TeachingReference extends React.Component {
                                                     name={`major[${index}]`}
                                                     render={({ field, form: { touched, errors } }) => (
                                                         <div>
-                                                            <Input {...field} type="text" placeholder="Major" style = {{width:300}}/>
+                                                            <Input {...field} type="text" placeholder="Major" style = {{width:300, marginRight:20}}/>
                                                             {touched[field.name] &&
                                                                 errors[field.name] && <div className="error">{errors[field.name]}</div>}
                                                         </div>
@@ -101,10 +102,10 @@ class TeachingReference extends React.Component {
                                                 />
                                             </FormControl>
                                         </Grid>
-                                        <Grid item xs={1}>
+                                        <Grid item xs={3}>
                                             <FormControl>
                                                 <Button
-                                                    style={{ backgroundColor: '#c85452', color: "#FFFFFF",}}
+                                                    style={{ backgroundColor: '#c85452', color: "#FFFFFF", marginLeft:70}}
                                                     variant='extendedFab'
                                                     type="button"
                                                     onClick={() => remove(index)}
@@ -156,10 +157,10 @@ class TeachingReference extends React.Component {
                                                 />
                                             </FormControl>
                                         </Grid>
-                                        <Grid item xs={1}>
+                                        <Grid item xs={3}>
                                             <FormControl>
                                                 <Button
-                                                    style={{ backgroundColor: '#c85452', color: "#FFFFFF",}}
+                                                    style={{ backgroundColor: '#c85452', color: "#FFFFFF", marginLeft:70}}
                                                     variant='extendedFab'
                                                     type="button"
                                                     onClick={() => remove(index)}
@@ -211,10 +212,10 @@ class TeachingReference extends React.Component {
                                                 />
                                             </FormControl>
                                         </Grid>
-                                        <Grid item xs={1}>
+                                        <Grid item xs={3}>
                                             <FormControl>
                                                 <Button
-                                                    style={{ backgroundColor: '#c85452', color: "#FFFFFF",}}
+                                                    style={{ backgroundColor: '#c85452', color: "#FFFFFF", marginLeft:70}}
                                                     variant='extendedFab'
                                                     type="button"
                                                     onClick={() => remove(index)}
@@ -238,13 +239,7 @@ class TeachingReference extends React.Component {
                                             </Button>
                                         </FormControl>
                                     </Grid>
-                                </Grid>
-                            </Form>
-                        )}
-                    />
-                </Grid>
-                <Grid>
-                    <Grid item xs={8} style = {{marginTop: 20}}>
+                                    <Grid item xs={8} style = {{marginTop: 0}}>
                         <FormControl>
                             <Button
                                 style={{ backgroundColor: '#52C1C8', color: "#FFFFFF", paddingLeft: 60, paddingRight: 60}}
@@ -271,7 +266,7 @@ class TeachingReference extends React.Component {
                                         .catch(err => console.error(err))
                                 }}
                             >
-                                Update Exp.
+                                Update Reference
                             </Button>
                             <Dialog
                                 open={open}
@@ -282,6 +277,13 @@ class TeachingReference extends React.Component {
                             />
                         </FormControl>
                     </Grid>
+                                </Grid>
+                            </Form>
+                        )}
+                    />
+                </Grid>
+                <Grid>
+
                 </Grid>
             </Form>
         )
