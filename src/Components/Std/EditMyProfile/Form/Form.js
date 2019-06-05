@@ -13,6 +13,8 @@ import { withFormik, Form } from 'formik';
 import * as Yup from 'yup';
 import axios from '../../../../axios'
 import Dialog from '../../../Dialog'
+import TextField from '@material-ui/core/TextField';
+
 
 const Wrapper = (Component) => {
     return class extends React.Component {
@@ -49,17 +51,16 @@ const Wrapper = (Component) => {
             const { user_info } = this.state;
             const { open } = this.state;
             if (!user_info) return null;
-            return <Component {...this.props} user_info={user_info} open={open} openDialog={this.openDialog} closeDialog={this.closeDialog} />
+            return <Component {...this.props} user_info={user_info} open={open} openDialog={this.openDialog} closeDialog={this.closeDialog}/> 
         }
     }
 }
-
-const FormDefault = ({ values, handleChange, errors, touched, handleBlur, open, closeDialog }) => {
+const FormDefault = ({ values, handleChange, errors, touched, handleBlur,open, closeDialog }) => {
     return (
-        <Form>
+        <Form style = {{marginBottom: 60}}>
             <Grid container justify='center' alignContent='center'>
                 <Grid item xs={6} md={4}>
-                    <Paper elevation={4} style={{ padding: '20px 15px', marginTop: '40px' }}>
+                    <Paper elevation={4} style={{ padding: '20px 15px', marginTop: '50px' }}>
                         <Typography variant="h5" gutterBottom>
                             Edit My Profile
                         </Typography>
@@ -73,9 +74,9 @@ const FormDefault = ({ values, handleChange, errors, touched, handleBlur, open, 
                             </Grid>
 
                             <Grid item xs={6} margin='normal'>
-                                <FormControl fullWidth error={!!touched.last_name && errors.last_name}>
+                                <FormControl fullWidth error={touched.last_name && errors.last_name}>
                                     <InputLabel>Last Name</InputLabel>
-                                    <Input name='last_name' value={values.last_name} onChange={handleChange} onBlur={handleBlur} fullWidth />
+                                    <Input name='last_name' value={values.last_name} onChange={handleChange} fullWidth />
                                     <FormHelperText>{touched.last_name && errors.last_name}</FormHelperText>
                                 </FormControl>
                             </Grid>
@@ -83,17 +84,27 @@ const FormDefault = ({ values, handleChange, errors, touched, handleBlur, open, 
 
                         <Grid container direction='row' xs={24} justify='center' spacing={16} style={{ marginTop: 30 }}>
                             <Grid item xs={6} margin='normal'>
-                                <FormControl fullWidth error={touched.date_of_birth && errors.date_of_birth}>
-                                    <InputLabel>Date Of Birth</InputLabel>
-                                    <Input name='date_of_birth' value={values.date_of_birth} onChange={handleChange} onBlur={handleBlur} fullWidth />
-                                    <FormHelperText>{errors.date_of_birth}</FormHelperText>
+                                <FormControl fullWidth error={touched.dob && errors.dob}>
+                                    {/* <Input name='date_of_birth' value={values.date_of_birth} onChange={handleChange} fullWidth />
+                                    <FormHelperText>{touched.dob && errors.dob}</FormHelperText> */}
+                                    <TextField
+                                        name = "date_of_birth"
+                                        onChange={handleChange}
+                                        id="date"
+                                        label="Date Of Birth"
+                                        type="date"
+                                        defaultValue={values.date_of_birth}
+                                        InputLabelProps={{
+                                        shrink: true,
+                                        }}
+                                    />
                                 </FormControl>
                             </Grid>
                             <Grid item xs={6} margin='normal'>
                                 <FormControl fullWidth error={touched.phone_number && errors.phone_number}>
                                     <InputLabel>Phone Number</InputLabel>
-                                    <Input name='phone_number' value={values.phone_number} onChange={handleChange} onBlur={handleBlur} fullWidth />
-                                    <FormHelperText>{errors.phone_number}</FormHelperText>
+                                    <Input name='phone_number' value={values.phone_number} onChange={handleChange} fullWidth />
+                                    <FormHelperText>{touched.phone_number && errors.phone_number}</FormHelperText>
                                 </FormControl>
                             </Grid>
                         </Grid>
@@ -102,15 +113,15 @@ const FormDefault = ({ values, handleChange, errors, touched, handleBlur, open, 
                             <Grid item xs={6} margin='normal'>
                                 <FormControl fullWidth error={touched.payment_method && errors.payment_method}>
                                     <InputLabel>Payment Method</InputLabel>
-                                    <Input name='payment_method' value={values.payment_method} onChange={handleChange} onBlur={handleBlur} fullWidth />
-                                    <FormHelperText>{errors.payment_method}</FormHelperText>
+                                    <Input name='payment_method' value={values.payment_method} onChange={handleChange} fullWidth />
+                                    <FormHelperText>{touched.payment_method && errors.payment_method}</FormHelperText>
                                 </FormControl>
                             </Grid>
                             <Grid item xs={6} margin='normal'>
                                 <FormControl fullWidth error={touched.paypal_email && errors.paypal_email}>
                                     <InputLabel>PayPal Email</InputLabel>
-                                    <Input name='paypal_email' value={values.paypal_email} onChange={handleChange} onBlur={handleBlur} fullWidth />
-                                    <FormHelperText>{errors.paypal_email}</FormHelperText>
+                                    <Input name='paypal_email' value={values.paypal_email} onChange={handleChange} fullWidth />
+                                    <FormHelperText>{touched.paypal_email && errors.paypal_email}</FormHelperText>
                                 </FormControl>
                             </Grid>
                         </Grid>
@@ -119,21 +130,23 @@ const FormDefault = ({ values, handleChange, errors, touched, handleBlur, open, 
                             <Grid item xs={6} margin='normal'>
                                 <FormControl fullWidth error={touched.address && errors.address}>
                                     <InputLabel>Address</InputLabel>
-                                    <Input name='address' value={values.address} onChange={handleChange} onBlur={handleBlur} fullWidth />
-                                    <FormHelperText>{errors.address}</FormHelperText>
+                                    <Input name='address' value={values.address} onChange={handleChange} fullWidth />
+                                    <FormHelperText>{touched.address && errors.address}</FormHelperText>
                                 </FormControl>
                             </Grid>
                             <Grid item xs={6} margin='normal'>
                                 <FormControl fullWidth error={touched.postal_code && errors.postal_code}>
                                     <InputLabel>Postal Code</InputLabel>
                                     <Input name='postal_code' value={values.postal_code} onChange={handleChange} fullWidth />
-                                    <FormHelperText>{errors.postal_code}</FormHelperText>
+                                    <FormHelperText>{touched.postal_code && errors.postal_code}</FormHelperText>
                                 </FormControl>
                             </Grid>
                         </Grid>
-                        <Grid container direction='row' justify='space-around'>
+
+                        <Grid container direction='row' justify='center' margin='normal'>
+                     
                             <Grid margin='normal' xs={4}>
-                                <FormControl style={{ width: 150 }} margin='normal'>
+                                <FormControl style={{ mindWidth: 150 }} margin='normal'>
                                     <InputLabel>Gender</InputLabel>
                                     <Select
                                         displayEmpty
@@ -148,7 +161,7 @@ const FormDefault = ({ values, handleChange, errors, touched, handleBlur, open, 
                             </Grid>
 
                             <Grid margin='normal' xs={4}>
-                                <FormControl style={{ width: 150 }} margin='normal'>
+                                <FormControl style={{ mindWidth: 150 }} margin='normal'>
                                     <InputLabel>Nationality</InputLabel>
                                     <Select
                                         displayEmpty
@@ -166,7 +179,7 @@ const FormDefault = ({ values, handleChange, errors, touched, handleBlur, open, 
                             </Grid>
 
                             <Grid margin='normal' xs={4}>
-                                <FormControl style={{ width: 150 }} margin='normal'>
+                                <FormControl style={{ mindWidth: 150 }} margin='normal'>
                                     <InputLabel>Education Level</InputLabel>
                                     <Select
                                         displayEmpty
@@ -188,12 +201,13 @@ const FormDefault = ({ values, handleChange, errors, touched, handleBlur, open, 
                                 type='submit'
                             >
                                 Update Profile
-                            </Button>
-                            <Dialog
+                                </Button>
+                                <Dialog
                                 open={open}
                                 handleClose={() => closeDialog()}
                                 textContent="You have successfully update your profile"
                                 title='SUCCESSFUL'
+                                link = '/tutor/my_profile'
                             />
                         </FormControl>
                     </Paper>
@@ -210,7 +224,6 @@ const FormikForm = withFormik({
         const { user_info } = props;
         let initial_info = {}
         if (user_info.first_name) {
-            console.log(user_info.first_name)
             initial_info.first_name = user_info.first_name
         } else {
             initial_info.first_name = ''
@@ -279,40 +292,39 @@ const FormikForm = withFormik({
         date_of_birth: Yup.date(),
         phone_number: Yup.number()
             .required('Phone Number is required')
-            .min(10, 'Phone Number must have min 5 characters'),
+            .min(10, 'Phone Number must have min 10 characters'),
         postal_code: Yup.number()
             .min(9, 'Postal must have min 9 characters'),
         address: Yup.string()
             .required('Address is required'),
-
     }),
-    handleSubmit(values, { props }) {
-        const id = localStorage.getItem('user_id')
-        console.log(props)
-        console.log('later', values)
+    handleSubmit(values,{props}) {
+        
+        const id = localStorage.getItem('user_id');
         axios({
-            method: 'put',
             url: `/api/user?token=${localStorage.getItem('token')}`,
+            method: 'put',
             data: {
                 id: id,
-                address: values.address,
-                date_of_birth: values.date_of_birth,
                 first_name: values.first_name,
-                gender_name: values.gender_name,
                 last_name: values.last_name,
-                nationality_name: values.nationality_name,
+                date_of_birth: values.date_of_birth,
+                phone_number: values.phone_number,
                 postal_code: values.postal_code,
                 payment_method: values.payment_method,
                 paypal_email: values.paypal_email,
-                phone_number: values.phone_number,
+                gender_name: values.gender_name,
+                address: values.address,
+                nationality_name: values.nationality_name,
                 academic_level_name: values.academic_level_name
-            },
-            headers: { 'X-Auth-Token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRoYW9ucDA0MTA5OUBnbWFpbC5jb20iLCJwYXNzd29yZCI6IjEyMzQ1NiIsImlhdCI6MTU1ODMyOTI1NX0.lkqx-o-14-saMoKmbEJQKWqIUSyTgyMZtdv5QLjQ-1c' }
-        }).then((updated) => {
-            console.log(updated)
-            props.openDialog();
+            }
         })
-            .catch(err => console.log(err))
+        .then((updated) => {
+           console.log(props);
+        //    document.location.href = '/tutor/my_profile';
+           props.openDialog();
+        })
+        .catch(err => console.error(err))
     }
 
 })(FormDefault)
