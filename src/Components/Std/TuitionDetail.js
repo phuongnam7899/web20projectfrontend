@@ -23,7 +23,7 @@ const styles = theme => ({
   },
   table: {
     minWidth: '60%',
-    
+    fontSize:16,
   },
   body: {
     fontSize: 16
@@ -93,19 +93,21 @@ class User extends React.Component {
             if(one_class.sessions){
               return (
                 <div>
-                  <Grid container xs={11} justify='space-between'>
-                    <Typography style={{ marginTop: 50, fontSize: 24, marginLeft: 80 }}>
+                  <Grid container justify='flex-start' direction = 'row'>
+                    <Grid item xs = {2}>
+                    <Typography variant = 'h4' style={{ marginTop: 50, marginLeft: 80 }}>
                       {one_class.subject}
                     </Typography>
+                    </Grid>
                     <CancelTuition class_id={one_class._id} index={index} onCancelTuition={() => this.handleCancelTuition()} />
                   </Grid>
-                  <Grid item xs={11} style={{ marginTop: 20 }}>
+                  <Grid item style={{ marginTop: 20 }}>
                     <Paper className={classes.root}>
                       <Table className={classes.table}>
                         <TableBody>
                           <TableRow>
-                            <TableCell align="left" scope="row" >Fee : {one_class.hourly_rate}$/hour </TableCell>
-                            <TableCell align="left" scope="row" > Number of lessons: {one_class.sessions.length} </TableCell>
+                            <TableCell align="left" scope="row" style = {{fontSize : 16}}>Fee : {one_class.hourly_rate}$/hour </TableCell>
+                            <TableCell align="left" scope="row" style = {{fontSize : 16}}> Number of lessons: {one_class.sessions.length} </TableCell>
                           </TableRow>
                         </TableBody>
                       </Table>
@@ -116,7 +118,7 @@ class User extends React.Component {
                       Session 1 / {one_class.sessions.length}
                     </Typography> */}
                   </Grid>
-                  <Grid container spacing={8} style={{ marginLeft: 400 }} xs={8}>
+                  <Grid container spacing={8} style={{ marginLeft: 80 }} xs={8}>
                     <Grid container item xs={12} spacing={24} className={classes.listSession}>
                       {one_class.sessions.map((session, index) => {
                         return (
