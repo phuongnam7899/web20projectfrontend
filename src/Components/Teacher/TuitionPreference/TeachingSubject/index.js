@@ -75,16 +75,16 @@ class TeachingSubject extends React.Component {
                 <Grid container xs={12} direction="column" style={{ marginTop: 50, marginLeft: 80 }} alignItems='flex-start' >
                     <Typography variant='h3'>Teaching Subject</Typography>
                     <Grid container direction='row' xs={8} justify='flex-start' spacing={16} style={{ marginTop: 20 }} >
-                        <Grid item xs={2}>
+                        <Grid item xs={2} style={{ marginRight: 28,paddingLeft:0 }}>
                             <Typography  variant='h5'>Subject</Typography>
                         </Grid>
-                        <Grid item xs={2}>
+                        <Grid item xs={2} style={{ marginRight: 28 ,paddingLeft:0}}>
                             <Typography variant='h5'>Academic Level</Typography>
                         </Grid>
-                        <Grid item xs={2}>
+                        <Grid item xs={2} style={{ marginRight: 28,paddingLeft:0 }}>
                             <Typography  variant='h5'>Grade</Typography>
                         </Grid>
-                        <Grid item xs={2}>
+                        <Grid item xs={2} style={{ marginRight: 28 ,paddingLeft:0}}>
                             <Typography noWrap variant='h5'>Hourly Rate</Typography>
                         </Grid>
                         <FieldArray
@@ -92,7 +92,7 @@ class TeachingSubject extends React.Component {
                             render={({ push, remove }) => (
                                 <Form>
                                     {values.subjects.map((sub, index) => (
-                                        <Grid container direction='row' xs={12} justify='flex-start' spacing={16} style={{ marginTop: 20, width: 1300 }} >
+                                        <Grid container direction='row' xs={10} justify='flex-start' spacing={16} style={{ marginTop: 20, width: 1300 }} >
                                             <Grid item xs={2}>
                                                 <FormControl error={!!touched.year && errors.year}>
                                                     <Field
@@ -193,7 +193,7 @@ class TeachingSubject extends React.Component {
                                         </Grid>))
                                     }
                                     <Grid container direction='row' xs={12} justify='flex-start' spacing={16} style={{ marginTop: 20 }} >
-                                        <Grid item xs={2}>
+                                        <Grid item xs={1}>
                                             <FormControl>
                                                 <Button
                                                     style={{ backgroundColor: '#52C1C8', color: "#FFFFFF"}}
@@ -209,7 +209,7 @@ class TeachingSubject extends React.Component {
                                         <Grid item xs={4}>
                                             <FormControl>
                                                 <Button
-                                                    style={{ backgroundColor: '#52C1C8', color: "#FFFFFF", paddingLeft: 60, paddingRight: 60, marginLeft: 40}}
+                                                    style={{ backgroundColor: '#52C1C8', color: "#FFFFFF", paddingLeft: 60, paddingRight: 60, marginLeft: 60}}
                                                     variant='extendedFab'
                                                     type='submit'
                                                     onClick={() =>{

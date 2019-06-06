@@ -3,8 +3,9 @@ import BigCalendar from "../BigCalendar";
 import axios from "../../axios";
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
-import _ from "lodash"
 import Circle from '../Circle'
+import Dialog from '../Dialog'
+import _ from "lodash"
 // import {PayPalButton} from 'react-'
 
 class Calendar extends React.Component {
@@ -15,11 +16,22 @@ class Calendar extends React.Component {
             oldEvents: [],
             addEvents: [],
             subject: "",
-            fetching: false
+            fetching: false,
+            open: false,
+            textContent: "Your free-time has been updated",
+            dialogTitle: "Successful!"
         };
         this.handleSubmit = this.handleSubmit.bind(this);
         this.updateOldEvents = this.updateOldEvents.bind(this);
         this.handleSubChange_Calendar = this.handleSubChange_Calendar.bind(this);
+        this.openDialog = this.openDialog.bind(this);
+        this.closeDialog = this.closeDialog.bind(this);
+    }
+    openDialog() {
+        this.setState({ open: true })
+    }
+    closeDialog() {
+        this.setState({ open: false })
     }
     componentDidMount() {
         this.setState({
@@ -97,6 +109,7 @@ class Calendar extends React.Component {
                 }
             )
         } else if (localStorage.role === "tutor") {
+            
             const free_time = []
             this.state.oldEvents.forEach((item) => {
                 if (item.status === "free_time") free_time.push(item)
@@ -113,7 +126,8 @@ class Calendar extends React.Component {
                     },
                     headers: { 'X-Auth-Token': `${localStorage.token}` }
                 }
-            )
+            );
+            this.openDialog();
         }
 
     }
@@ -122,26 +136,26 @@ class Calendar extends React.Component {
     }
 
     render() {
-        const { oldEvents, fetching } = this.state;
+        const { oldEvents, fetching, open } = this.state;
         const { setFunctionSave, setCalendarSave, history } = this.props;
         // if(_.isEmpty(oldEvents)){
         //     return <Circle />
         //}
-        if(fetching){
+        if (fetching) {
             return <Circle />
-        }       
+        }
         console.log(oldEvents);
         console.log(this.props);
         const buttonContent = localStorage.role === "student" ? "Book your class" : "Update your free calendar"
-        const displayed_button = localStorage.getItem('role') === 'student'?(
+        const displayed_button = localStorage.getItem('role') === 'student' ? (
             <Button style={{ backgroundColor: '#52C1C8', color: "#FFFFFF", marginTop: 20 }} onClick={() => {
                 setCalendarSave(this.state.subject, this.state.addEvents);
                 setFunctionSave("submitCalendar", this.handleSubmit);
                 history.push("/payment");
             }}>{buttonContent}</Button>
-        ):(
-            <Button style={{ backgroundColor: '#52C1C8', color: "#FFFFFF", marginTop: 20 }} onClick={this.handleSubmit}>{buttonContent}</Button>
-        )
+        ) : (
+                <Button style={{ backgroundColor: '#52C1C8', color: "#FFFFFF", marginTop: 20 }} onClick={this.handleSubmit}>{buttonContent}</Button>
+            )
         return (
             <Grid>
                 {displayed_button}
@@ -150,21 +164,14 @@ class Calendar extends React.Component {
                     updateOldEvents={this.updateOldEvents}
                     dataFromProps={oldEvents}
                     getAddedEvents={currentEvents => this.getAddedEvents(currentEvents)}
+                    subject={this.props.subject}
                 />
-                {/* <PayPalButton
-                    amount="0."
-                    onSuccess={(details, data) => {
-                        alert("Transaction completed by " + details.payer.name.given_name);
-
-                        // OPTIONAL: Call your server to save the transaction
-                        return fetch("/paypal-transaction-complete", {
-                            method: "post",
-                            body: JSON.stringify({
-                                orderID: data.orderID
-                            })
-                        });
-                    }}
-                /> */}
+                <Dialog
+                    open={open}
+                    handleClose={() => this.closeDialog()}
+                    textContent={this.state.textContent}
+                    title={this.state.dialogTitle}
+                />
             </Grid>
         );
     }

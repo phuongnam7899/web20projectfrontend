@@ -21,7 +21,7 @@ const FilterBar = ({ values, handleChange }) => {
                             value={values.academic_level}
                             onChange={handleChange}
                         >
-                            <MenuItem value={''}>Academic Level</MenuItem>
+                            <MenuItem value={''}></MenuItem>
                             <MenuItem value={'highschool'}>High School</MenuItem>
                             <MenuItem value={'university'}>University</MenuItem>
                         </Select>
@@ -38,7 +38,7 @@ const FilterBar = ({ values, handleChange }) => {
                             value={values.academic_grade}
                             onChange={handleChange}
                         >
-                            <MenuItem value={''}>Grade</MenuItem>
+                            <MenuItem value={''}></MenuItem>
                             <MenuItem value={'grade1'}>Grade 1</MenuItem>
                             <MenuItem value={'grade2'}>Grade 2</MenuItem>
                             <MenuItem value={'grade3'}>Grade 3</MenuItem>
@@ -58,7 +58,7 @@ const FilterBar = ({ values, handleChange }) => {
                             value={values.subject}
                             onChange={handleChange}
                         >
-                            <MenuItem value={''}>Subject</MenuItem>
+                            <MenuItem value={''}></MenuItem>
                             <MenuItem value={'math'}>Math</MenuItem>
                             <MenuItem value={'physic'}>Physic</MenuItem>
                             <MenuItem value={'chemistry'}>Chemistry</MenuItem>

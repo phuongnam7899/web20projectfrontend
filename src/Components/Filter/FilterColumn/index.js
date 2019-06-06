@@ -21,6 +21,7 @@ const FilterColumn = ({values, handleChange}) => {
                             value={values.language_name}
                             onChange={handleChange}
                         >
+                            <MenuItem value={''}></MenuItem>
                             <MenuItem value={'english'}>English</MenuItem>
                             <MenuItem value={'german'}>German</MenuItem>
                             <MenuItem value={'vietnamese'}>Vietnamese</MenuItem>
@@ -40,6 +41,7 @@ const FilterColumn = ({values, handleChange}) => {
                             value={values.academic_level_name}
                             onChange={handleChange}
                         >
+                            <MenuItem value={''}></MenuItem>
                             <MenuItem value={'primaryschool'}>Primary School</MenuItem>
                             <MenuItem value={'secondaryschool'}>Secondary School</MenuItem>
                             <MenuItem value={'highschool'}>High School</MenuItem>
@@ -58,6 +60,7 @@ const FilterColumn = ({values, handleChange}) => {
                             value={values.gender_name}
                             onChange={handleChange}
                         >
+                            <MenuItem value={''}></MenuItem>
                             <MenuItem value={'male'}>Male</MenuItem>
                             <MenuItem value={'female'}>Female</MenuItem>
                         </Select>

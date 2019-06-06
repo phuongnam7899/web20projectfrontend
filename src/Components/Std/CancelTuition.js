@@ -51,7 +51,7 @@ class CancelTuition extends React.Component {
           <DialogTitle id="form-dialog-title">Cancel Tuition</DialogTitle>
           <DialogContent>
             <DialogContentText>
-              You are about to cancel the whole tuition session, teacher XXX will be notified.
+              You are about to cancel the whole tuition session.
               Please note that no refund will be given if you cancel the tuition.
             </DialogContentText>
             <TextField
