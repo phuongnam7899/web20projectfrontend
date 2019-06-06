@@ -14,9 +14,9 @@ import axios from '../../../../axios'
 import Circle from '../../../Circle'
 import AddIcon from '@material-ui/icons/Add';
 import Dialog from '../../../Dialog'
-import InputLabel from '@material-ui/core/InputLabel'
 import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
+import InputLabel from '@material-ui/core/InputLabel'
 
 const Wrapper = (Component) => {
     return class extends React.Component {
@@ -74,7 +74,6 @@ class TeachingSubject extends React.Component {
             <Form>
                 <Grid container xs={12} direction="column" style={{ marginTop: 50, marginLeft: 80 }} alignItems='flex-start' >
                     <Typography variant='h3'>Teaching Subject</Typography>
-                    {/* <Menu name='Based In' /> */}
                     <Grid container direction='row' xs={8} justify='flex-start' spacing={16} style={{ marginTop: 20 }} >
                         <Grid item xs={2} style={{ marginRight: 28, paddingLeft: 0 }}>
                             <Typography variant='h5'>Subject</Typography>
@@ -100,9 +99,22 @@ class TeachingSubject extends React.Component {
                                                         name={`subjects[${index}].subject`}
                                                         render={({ field, form: { touched, errors } }) => (
                                                             <div>
-                                                                <Input {...field} type="text" placeholder="Subject" fullWidth />
-                                                                {touched[field.name] &&
-                                                                    errors[field.name] && <div className="error">{errors[field.name]}</div>}
+                                                                <InputLabel>Subject</InputLabel>
+                                                                <Select
+                                                                    displayEmpty
+                                                                    {...field}
+                                                                    onChange={handleChange}
+                                                                >
+                                                                    <MenuItem value='math'>Math</MenuItem>
+                                                                    <MenuItem value='physic'>Physic</MenuItem>
+                                                                    <MenuItem value='chemistry'>Chemistry</MenuItem>
+                                                                    <MenuItem value='biology'>Biology</MenuItem>
+                                                                    <MenuItem value='literature'>Literature</MenuItem>
+                                                                    <MenuItem value='history'>History</MenuItem>
+                                                                    <MenuItem value='geography'>Geography</MenuItem>
+                                                                    <MenuItem value='english'>English</MenuItem>
+                                                                    <MenuItem value='computer'>Computer</MenuItem>
+                                                                </Select>
                                                             </div>
                                                         )}
                                                     />
@@ -114,9 +126,15 @@ class TeachingSubject extends React.Component {
                                                         name={`subjects[${index}].academic_level`}
                                                         render={({ field, form: { touched, errors } }) => (
                                                             <div>
-                                                                <Input {...field} type="text" placeholder="Academic level" fullWidth />
-                                                                {touched[field.name] &&
-                                                                    errors[field.name] && <div className="error">{errors[field.name]}</div>}
+                                                                <InputLabel>Academic level</InputLabel>
+                                                                <Select
+                                                                    displayEmpty
+                                                                    {...field}
+                                                                    onChange={handleChange}
+                                                                >
+                                                                    <MenuItem value='highschool'>High School</MenuItem>
+                                                                    <MenuItem value='university'>University</MenuItem>
+                                                                </Select>
                                                             </div>
                                                         )}
                                                     />
@@ -128,9 +146,18 @@ class TeachingSubject extends React.Component {
                                                         name={`subjects[${index}].academic_grade`}
                                                         render={({ field, form: { touched, errors } }) => (
                                                             <div>
-                                                                <Input {...field} type="text" placeholder="Grade" fullWidth />
-                                                                {touched[field.name] &&
-                                                                    errors[field.name] && <div className="error">{errors[field.name]}</div>}
+                                                                <InputLabel>Subject</InputLabel>
+                                                                <Select
+                                                                    displayEmpty
+                                                                    {...field}
+                                                                    onChange={handleChange}
+                                                                >
+                                                                    <MenuItem value='grade1'>Grade 1</MenuItem>
+                                                                    <MenuItem value='grade2'>Grade 2</MenuItem>
+                                                                    <MenuItem value='grade3'>Grade 3</MenuItem>
+                                                                    <MenuItem value='grade4'>Grade 4</MenuItem>
+                                                                    <MenuItem value='grade5'>Grade 5</MenuItem>
+                                                                </Select>
                                                             </div>
                                                         )}
                                                     />
