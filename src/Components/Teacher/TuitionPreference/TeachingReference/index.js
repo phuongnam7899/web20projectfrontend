@@ -18,7 +18,7 @@ import Dialog from '../../../Dialog'
 
 const Wrapper = (Component) => {
     return class extends React.Component {
-        constructor(props){
+        constructor(props) {
             super(props);
             this.state = {
                 reference: null,
@@ -47,19 +47,19 @@ const Wrapper = (Component) => {
                 })
                 .catch(err => console.error(err))
         }
-    
+
         render() {
             const { open } = this.state;
-            const { reference } = this.state; 
+            const { reference } = this.state;
             if (!reference) return null;
-            return <Component {...this.props} reference= { reference } open={open} openDialog={this.openDialog} closeDialog={this.closeDialog}/> 
+            return <Component {...this.props} reference={reference} open={open} openDialog={this.openDialog} closeDialog={this.closeDialog} />
         }
     }
 }
 
 class TeachingReference extends React.Component {
     render() {
-        const { values, handleChange, errors, handleBlur, touched,open, closeDialog  } = this.props;
+        const { values, handleChange, errors, handleBlur, touched, open, closeDialog } = this.props;
         console.log('values reference', values)
         // const { ;subjects } = this.state
 
@@ -68,33 +68,33 @@ class TeachingReference extends React.Component {
             return <Circle />
         }
         return (
-            <Form style = {{marginLeft:80, marginTop: 40}}>
+            <Form style={{ marginLeft: 80, marginTop: 40 }}>
                 <Typography variant='h3' >Reference</Typography>
-                <Grid container direction='row' xs={12} justify='flex-start' spacing={16} style={{ marginTop: 20, width:'100%'}} >
-                    
+                <Grid container direction='row' xs={12} justify='flex-start' spacing={16} style={{ marginTop: 20, width: '100%' }} >
+
                     <Grid item xs={5}>
-                        <Typography variant='h4' style={{ marginBottom: 20}} >About me</Typography>
+                        <Typography variant='h4' style={{ marginBottom: 20 }} >About me</Typography>
                         <FormControl>
-                            <Input name = "about_me" value = {values.about_me} type="text" placeholder="About me" onChange = {handleChange} style = {{width:300, marginRight:20}}/>
+                            <Input name="about_me" value={values.about_me} type="text" placeholder="About me" onChange={handleChange} style={{ width: 300, marginRight: 20 }} />
                         </FormControl>
                     </Grid>
                 </Grid>
-                <Grid container xs = {12} direction = 'column' style = {{marginTop:20}}>
+                <Grid container xs={12} direction='column' style={{ marginTop: 20 }}>
                     <Typography variant='h4' >Major</Typography>
                     <FieldArray
-                        style = {{width:'100%'}}
+                        style={{ width: '100%' }}
                         name="major"
                         render={({ push, remove }) => (
                             <Form>
                                 {values.major.map((sub, index) => (
-                                    <Grid container direction='row' xs={12} justify='flex-start' style={{ marginTop: 20, width:'100%' }} >
+                                    <Grid container direction='row' xs={12} justify='flex-start' style={{ marginTop: 20, width: '100%' }} >
                                         <Grid item xs={5}>
                                             <FormControl>
                                                 <Field
                                                     name={`major[${index}]`}
                                                     render={({ field, form: { touched, errors } }) => (
                                                         <div>
-                                                            <Input {...field} type="text" placeholder="Major" style = {{width:300, marginRight:20}}/>
+                                                            <Input {...field} type="text" placeholder="Major" style={{ width: 300, marginRight: 20 }} />
                                                             {touched[field.name] &&
                                                                 errors[field.name] && <div className="error">{errors[field.name]}</div>}
                                                         </div>
@@ -105,27 +105,27 @@ class TeachingReference extends React.Component {
                                         <Grid item xs={3}>
                                             <FormControl>
                                                 <Button
-                                                    style={{ backgroundColor: '#c85452', color: "#FFFFFF", marginLeft:70}}
+                                                    style={{ backgroundColor: '#c85452', color: "#FFFFFF", marginLeft: 70 }}
                                                     variant='extendedFab'
                                                     type="button"
                                                     onClick={() => remove(index)}
                                                 >
-                                                    <DeleteIcon/>
+                                                    <DeleteIcon />
                                                 </Button>
                                             </FormControl>
                                         </Grid>
                                     </Grid>))
                                 }
-                                <Grid container direction='row' xs={12} justify='flex-start' alignItem = "center" spacing={16} style={{ marginTop: 20 }} >
+                                <Grid container direction='row' xs={12} justify='flex-start' alignItem="center" spacing={16} style={{ marginTop: 20 }} >
                                     <Grid item xs={3}>
                                         <FormControl>
                                             <Button
-                                                style={{ backgroundColor: '#52C1C8', color: "#FFFFFF"}}
+                                                style={{ backgroundColor: '#52C1C8', color: "#FFFFFF" }}
                                                 variant='extendedFab'
                                                 type="button"
                                                 onClick={() => push("")}
                                             >
-                                                <AddIcon/>
+                                                <AddIcon />
                                             </Button>
                                         </FormControl>
                                     </Grid>
@@ -134,22 +134,22 @@ class TeachingReference extends React.Component {
                         )}
                     />
                 </Grid>
-                <Grid container xs = {12} direction = 'column' style = {{marginTop:20}}>
+                <Grid container xs={12} direction='column' style={{ marginTop: 20 }}>
                     <Typography variant='h4' >Institute</Typography>
                     <FieldArray
-                        style = {{width:'100%'}}
+                        style={{ width: '100%' }}
                         name="institute"
                         render={({ push, remove }) => (
                             <Form>
                                 {values.institute.map((sub, index) => (
-                                    <Grid container direction='row' xs={12} justify='flex-start' spacing={16} style={{ marginTop: 20, width:'100%' }} >
+                                    <Grid container direction='row' xs={12} justify='flex-start' spacing={16} style={{ marginTop: 20, width: '100%' }} >
                                         <Grid item xs={5}>
                                             <FormControl>
                                                 <Field
                                                     name={`institute[${index}]`}
                                                     render={({ field, form: { touched, errors } }) => (
                                                         <div>
-                                                            <Input {...field} type="text" placeholder="Institute" style = {{width:300}}/>
+                                                            <Input {...field} type="text" placeholder="Institute" style={{ width: 300 }} />
                                                             {/* {touched[field.name] &&
                                                                 errors[field.name] && <div className="error">{errors[field.name]}</div>} */}
                                                         </div>
@@ -160,27 +160,27 @@ class TeachingReference extends React.Component {
                                         <Grid item xs={3}>
                                             <FormControl>
                                                 <Button
-                                                    style={{ backgroundColor: '#c85452', color: "#FFFFFF", marginLeft:70}}
+                                                    style={{ backgroundColor: '#c85452', color: "#FFFFFF", marginLeft: 70 }}
                                                     variant='extendedFab'
                                                     type="button"
                                                     onClick={() => remove(index)}
                                                 >
-                                                    <DeleteIcon/>
+                                                    <DeleteIcon />
                                                 </Button>
                                             </FormControl>
                                         </Grid>
                                     </Grid>))
                                 }
-                                <Grid container direction='row' xs={12} justify='flex-start' alignItem = "center" spacing={16} style={{ marginTop: 20 }} >
+                                <Grid container direction='row' xs={12} justify='flex-start' alignItem="center" spacing={16} style={{ marginTop: 20 }} >
                                     <Grid item xs={3}>
                                         <FormControl>
                                             <Button
-                                                style={{ backgroundColor: '#52C1C8', color: "#FFFFFF"}}
+                                                style={{ backgroundColor: '#52C1C8', color: "#FFFFFF" }}
                                                 variant='extendedFab'
                                                 type="button"
                                                 onClick={() => push("")}
                                             >
-                                                <AddIcon/>
+                                                <AddIcon />
                                             </Button>
                                         </FormControl>
                                     </Grid>
@@ -188,23 +188,23 @@ class TeachingReference extends React.Component {
                             </Form>
                         )}
                     />
-                </Grid>                
-                <Grid container xs = {12} direction = 'column' style = {{marginTop:20}}>
-                <Typography variant='h4' >Certificate</Typography>
+                </Grid>
+                <Grid container xs={12} direction='column' style={{ marginTop: 20 }}>
+                    <Typography variant='h4' >Certificate</Typography>
                     <FieldArray
-                        style = {{width:'100%'}}
+                        style={{ width: '100%' }}
                         name="certificate"
                         render={({ push, remove }) => (
                             <Form>
                                 {values.certificate.map((sub, index) => (
-                                    <Grid container direction='row' xs={12} justify='flex-start' spacing={16} style={{ marginTop: 20, width:'100%' }} >
+                                    <Grid container direction='row' xs={12} justify='flex-start' spacing={16} style={{ marginTop: 20, width: '100%' }} >
                                         <Grid item xs={5}>
                                             <FormControl>
                                                 <Field
                                                     name={`certificate[${index}]`}
                                                     render={({ field, form: { touched, errors } }) => (
                                                         <div>
-                                                            <Input {...field} type="text" placeholder="Certificate" style = {{width:300}}/>
+                                                            <Input {...field} type="text" placeholder="Certificate" style={{ width: 300 }} />
                                                             {touched[field.name] &&
                                                                 errors[field.name] && <div className="error">{errors[field.name]}</div>}
                                                         </div>
@@ -215,68 +215,68 @@ class TeachingReference extends React.Component {
                                         <Grid item xs={3}>
                                             <FormControl>
                                                 <Button
-                                                    style={{ backgroundColor: '#c85452', color: "#FFFFFF", marginLeft:70}}
+                                                    style={{ backgroundColor: '#c85452', color: "#FFFFFF", marginLeft: 70 }}
                                                     variant='extendedFab'
                                                     type="button"
                                                     onClick={() => remove(index)}
                                                 >
-                                                    <DeleteIcon/>
+                                                    <DeleteIcon />
                                                 </Button>
                                             </FormControl>
                                         </Grid>
                                     </Grid>))
                                 }
-                                <Grid container direction='row' xs={12} justify='flex-start' alignItem = "center" spacing={16} style={{ marginTop: 20 }} >
+                                <Grid container direction='row' xs={12} justify='flex-start' alignItem="center" spacing={16} style={{ marginTop: 20 }} >
                                     <Grid item xs={3}>
                                         <FormControl>
                                             <Button
-                                                style={{ backgroundColor: '#52C1C8', color: "#FFFFFF"}}
+                                                style={{ backgroundColor: '#52C1C8', color: "#FFFFFF" }}
                                                 variant='extendedFab'
                                                 type="button"
                                                 onClick={() => push("")}
                                             >
-                                                <AddIcon/>
+                                                <AddIcon />
                                             </Button>
                                         </FormControl>
                                     </Grid>
-                                    <Grid item xs={8} style = {{marginTop: 0}}>
-                        <FormControl>
-                            <Button
-                                style={{ backgroundColor: '#52C1C8', color: "#FFFFFF", paddingLeft: 60, paddingRight: 60}}
-                                variant='extendedFab'
-                                type='submit'
-                                onClick={() =>{
-                                    console.log('axios',values)
-                                    axios({
-                                        url: `/api/user/tutor/update_reference?token=${localStorage.getItem('token')}`,
-                                        method: 'put',
-                                        data: {
-                                            id: localStorage.getItem('id'),
-                                            about_me: values.about_me,
-                                            major: values.major,
-                                            institute: values.institute,
-                                            certificate: values.certificate
-                                        }
-                                    })
-                                        .then((updated) => {
-                                            console.log(updated);
-                                            {/* document.location.href = "/tutor/tuitionpreference" */}
-        
-                                        })
-                                        .catch(err => console.error(err))
-                                }}
-                            >
-                                Update Reference
+                                    <Grid item xs={8} style={{ marginTop: 0 }}>
+                                        <FormControl>
+                                            <Button
+                                                style={{ backgroundColor: '#52C1C8', color: "#FFFFFF", paddingLeft: 60, paddingRight: 60 }}
+                                                variant='extendedFab'
+                                                type='submit'
+                                                onClick={() => {
+                                                    console.log('axios', values)
+                                                    axios({
+                                                        url: `/api/user/tutor/update_reference?token=${localStorage.getItem('token')}`,
+                                                        method: 'put',
+                                                        data: {
+                                                            id: localStorage.getItem('id'),
+                                                            about_me: values.about_me,
+                                                            major: values.major,
+                                                            institute: values.institute,
+                                                            certificate: values.certificate
+                                                        }
+                                                    })
+                                                        .then((updated) => {
+                                                            console.log(updated);
+                                                            {/* document.location.href = "/tutor/tuitionpreference" */ }
+
+                                                        })
+                                                        .catch(err => console.error(err))
+                                                }}
+                                            >
+                                                Update Reference
                             </Button>
-                            <Dialog
-                                open={open}
-                                handleClose={() => closeDialog()}
-                                textContent="You have successfully update your preference"
-                                title = 'SUCCESSFUL'
-                                link = '/tutor/tuitionpreference'
-                            />
-                        </FormControl>
-                    </Grid>
+                                            <Dialog
+                                                open={open}
+                                                handleClose={() => closeDialog()}
+                                                textContent="You have successfully update your preference"
+                                                title='SUCCESSFUL'
+                                                link='/tutor/tuitionpreference'
+                                            />
+                                        </FormControl>
+                                    </Grid>
                                 </Grid>
                             </Form>
                         )}
@@ -293,7 +293,7 @@ class TeachingReference extends React.Component {
 const FormikDefault = withFormik({
     mapPropsToValues(props) {
         const { reference } = props;
-        console.log('reference initial',reference)
+        console.log('reference initial', reference)
         return (
             reference
         )
@@ -311,9 +311,14 @@ const FormikDefault = withFormik({
                     rate: Yup.string()
                         .required('Hourly rate is required')
                 })
-            )
+            ),
+        reference: Yup.object().shape({
+            about_me: Yup.string()
+                .required("Please describe something about you!")
+        })
+
     }),
-    handleSubmit(values,{props}) {
+    handleSubmit(values, { props }) {
         console.log(props)
         props.openDialog()
     }
