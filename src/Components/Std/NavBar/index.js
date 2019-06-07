@@ -18,7 +18,7 @@ class NavBar extends React.Component {
         <AppBar position='static' style={{ background: '#c88f52',}}>
           <ToolBar>
           <Grid container style={{ alignContent: 'center' }}>
-              <Grid item xs={8}>
+              <Grid item xs={7}>
                 <Typography noWrap style = {{fontSize: 40, marginLeft : 80, color: 'white', fontWeight: 600}}>
                   <NavLink to='/' style={{ textDecoration: 'none', color: 'white' }}>
                     X TUTOR
@@ -28,20 +28,20 @@ class NavBar extends React.Component {
 
               <Grid item xs={1}>
               <Typography style = {{fontSize: 18, marginTop:15}}>
-                <NavLink to = '/filter'  style={{ textDecoration: 'none', color: '#ffffff'}}>FIND A TUTOR</NavLink>
+                <NavLink to = '/filter' activeStyle={{color:'#000000'}}  style={{ textDecoration: 'none', color: '#ffffff'}}>FIND A TUTOR</NavLink>
               </Typography>
               </Grid>
 
               <Grid item xs={1}>
               <Typography style = {{fontSize: 18, marginTop:15}}>
-                <NavLink to = '/user' style ={{ textDecoration: 'none', color: '#ffffff'}} >MY TUITION</NavLink>
+                <NavLink to = '/user' activeStyle={{color:'#000000'}} style ={{ textDecoration: 'none', color: '#ffffff'}} >MY TUITION</NavLink>
               </Typography>
               </Grid>
 
-              <Grid item xs={1}>
-              <Typography style = {{fontSize: 18, marginTop:15, color: '#ffffff'}} noWrap>
-                STUDENT'S NAME
-              </Typography>
+              <Grid item >
+                <Typography style={{ fontSize: 18, marginTop: 15, color: '#ffffff' }} noWrap>
+                  {localStorage.name}
+                </Typography>
               </Grid>
 
               <Grid item xs={1} justify = 'center' alignContent = 'center' >

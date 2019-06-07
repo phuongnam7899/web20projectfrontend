@@ -140,7 +140,8 @@ const FormikForm = withFormik({
                 localStorage.setItem('token', sent_data.data.token);
                 localStorage.setItem('role', sent_data.data.userInfo.user_id.role);
                 localStorage.setItem("id", sent_data.data.userInfo._id);
-                localStorage.setItem("user_id", sent_data.data.userInfo.user_id._id)
+                localStorage.setItem("user_id", sent_data.data.userInfo.user_id._id);
+                localStorage.setItem("name",sent_data.data.userInfo.user_id.profile.first_name + " " + sent_data.data.userInfo.user_id.profile.last_name)
                 props.updateRole(localStorage.getItem('role'))
                 if (localStorage.getItem('role') === "student") {
                     props.history.push('/user')

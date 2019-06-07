@@ -66,6 +66,14 @@ const FormDefault = ({ values, handleChange, errors, touched, handleBlur,open, c
                             Edit My Profile
                         </Typography>
                         <Grid container direction='row' xs={24} justify='center' spacing={16} style={{ marginTop: 30 }}>
+                            <Grid container direction='row' item xs={12} margin="normal">
+                                <Grid item>
+                                    <img alt="avatar" src={values.image_upload} style={{ width: 120, height: 120, marginRight: 20, borderRadius:100 }} />
+                                </Grid>
+                                <Grid item>
+                                    <Imgur setFieldValue={setFieldValue} />
+                                </Grid>
+                            </Grid>  
                             <Grid item xs={6} margin='normal'>
                                 <FormControl fullWidth error={!!touched.first_name && errors.first_name}>
                                     <InputLabel>First Name</InputLabel>
@@ -194,10 +202,6 @@ const FormDefault = ({ values, handleChange, errors, touched, handleBlur,open, c
                                 </FormControl>
                             </Grid>
                         </Grid>
-                        <Grid item xs={4} style={{ marginTop: 20}}>
-                            <Imgur setFieldValue={setFieldValue} />
-                            <img alt="avatar" src={values.image_upload} style={{ width: 100, height: 100 }} />
-                        </Grid>  
                         <FormControl fullWidth margin='normal'>
                             <Button
                                 variant='extendedFab'
