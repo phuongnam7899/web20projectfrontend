@@ -14,6 +14,7 @@ import * as Yup from 'yup';
 import axios from '../../../../axios'
 import Dialog from '../../../Dialog'
 import TextField from '@material-ui/core/TextField';
+import Imgur from '../../../Imgur'
 
 
 const Wrapper = (Component) => {
@@ -55,7 +56,7 @@ const Wrapper = (Component) => {
         }
     }
 }
-const FormDefault = ({ values, handleChange, errors, touched, handleBlur,open, closeDialog }) => {
+const FormDefault = ({ values, handleChange, errors, touched, handleBlur,open, closeDialog, setFieldValue }) => {
     return (
         <Form style = {{marginBottom: 60}}>
             <Grid container justify='center' alignContent='center'>
@@ -193,7 +194,10 @@ const FormDefault = ({ values, handleChange, errors, touched, handleBlur,open, c
                                 </FormControl>
                             </Grid>
                         </Grid>
-
+                        <Grid item xs={4} style={{ marginTop: 20}}>
+                            <Imgur setFieldValue={setFieldValue} />
+                            <img alt="avatar" src={values.image_upload} style={{ width: 100, height: 100 }} />
+                        </Grid>  
                         <FormControl fullWidth margin='normal'>
                             <Button
                                 variant='extendedFab'
@@ -223,6 +227,11 @@ const FormikForm = withFormik({
     mapPropsToValues(props) {
         const { user_info } = props;
         let initial_info = {}
+        if (user_info.profile_picture) {
+            initial_info.image_upload = user_info.profile_picture
+        } else {
+            initial_info.image_upload = ''
+        }
         if (user_info.first_name) {
             initial_info.first_name = user_info.first_name
         } else {
@@ -316,7 +325,8 @@ const FormikForm = withFormik({
                 gender_name: values.gender_name,
                 address: values.address,
                 nationality_name: values.nationality_name,
-                academic_level_name: values.academic_level_name
+                academic_level_name: values.academic_level_name,
+                profile_picture: values.image_upload
             }
         })
         .then((updated) => {

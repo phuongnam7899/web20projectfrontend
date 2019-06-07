@@ -27,6 +27,7 @@ class FilterResult extends React.Component {
                     return (
                 <TeacherCard 
                     key={tutor._id}
+                    image = {tutor.userInfo.profile.profile_picture}
                     name = {tutor.userInfo.profile.first_name + tutor.userInfo.profile.last_name}
                     subject = {tutor.userInfo.teaching_subject}
                     phone = {tutor.userInfo.profile.phone_number}
