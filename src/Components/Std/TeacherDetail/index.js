@@ -68,7 +68,7 @@ class TeacherDetail extends React.Component {
                   <CardActionArea>
                     <CardMedia
                       className={classes.media}
-                      image="https://images.unsplash.com/photo-1542304291-b9d13957968d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
+                      image={this.state.tutorInfo.user_id.profile.profile_picture}
                       title="Teacher"
                     />
                   </CardActionArea>

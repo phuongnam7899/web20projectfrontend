@@ -19,6 +19,7 @@
     "react-big-calendar": "^0.21.0",
     "react-datepicker": "^2.6.0",
     "react-dom": "^16.8.6",
+    "react-images-upload": "^1.2.6",
     "react-paypal-button": "^3.0.1",
     "react-router-dom": "^5.0.0",
     "react-scripts": "3.0.1",

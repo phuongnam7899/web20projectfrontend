@@ -49,7 +49,7 @@ function TeacherCard(props) {
                   <CardActionArea>
                     <CardMedia
                       className={classes.media}
-                      image="https://images.unsplash.com/photo-1542304291-b9d13957968d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
+                      image={props.image}
                       title="Teacher"
                     />
                   </CardActionArea>

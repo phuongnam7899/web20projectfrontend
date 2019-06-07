@@ -13,6 +13,7 @@ import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
 import InputLabel from '@material-ui/core/InputLabel'
 import Dialog from './Dialog'
+import Imgur from './Imgur'
 
 
 const WrapperComponent = (Component) => {
@@ -57,7 +58,8 @@ const WrapperComponent = (Component) => {
 }
 
 
-const Login = ({ values, handleChange, errors, touched, handleBlur, open, closeDialog, title, content }) => {
+const Login = ({ values, handleChange, errors, touched, handleBlur, open, closeDialog, title, content, setFieldValue }) => {
+    console.log(values);
     return (
         <Form>
             <Grid container direction='column' xs={12} style={{ marginTop: 80 }} alignContent = 'center'>
@@ -143,7 +145,11 @@ const Login = ({ values, handleChange, errors, touched, handleBlur, open, closeD
                         </Select>
                         <FormHelperText>{touched.role && errors.role}</FormHelperText>                            
                         </FormControl>
-                    </Grid>
+                    </Grid> 
+                    <Grid item xs={4} style={{ marginTop: 20}}>
+                        <Imgur setFieldValue={setFieldValue} />
+                        <img alt="avatar" src={values.image_upload} style={{ width: 100, height: 100 }} />
+                    </Grid>     
                     <Grid item xs={4} style = {{marginTop : 20}}>
 
                         <Typography style={{ fontSize: 17 }} align = 'center' >
@@ -151,7 +157,6 @@ const Login = ({ values, handleChange, errors, touched, handleBlur, open, closeD
                             By creating an account, you agree to our Terms of Service and have read and understood the Privacy Policy
     
                         </Typography>
-
                     </Grid>
                     <Button type='submit' style={{ backgroundColor: '#52c1c8', color: "#ffffff", marginTop: 30, marginBottom: 30 }}>Create Account</Button>
                     <Dialog
@@ -175,7 +180,8 @@ const FormikForm = withFormik({
             confirm_password: '',
             gender: '',
             phonenumber: '',
-            role: ''
+            role: '',
+            image_upload: '',
         }
     },
     validationSchema: Yup.object().shape({
@@ -213,7 +219,8 @@ const FormikForm = withFormik({
                 password: values.password,
                 gender_name: values.gender,
                 phone_num: values.phonenumber.toString(),
-                role: values.role
+                role: values.role,
+                profile_picture: values.image_upload
             }}).then((sent_data) => {
                 console.log(sent_data)
                 let status = sent_data.data.success;
