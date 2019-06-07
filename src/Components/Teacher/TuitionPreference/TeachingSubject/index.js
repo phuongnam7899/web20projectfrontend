@@ -20,11 +20,11 @@ import InputLabel from '@material-ui/core/InputLabel'
 
 const Wrapper = (Component) => {
     return class extends React.Component {
-        constructor(props){
+        constructor(props) {
             super(props);
             this.state = {
                 subjects: null,
-                open:false,
+                open: false,
             }
             this.openDialog = this.openDialog.bind(this);
             this.closeDialog = this.closeDialog.bind(this);
@@ -50,19 +50,19 @@ const Wrapper = (Component) => {
                 })
                 .catch(err => console.error(err))
         }
-    
+
         render() {
             const { open } = this.state;
-            const { subjects } = this.state; 
+            const { subjects } = this.state;
             if (!subjects) return null;
-            return <Component {...this.props} subjects={subjects} open={open} openDialog={this.openDialog} closeDialog={this.closeDialog}/> 
+            return <Component {...this.props} subjects={subjects} open={open} openDialog={this.openDialog} closeDialog={this.closeDialog} />
         }
     }
 }
 
 class TeachingSubject extends React.Component {
     render() {
-        const { values, handleChange, errors, handleBlur, touched,open, closeDialog, openDialog   } = this.props;
+        const { values, handleChange, errors, handleBlur, touched, open, closeDialog, openDialog } = this.props;
         console.log('values', values)
         // const { ;subjects } = this.state
 
@@ -75,16 +75,16 @@ class TeachingSubject extends React.Component {
                 <Grid container xs={12} direction="column" style={{ marginTop: 50, marginLeft: 80 }} alignItems='flex-start' >
                     <Typography variant='h3'>Teaching Subject</Typography>
                     <Grid container direction='row' xs={8} justify='flex-start' spacing={16} style={{ marginTop: 20 }} >
-                        <Grid item xs={2} style={{ marginRight: 28,paddingLeft:0 }}>
-                            <Typography  variant='h5'>Subject</Typography>
+                        <Grid item xs={2} style={{ marginRight: 28, paddingLeft: 0 }}>
+                            <Typography variant='h5'>Subject</Typography>
                         </Grid>
-                        <Grid item xs={2} style={{ marginRight: 28 ,paddingLeft:0}}>
+                        <Grid item xs={2} style={{ marginRight: 28, paddingLeft: 0 }}>
                             <Typography variant='h5'>Academic Level</Typography>
                         </Grid>
-                        <Grid item xs={2} style={{ marginRight: 28,paddingLeft:0 }}>
-                            <Typography  variant='h5'>Grade</Typography>
+                        <Grid item xs={2} style={{ marginRight: 28, paddingLeft: 0 }}>
+                            <Typography variant='h5'>Grade</Typography>
                         </Grid>
-                        <Grid item xs={2} style={{ marginRight: 28 ,paddingLeft:0}}>
+                        <Grid item xs={2} style={{ marginRight: 28, paddingLeft: 0 }}>
                             <Typography noWrap variant='h5'>Hourly Rate</Typography>
                         </Grid>
                         <FieldArray
@@ -180,13 +180,13 @@ class TeachingSubject extends React.Component {
                                             <Grid item xs={2}>
                                                 <FormControl>
                                                     <Button
-                                                        style={{ backgroundColor: '#c85452', color: "#FFFFFF"}}
+                                                        style={{ backgroundColor: '#c85452', color: "#FFFFFF" }}
                                                         variant='extendedFab'
                                                         type="button"
                                                         className="secondary"
                                                         onClick={() => remove(index)}
                                                     >
-                                                        <DeleteIcon/>
+                                                        <DeleteIcon />
                                                     </Button>
                                                 </FormControl>
                                             </Grid>
@@ -196,23 +196,23 @@ class TeachingSubject extends React.Component {
                                         <Grid item xs={1}>
                                             <FormControl>
                                                 <Button
-                                                    style={{ backgroundColor: '#52C1C8', color: "#FFFFFF"}}
+                                                    style={{ backgroundColor: '#52C1C8', color: "#FFFFFF" }}
                                                     variant='extendedFab'
                                                     type="button"
                                                     className="secondary"
                                                     onClick={() => push({ subject: "", academic_level: "", academic_grade: "", hourly_rate: "" })}
                                                 >
-                                                    <AddIcon/>
+                                                    <AddIcon />
                                                 </Button>
                                             </FormControl>
                                         </Grid>
                                         <Grid item xs={4}>
                                             <FormControl>
                                                 <Button
-                                                    style={{ backgroundColor: '#52C1C8', color: "#FFFFFF", paddingLeft: 60, paddingRight: 60, marginLeft: 60}}
+                                                    style={{ backgroundColor: '#52C1C8', color: "#FFFFFF", paddingLeft: 60, paddingRight: 60, marginLeft: 60 }}
                                                     variant='extendedFab'
                                                     type='submit'
-                                                    onClick={() =>{
+                                                    onClick={() => {
                                                         console.log('gui ne')
                                                         axios({
                                                             url: `/api/user/tutor/update_teaching_sub?token=${localStorage.getItem('token')}`,
@@ -225,7 +225,7 @@ class TeachingSubject extends React.Component {
                                                             .then((updated) => {
                                                                 console.log(updated);
                                                                 openDialog()
-                                                                {/* document.location.href = '/tutor/tuitionpreference'; */}
+                                                                {/* document.location.href = '/tutor/tuitionpreference'; */ }
                                                             })
                                                             .catch(err => console.error(err))
                                                     }}
@@ -236,8 +236,8 @@ class TeachingSubject extends React.Component {
                                                     open={open}
                                                     handleClose={() => closeDialog()}
                                                     textContent="You have successfully update your subject"
-                                                    title = 'SUCCESSFUL'
-                                                    link = '/tutor/tuitionpreference'
+                                                    title='SUCCESSFUL'
+                                                    link='/tutor/tuitionpreference'
                                                 />
                                             </FormControl>
                                         </Grid>
@@ -247,7 +247,7 @@ class TeachingSubject extends React.Component {
                         />
 
                     </Grid>
-                </Grid> 
+                </Grid>
             </Form>
         )
     }
@@ -255,7 +255,7 @@ class TeachingSubject extends React.Component {
 
 const FormikDefault = withFormik({
     mapPropsToValues(props) {
-        console.log('prop',props)
+        console.log('prop', props)
         const { subjects } = props;
         console.log(subjects)
         return (props)
@@ -275,7 +275,7 @@ const FormikDefault = withFormik({
                 })
             )
     }),
-    handleSubmit(values,{props}) {
+    handleSubmit(values, { props }) {
         console.log(props)
         props.openDialog()
     }
