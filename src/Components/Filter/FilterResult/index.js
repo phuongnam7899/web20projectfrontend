@@ -17,7 +17,7 @@ class FilterResult extends React.Component {
         const { tutors } = this.props;
 
         if (_.isEmpty(tutors)) {
-            return <Typography variant='h4' style = {{marginLeft : 80}}>NO RESULT HERE</Typography>
+            return <Typography variant='h4' style = {{marginLeft : 80, marginTop:50}}>NO RESULT HERE</Typography>
         }
         console.log(tutors)
         return(

@@ -65,18 +65,18 @@ const Login = ({ values, handleChange, errors, touched, handleBlur, open, closeD
             <Grid container direction='column' xs={12} style={{ marginTop: 80 }} alignContent = 'center'>
                     <Grid item xs={4}>
                         <Typography style={{ fontSize: 18 }} align = 'center'>
-                            Create Accout
+                            Create Account
                         </Typography>
                     </Grid>
                     <Grid container xs={4} justify = 'center'>
-                        <Typography style={{ fontSize: 18 }} >
-                            or
+                        <Typography style={{ fontSize: 18,color: '#A7A7A7', fontWeight: 200 }} >
+                            or&nbsp;
                         </Typography>
-                        <Link to = '/login'>
-                            <Typography style={{ fontSize: 18 }} >
-                                Log In
-                            </Typography>
-                        </Link>
+                        <Typography style={{ fontSize: 18 }} >
+                            <Link to = '/login' style={{ color: '#A7A7A7', fontWeight: 200 }}>
+                                    Log In
+                            </Link>
+                        </Typography>
                     </Grid>
                     <Grid item xs={4} style = {{marginTop : 20}}>
                         <FormControl fullWidth error={!!touched.firstname && errors.firstname}>

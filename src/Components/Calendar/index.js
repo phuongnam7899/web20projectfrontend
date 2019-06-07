@@ -16,7 +16,7 @@ class Calendar extends React.Component {
             oldEvents: [],
             addEvents: [],
             subject: "",
-            fetching: false,
+            fetching: true,
             open: false,
             textContent: "Your free-time has been updated",
             dialogTitle: "Successful!"
@@ -34,9 +34,6 @@ class Calendar extends React.Component {
         this.setState({ open: false })
     }
     componentDidMount() {
-        this.setState({
-            fetching: true
-        })
         const chosen_id = localStorage.role === "tutor" ? "id" : "tutor_id"
         axios.get(`/api/class/tutor/${localStorage.getItem(chosen_id)}`, {
             headers: { 'X-Auth-Token': `${localStorage.token}` },
@@ -49,16 +46,11 @@ class Calendar extends React.Component {
                         if (element.status !== "free_time") {
                             element.status = "booked";
                         }
-                        else {
-                            element.status = "free_time";
-                        }
                     });
 
                 } else {
                     events.forEach(element => {
-                        if (element.status === "free_time") {
-                            element.status = "free_time";
-                        } else {
+                        if (element.status !== "free_time") {
                             element.status = "booked";
                         }
                     });
@@ -67,12 +59,8 @@ class Calendar extends React.Component {
                     firstEvents: events,
                     oldEvents: events,
                     fetching: false
-                }, () => {
-                    console.log(this.state.firstEvents);
-                    console.log(this.state.oldEvents);
                 });
             }
-
             )
             .catch(err => console.error(err));
     }
@@ -109,7 +97,7 @@ class Calendar extends React.Component {
                 }
             )
         } else if (localStorage.role === "tutor") {
-            
+
             const free_time = []
             this.state.oldEvents.forEach((item) => {
                 if (item.status === "free_time") free_time.push(item)

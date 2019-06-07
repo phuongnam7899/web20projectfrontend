@@ -69,7 +69,7 @@ const CreateAccount = ({ values, handleChange, errors, touched, handleBlur, open
                     </Grid>
                     <Grid container xs={3} justify='center'>
                         <Typography style={{ fontSize: 18, color: '#A7A7A7', fontWeight: 200 }} >
-                            or
+                            or&nbsp;
                             </Typography>
                         <Typography style={{ fontSize: 18, }} >
                             <Link to='/signup' style={{ color: '#A7A7A7', fontWeight: 200 }}>

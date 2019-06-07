@@ -64,12 +64,13 @@ class TeacherDetail extends React.Component {
           <Paper className={classes.background}>
             <Grid container xs={16}>
               <Grid item xs={2}>
-                <Card className={classes.card}>
-                  <CardActionArea>
+                <Card style={{borderRadius: 100}} className={classes.card}>
+                  <CardActionArea >
                     <CardMedia
                       className={classes.media}
                       image={this.state.tutorInfo.user_id.profile.profile_picture}
                       title="Teacher"
+                      style={{borderRadius: 100}}
                     />
                   </CardActionArea>
                 </Card>
