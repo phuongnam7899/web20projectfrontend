@@ -14,6 +14,7 @@ import axios from '../../../../axios'
 import Circle from '../../../Circle'
 import AddIcon from '@material-ui/icons/Add';
 import Dialog from '../../../Dialog'
+import { red } from '@material-ui/core/colors';
 
 
 const Wrapper = (Component) => {
@@ -67,16 +68,17 @@ class TeachingReference extends React.Component {
         if (_.isEmpty(values)) {
             return <Circle />
         }
+        console.log(values);
         return (
             <Form style={{ marginLeft: 80, marginTop: 40 }}>
                 <Typography variant='h3' >Reference</Typography>
-                <Grid container direction='row' xs={12} justify='flex-start' spacing={16} style={{ marginTop: 20, width: '100%' }} >
-
+                <Grid container direction='row' xs={12} justify='flex-start' spacing={16} style={{ marginTop: 20, width: '100%' }} > 
                     <Grid item xs={5}>
                         <Typography variant='h4' style={{ marginBottom: 20 }} >About me</Typography>
-                        <FormControl>
-                            <Input name="about_me" value={values.about_me} type="text" placeholder="About me" onChange={handleChange} style={{ width: 300, marginRight: 20 }} />
+                        <FormControl error={touched.about_me && errors.about_me}>
+                            <Input onBlur={handleBlur} name="about_me" value={values.about_me} type="text" placeholder="About me" onChange={handleChange} style={{ width: 300, marginRight: 20 }} />
                         </FormControl>
+                        <FormHelperText style={{color: 'red'}} id="component-error-text">{touched.about_me && errors.about_me ? errors.about_me : ''}</FormHelperText>
                     </Grid>
                 </Grid>
                 <Grid container xs={12} direction='column' style={{ marginTop: 20 }}>
@@ -293,30 +295,30 @@ class TeachingReference extends React.Component {
 const FormikDefault = withFormik({
     mapPropsToValues(props) {
         const { reference } = props;
-        console.log('reference initial', reference)
+        console.log('reference initial', reference);
+        console.log(props);
         return (
             reference
         )
     },
     validationSchema: Yup.object().shape({
-        subjects: Yup.array()
-            .of(
-                Yup.object().shape({
-                    subject: Yup.string()
-                        .required('Subject name is required'),
-                    level: Yup.string()
-                        .required('Academic level is required'),
-                    grade: Yup.string()
-                        .required('Grade is required'),
-                    rate: Yup.string()
-                        .required('Hourly rate is required')
-                })
-            ),
-        reference: Yup.object().shape({
-            about_me: Yup.string()
-                .required("Please describe something about you!")
-        })
-
+        // subjects: Yup.array()
+        //     .of(
+        //         Yup.object().shape({
+        //             subject: Yup.string()
+        //                 .required('Subject name is required'),
+        //             level: Yup.string()
+        //                 .required('Academic level is required'),
+        //             grade: Yup.string()
+        //                 .required('Grade is required'),
+        //             rate: Yup.string()
+        //                 .required('Hourly rate is required')
+        //         })
+        //     )
+        //reference: Yup.object().shape({
+           about_me: Yup.string()
+               .required("Please describe something about you!")
+        //})
     }),
     handleSubmit(values, { props }) {
         console.log(props)

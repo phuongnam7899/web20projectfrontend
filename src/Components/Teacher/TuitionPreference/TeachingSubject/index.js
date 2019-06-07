@@ -75,16 +75,16 @@ class TeachingSubject extends React.Component {
                 <Grid container xs={12} direction="column" style={{ marginTop: 50, marginLeft: 80 }} alignItems='flex-start' >
                     <Typography variant='h3'>Teaching Subject</Typography>
                     <Grid container direction='row' xs={8} justify='flex-start' spacing={16} style={{ marginTop: 20 }} >
-                        <Grid item xs={2} style={{ marginRight: 28, paddingLeft: 0 }}>
+                        <Grid item xs={2} style={{ marginRight: 45, paddingLeft: 0 }}>
                             <Typography variant='h5'>Subject</Typography>
                         </Grid>
-                        <Grid item xs={2} style={{ marginRight: 28, paddingLeft: 0 }}>
+                        <Grid item xs={2} style={{ marginRight: 93, paddingLeft: 0 }}>
                             <Typography variant='h5'>Academic Level</Typography>
                         </Grid>
-                        <Grid item xs={2} style={{ marginRight: 28, paddingLeft: 0 }}>
+                        <Grid item xs={2} style={{ marginRight: 45, paddingLeft: 0 }}>
                             <Typography variant='h5'>Grade</Typography>
                         </Grid>
-                        <Grid item xs={2} style={{ marginRight: 28, paddingLeft: 0 }}>
+                        <Grid item xs={2} style={{ marginRight: 28, paddingLeft: 0 ,marginBottom: 10}}>
                             <Typography noWrap variant='h5'>Hourly Rate</Typography>
                         </Grid>
                         <FieldArray
@@ -92,7 +92,7 @@ class TeachingSubject extends React.Component {
                             render={({ push, remove }) => (
                                 <Form>
                                     {values.subjects.map((sub, index) => (
-                                        <Grid container direction='row' xs={10} justify='flex-start' spacing={16} style={{ marginTop: 20, width: 1300 }} >
+                                        <Grid container direction='row' xs={11} justify='flex-start' spacing={16} style={{ marginTop: 20, width: 1300}} >
                                             <Grid item xs={2}>
                                                 <FormControl error={!!touched.year && errors.year}>
                                                     <Field
@@ -104,6 +104,7 @@ class TeachingSubject extends React.Component {
                                                                     displayEmpty
                                                                     {...field}
                                                                     onChange={handleChange}
+                                                                    style= {{minWidth : 75}}
                                                                 >
                                                                     <MenuItem value='math'>Math</MenuItem>
                                                                     <MenuItem value='physic'>Physic</MenuItem>
@@ -120,7 +121,7 @@ class TeachingSubject extends React.Component {
                                                     />
                                                 </FormControl>
                                             </Grid>
-                                            <Grid item xs={2}>
+                                            <Grid item xs={2} style={{marginRight: 50}}>
                                                 <FormControl error={!!touched.year && errors.year}>
                                                     <Field
                                                         name={`subjects[${index}].academic_level`}
@@ -131,6 +132,7 @@ class TeachingSubject extends React.Component {
                                                                     displayEmpty
                                                                     {...field}
                                                                     onChange={handleChange}
+                                                                    style= {{minWidth : 135}}
                                                                 >
                                                                     <MenuItem value='highschool'>High School</MenuItem>
                                                                     <MenuItem value='university'>University</MenuItem>
@@ -143,14 +145,16 @@ class TeachingSubject extends React.Component {
                                             <Grid item xs={2}>
                                                 <FormControl error={!!touched.year && errors.year}>
                                                     <Field
+                                                        
                                                         name={`subjects[${index}].academic_grade`}
                                                         render={({ field, form: { touched, errors } }) => (
                                                             <div>
-                                                                <InputLabel>Subject</InputLabel>
+                                                                <InputLabel>Grade</InputLabel>
                                                                 <Select
                                                                     displayEmpty
                                                                     {...field}
                                                                     onChange={handleChange}
+                                                                    style= {{minWidth : 75}}
                                                                 >
                                                                     <MenuItem value='grade1'>Grade 1</MenuItem>
                                                                     <MenuItem value='grade2'>Grade 2</MenuItem>
@@ -169,7 +173,8 @@ class TeachingSubject extends React.Component {
                                                         name={`subjects[${index}].hourly_rate`}
                                                         render={({ field, form: { touched, errors } }) => (
                                                             <div>
-                                                                <Input {...field} type="number" placeholder="Hourly rate" />
+                                                                <InputLabel>Hourly rate</InputLabel>
+                                                                <Input {...field} type="number" style= {{maxWidth : 100}} />
                                                                 {touched[field.name] &&
                                                                     errors[field.name] && <div className="error">{errors[field.name]}</div>}
                                                             </div>
