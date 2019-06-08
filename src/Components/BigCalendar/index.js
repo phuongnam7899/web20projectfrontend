@@ -228,6 +228,8 @@ class CalendarApp extends Component {
   submitDialogHandle(pack) {
     const { event, events, editState, disabledEdit } = this.state;
     const { getAddedEvents, updateOldEvents } = this.props;
+
+
     if (updateOldEvents && getAddedEvents) {
       if (!disabledEdit) {
         if (!editState) {
