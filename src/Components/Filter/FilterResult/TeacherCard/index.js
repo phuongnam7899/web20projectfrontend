@@ -60,8 +60,8 @@ function TeacherCard(props) {
                   {props.name}
                 </Typography>
                 <Grid container xs={12} spacing={50} style={{ marginTop: 10 }}>
-                  <Field tag='Subject' content={props.subject} />
-                  <Field tag='Teaches' content={props.teach} />
+                  <Field tag='Gender' content={props.gender} />
+                  <Field tag='Address' content={props.address} />
                   <Field tag='Phone Number' content={props.phone} />
                 </Grid>
               </Grid>
