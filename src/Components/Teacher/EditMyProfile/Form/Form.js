@@ -15,7 +15,7 @@ import axios from '../../../../axios'
 import Dialog from '../../../Dialog'
 import TextField from '@material-ui/core/TextField';
 import Imgur from '../../../Imgur'
-
+import Circle from '../../../Circle'
 
 const Wrapper = (Component) => {
     return class extends React.Component {
@@ -23,10 +23,27 @@ const Wrapper = (Component) => {
             super(props)
             this.state = {
                 user_info: null,
-                open: false
+                open: false,
+                loading_image: false
             }
             this.openDialog = this.openDialog.bind(this);
             this.closeDialog = this.closeDialog.bind(this);
+            this.uploadedStatus = this.uploadedStatus.bind(this);
+            this.uploadingStatus = this.uploadingStatus.bind(this);
+        }
+        uploadedStatus(){
+            this.setState({
+                loading_image: false
+            }, ()=> {
+                console.log("uploaded")
+            })
+        }
+        uploadingStatus(){
+            this.setState({
+                loading_image: true
+            },()=> {
+                console.log("uploading")
+            })
         }
         openDialog() {
             this.setState({
@@ -51,12 +68,16 @@ const Wrapper = (Component) => {
         render() {
             const { user_info } = this.state;
             const { open } = this.state;
+            const { loading_image } = this.state;
             if (!user_info) return null;
-            return <Component {...this.props} user_info={user_info} open={open} openDialog={this.openDialog} closeDialog={this.closeDialog}/> 
+            return <Component {...this.props} user_info={user_info} open={open} openDialog={this.openDialog} closeDialog={this.closeDialog} loading_image = {loading_image} uploadedStatus = {this.uploadedStatus} uploadingStatus = {this.uploadingStatus}/> 
         }
     }
 }
-const FormDefault = ({ values, handleChange, errors, touched, handleBlur,open, closeDialog, setFieldValue }) => {
+const FormDefault = ({ values, handleChange, errors, touched, handleBlur,open, closeDialog, setFieldValue, loading_image, uploadedStatus, uploadingStatus }) => {
+    let displayed_image = loading_image?(<Circle/>):(
+        <img alt="avatar" src={values.image_upload} style={{ width: 120, height: 120, marginRight: 20, borderRadius:100 }} />
+    )
     return (
         <Form style = {{marginBottom: 60}}>
             <Grid container justify='center' alignContent='center'>
@@ -68,10 +89,10 @@ const FormDefault = ({ values, handleChange, errors, touched, handleBlur,open, c
                         <Grid container direction='row' xs={24} justify='center' spacing={16} style={{ marginTop: 30 }}>
                             <Grid container direction='row' item xs={12} margin="normal">
                                 <Grid item>
-                                    <img alt="avatar" src={values.image_upload} style={{ width: 120, height: 120, marginRight: 20, borderRadius:100 }} />
+                                    {displayed_image}
                                 </Grid>
                                 <Grid item>
-                                    <Imgur setFieldValue={setFieldValue} />
+                                    <Imgur setFieldValue={setFieldValue} uploadedStatus = {uploadedStatus} uploadingStatus = {uploadingStatus} />
                                 </Grid>
                             </Grid>  
                             <Grid item xs={6} margin='normal'>

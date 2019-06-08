@@ -11,12 +11,13 @@ class App extends React.Component {
     }
  
     onDrop(picture) {
-        const { setFieldValue } = this.props;
+        const { setFieldValue, uploadedStatus, uploadingStatus } = this.props;
         this.setState({
             pictures: this.state.pictures.concat(picture),
         }, () => {
             console.log('hello',this.state.pictures)
-
+            uploadingStatus();
+            
             var form = new FormData();
             form.append("image", this.state.pictures[0]);
             
@@ -36,6 +37,7 @@ class App extends React.Component {
             axios(settings).then((response) => {
               console.log('res', response);
               setFieldValue('image_upload', response.data.data.link);
+              uploadedStatus()
             })
             .catch((err) => {
                 console.log('err', err)
