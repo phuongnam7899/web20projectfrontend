@@ -14,6 +14,7 @@ import MenuItem from '@material-ui/core/MenuItem'
 import InputLabel from '@material-ui/core/InputLabel'
 import Dialog from './Dialog'
 import Imgur from './Imgur'
+import Circle from './Circle'
 
 
 const WrapperComponent = (Component) => {
@@ -24,11 +25,27 @@ const WrapperComponent = (Component) => {
                 open: false,
                 title: '',
                 content: '',
+                loading_image: false
             }
             this.openDialog = this.openDialog.bind(this);
             this.closeDialog = this.closeDialog.bind(this);
+            this.uploadedStatus = this.uploadedStatus.bind(this);
+            this.uploadingStatus = this.uploadingStatus.bind(this);
         }
-
+        uploadedStatus(){
+            this.setState({
+                loading_image: false
+            }, ()=> {
+                console.log("uploaded")
+            })
+        }
+        uploadingStatus(){
+            this.setState({
+                loading_image: true
+            },()=> {
+                console.log("uploading")
+            })
+        }
         openDialog() {
             this.setState({
                 open: true
@@ -51,15 +68,19 @@ const WrapperComponent = (Component) => {
         render() {
             const { open } = this.state;
             const {title} = this.state;
-            const {content} = this.state
-            return <Component {...this.props} open={open} openDialog={this.openDialog} closeDialog={this.closeDialog} handleDialog = {this.handleDialog} title = {title} content = {content}/>
+            const {content} = this.state;
+            const { loading_image } = this.state;
+            return <Component {...this.props} open={open} openDialog={this.openDialog} loading_image = {loading_image} uploadedStatus = {this.uploadedStatus} uploadingStatus = {this.uploadingStatus} closeDialog={this.closeDialog} handleDialog = {this.handleDialog} title = {title} content = {content}/>
         }
     }
 }
 
 
-const Login = ({ values, handleChange, errors, touched, handleBlur, open, closeDialog, title, content, setFieldValue }) => {
+const Login = ({ values, loading_image, handleChange, errors, touched, handleBlur, open, closeDialog, title, content, setFieldValue, uploadedStatus, uploadingStatus }) => {
     console.log(values);
+    let displayed_image = loading_image?(<Circle/>):(
+        <img alt="avatar" src={values.image_upload} style={{ width: 100, height: 100 }} /> 
+    )
     return (
         <Form>
             <Grid container direction='column' xs={12} style={{ marginTop: 80 }} alignContent = 'center'>
@@ -147,8 +168,9 @@ const Login = ({ values, handleChange, errors, touched, handleBlur, open, closeD
                         </FormControl>
                     </Grid> 
                     <Grid item xs={4} style={{ marginTop: 20}}>
-                        <Imgur setFieldValue={setFieldValue} />
-                        <img alt="avatar" src={values.image_upload} style={{ width: 100, height: 100 }} />
+                        <Imgur setFieldValue={setFieldValue} uploadedStatus = {uploadedStatus} uploadingStatus = {uploadingStatus} />
+                        {/* <img alt="avatar" src={values.image_upload} style={{ width: 100, height: 100 }} /> */}
+                        {displayed_image}
                     </Grid>     
                     <Grid item xs={4} style = {{marginTop : 20}}>
 
