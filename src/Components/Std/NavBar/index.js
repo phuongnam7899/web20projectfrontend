@@ -38,7 +38,7 @@ class NavBar extends React.Component {
               </Typography>
               </Grid>
 
-              <Grid item >
+              <Grid item xs={1}>
                 <Typography style={{ fontSize: 18, marginTop: 15, color: '#ffffff' }} noWrap>
                   {localStorage.name}
                 </Typography>

@@ -84,9 +84,13 @@ class User extends React.Component {
     if (fetching) {
       return <Circle />
     } else {
-      if (_.isEmpty(this.state.classes)) {
-        return <Empty />
+      if (_.isEmpty(this.state.classes) && localStorage.role === 'student')  {
+        return <Empty position = 'absolute' top = '50%' left = '40%' content = 'BOOK NOW ?'/>
       }
+      if (_.isEmpty(this.state.classes) && localStorage.role === 'tutor') {
+        return <Empty position = 'relative' top = '50%' left = '40%'/>
+      }
+
       console.log(this.state.classes)
       return (
         <div>

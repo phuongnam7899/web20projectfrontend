@@ -70,7 +70,7 @@ class Payment extends React.Component {
         <Typography variant='h4' style={{ marginBottom: 20,  marginTop: 20  }}>
           Confirm your booking
         </Typography>
-        <Grid container justify='space-between'>
+        <Grid container justify='space-between' style = {{marginBottom : 20}}>
           <Paper className={classes.background}>
             <Grid container>
               <Grid item xs={2}>
@@ -78,7 +78,7 @@ class Payment extends React.Component {
                   <CardActionArea>
                     <CardMedia
                       className={classes.media}
-                      image="https://images.unsplash.com/photo-1542304291-b9d13957968d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
+                      image={tutorInfo.user_id.profile.profile_picture}
                       title="Teacher"
                     />
                   </CardActionArea>

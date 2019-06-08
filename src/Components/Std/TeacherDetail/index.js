@@ -16,6 +16,7 @@ import axios from '../../../axios';
 import _ from "lodash";
 import Circle from '../../Circle'
 import TuitionDetail from "../TuitionDetail"
+import Instruction from '../../Instruction'
 
 
 
@@ -32,7 +33,7 @@ class TeacherDetail extends React.Component {
     const id = localStorage.role === "student" ? "tutor_id" : "id"
     axios.get(`/api/user/tutor/${localStorage.getItem(id)}`, {
       headers: { 'X-Auth-Token': `${localStorage.token}` },
-    }).then((data) => { console.log('get api', data);  this.setState({ tutorInfo: data.data }); console.log(this.state.tutorInfo) })
+    }).then((data) => { console.log('get api', data); this.setState({ tutorInfo: data.data }); console.log(this.state.tutorInfo) })
   }
   render() {
 
@@ -44,17 +45,37 @@ class TeacherDetail extends React.Component {
     }
     const display = localStorage.role === "student" ? (
       <Grid item xs={24}>
-        <Typography variant='h4' style={{ marginTop: 30 }}>
-          Teacher's Calendar
+        <Grid>
+          <Typography variant='h4' style={{ marginTop: 30 }}>
+            Teacher's Calendar
         </Typography>
-        <Calendar {...this.props} style = {{marginLeft: 0, marginRight: 0}} subject = {this.state.tutorInfo.teaching_subject}/>
+        </Grid>
+        
+            <Typography variant='h5' style={{ marginBottom: 20, marginTop: 20 }}>
+              Booking Instruction
+            </Typography>
+          <Grid container spacing = {2} alignItems = 'center'>
+          <Grid xs={2}>
+            <Instruction color="#c85452" content='BOOKED' />
+          </Grid>
+          <Grid xs={2}>
+            <Instruction color="#c88f52" content="TEACHER'S FREE TIME" style = {{marginLeft: 20}}/>
+          </Grid>
+          <Grid xs={2}>
+            <Instruction color='#52C1C8' content='YOUR BOOKING CLASS' style = {{marginLeft: 20}}/>
+          </Grid>
+        </Grid>
+        <Typography variant='h5' style={{ marginBottom: 20, marginTop: 20 }}>
+          Choose a subject and pick your class
+        </Typography>
+        <Calendar {...this.props} style={{ marginLeft: 0, marginRight: 0 }} subject={this.state.tutorInfo.teaching_subject} />
       </Grid>) : (
-      <Grid item xs={24}>
-        <Typography variant='h4' style={{ marginTop: 30 }}>
-          Your classes
+        <Grid item xs={24}>
+          <Typography variant='h4' style={{ marginTop: 30 }}>
+            Your classes
         </Typography>
-        <TuitionDetail />
-      </Grid>)
+          <TuitionDetail />
+        </Grid>)
     return (
       <div className={classes.root}>
         <Typography variant='h4' style={{ marginBottom: 20, marginTop: 20 }}>
@@ -64,14 +85,14 @@ class TeacherDetail extends React.Component {
           <Paper className={classes.background}>
             <Grid container xs={16}>
               <Grid item xs={2}>
-                <Card style={{borderRadius: 100}} className={classes.card}>
+                <Card style={{ borderRadius: 100 }} className={classes.card}>
                   <CardActionArea >
                     <CardMedia
                       className={classes.media}
                       image={this.state.tutorInfo.user_id.profile.profile_picture}
                       title="Teacher"
-                      style={{borderRadius: 100}}
-                    />
+                      style={{ borderRadius: 100 }}
+                    /> 
                   </CardActionArea>
                 </Card>
               </Grid>
@@ -97,7 +118,7 @@ class TeacherDetail extends React.Component {
             </Grid>
           </Paper>
         </Grid>
-          {display}
+        {display}
       </div>
     );
   }

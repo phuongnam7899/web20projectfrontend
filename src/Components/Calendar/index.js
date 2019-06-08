@@ -6,6 +6,8 @@ import Button from '@material-ui/core/Button'
 import Circle from '../Circle'
 import Dialog from '../Dialog'
 import _ from "lodash"
+import Instruction from '../Instruction'
+import Typography from '@material-ui/core/Typography'
 // import {PayPalButton} from 'react-'
 
 class Calendar extends React.Component {
@@ -134,19 +136,34 @@ class Calendar extends React.Component {
         }
         console.log(oldEvents);
         console.log(this.props);
-        const buttonContent = localStorage.role === "student" ? "Book your class" : "Update your free calendar"
+        const buttonContent = localStorage.role === "student" ? "CLICK HERE TO BOOK YOUR CLASS" : "Update your free calendar"
         const displayed_button = localStorage.getItem('role') === 'student' ? (
-            <Button style={{ backgroundColor: '#52C1C8', color: "#FFFFFF", marginTop: 20 }} onClick={() => {
+            <Button style={{ backgroundColor: '#52C1C8', color: "#FFFFFF", marginTop: 80, width: '20%', height: 50, marginBottom : 100  }} onClick={() => {
                 setCalendarSave(this.state.subject, this.state.addEvents);
                 setFunctionSave("submitCalendar", this.handleSubmit);
                 history.push("/payment");
             }}>{buttonContent}</Button>
         ) : (
-                <Button style={{ backgroundColor: '#52C1C8', color: "#FFFFFF", marginTop: 20 }} onClick={this.handleSubmit}>{buttonContent}</Button>
+                <Button style={{ backgroundColor: '#52C1C8', color: "#FFFFFF", marginTop: 20, marginLeft: 80 }} onClick={this.handleSubmit}>{buttonContent}</Button>
             )
+        const display_tutor_instruction = localStorage.role === 'tutor' ? (
+            <Grid style = {{marginLeft: 80}}>
+            <Typography variant='h4' style={{ marginBottom: 20, marginTop: 20 }}>
+              Update Your Freetime
+            </Typography>
+            <Grid container>
+            <Grid xs={2}>
+                <Instruction color="#c85452" content='YOUR CLASS' />
+            </Grid>
+            <Grid xs={2}>
+                <Instruction color="#c88f52" content="TEACHER'S FREE TIME" style = {{marginLeft: 20}}/>
+            </Grid>
+            </Grid>
+            </Grid>
+        ): (false)
         return (
             <Grid>
-                {displayed_button}
+                {display_tutor_instruction}
                 <BigCalendar
                     handleSubChange_Calendar={this.handleSubChange_Calendar}
                     updateOldEvents={this.updateOldEvents}
@@ -160,6 +177,7 @@ class Calendar extends React.Component {
                     textContent={this.state.textContent}
                     title={this.state.dialogTitle}
                 />
+                {displayed_button}
             </Grid>
         );
     }

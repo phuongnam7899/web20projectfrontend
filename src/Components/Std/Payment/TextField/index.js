@@ -11,7 +11,6 @@ const styles = theme => ({
     container: {
         display: 'flex',
         flexDirection: 'row',
-        flexWrap: 'wrap',
         marginTop : 10
     },
     textField: {
@@ -28,7 +27,7 @@ class TextFields extends React.Component {
         let contentList = [];
         contentList = contentList.concat(content)
         return (
-            <Grid container className = {classes.container}>
+            <Grid container className = {classes.container} style = {{width : 400}}>
                 <Grid item xs = {6}>
                 <Tag content = {tag}/>
                 </Grid>
