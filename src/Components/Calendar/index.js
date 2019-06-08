@@ -91,7 +91,7 @@ class Calendar extends React.Component {
                     data: {
                         tutor_id: localStorage.tutor_id,
                         student_id: localStorage.id,
-                        hourly_rate: 323,
+                        hourly_rate: 5,
                         sessions: this.state.addEvents,
                         subject: this.state.subject
                     },

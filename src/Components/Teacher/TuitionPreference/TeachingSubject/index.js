@@ -75,7 +75,7 @@ class TeachingSubject extends React.Component {
                 <Grid container xs={12} direction="column" style={{ marginTop: 50, marginLeft: 80 }} alignItems='flex-start' >
                     <Typography variant='h3'>Teaching Subject</Typography>
                     <Grid container direction='row' xs={8} justify='flex-start' spacing={16} style={{ marginTop: 20 }} >
-                        <Grid item xs={2} >
+                        {/* <Grid item xs={2} >
                             <Typography variant='h4'>Subject</Typography>
                         </Grid>
                         <Grid item xs={2} >
@@ -86,7 +86,7 @@ class TeachingSubject extends React.Component {
                         </Grid>
                         <Grid item xs={2} >
                             <Typography noWrap variant='h4'>Hourly Rate</Typography>
-                        </Grid>
+                        </Grid> */}
                         <FieldArray
                             name="subjects"
                             render={({ push, remove }) => (
