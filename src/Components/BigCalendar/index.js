@@ -126,7 +126,7 @@ class CalendarApp extends Component {
       }else{
         count = 0;
         booked.forEach((element) => {
-          if(((moment(element.end).isSameOrAfter(moment(e.end))) && (moment(e.start).isSameOrAfter(moment(element.start))))){
+          if(((moment(element.end).isSameOrAfter(moment(e.start))) && (moment(e.end).isSameOrAfter(moment(element.start))))){
             count++;
           }
         });
