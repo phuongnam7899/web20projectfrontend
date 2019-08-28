@@ -2,7 +2,7 @@ import React from 'react';
 import ImageUploader from 'react-images-upload';
 import axios from 'axios'
  
-class App extends React.Component {
+class ImgurUpload extends React.Component {
  
     constructor(props) {
         super(props);
@@ -58,4 +58,4 @@ class App extends React.Component {
     }
 }
 
-export default App;
+export default ImgurUpload;
